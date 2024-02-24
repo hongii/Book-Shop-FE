@@ -53,7 +53,7 @@ const Header = () => {
           </li>
           <li>
             <a href="/register">
-              <FaRegUser /> 회원가입
+              <FaRegUser /> &nbsp;회원가입
             </a>
           </li>
         </ul>
@@ -68,7 +68,7 @@ const HeaderStyle = styled.header`
   margin: 0 auto;
   /* max-width: ${({ theme }) => theme.layout.width.large}; */
   background-color: ${({ theme }) => theme.color.background};
-  padding: 10px 5px;
+  padding: 10px;
 
   display: flex;
   align-items: center;
@@ -115,7 +115,6 @@ const HeaderStyle = styled.header`
       color: ${({ theme }) => theme.color.text};
       display: flex;
       align-items: center;
-      padding-right: 5px;
 
       &:hover {
         color: ${({ theme }) => theme.color.primary};
