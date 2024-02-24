@@ -10,19 +10,19 @@ import { Link } from "react-router-dom";
 
 const categories = [
   {
-    id: null,
+    id: 0,
     name: "전체",
   },
   {
-    id: 0,
+    id: 1,
     name: "동화",
   },
   {
-    id: 1,
+    id: 2,
     name: "소설",
   },
   {
-    id: 2,
+    id: 3,
     name: "사회",
   },
 ];
@@ -43,7 +43,7 @@ const Header = () => {
           {categories.map((item) => {
             return (
               <li key={item.id}>
-                <Link to={`/books${item.id !== null ? `?category_id=${item.id}` : ""}`}>
+                <Link to={`/books${item.id !== 0 ? `?category_id=${item.id}` : ""}`}>
                   {item.name}
                 </Link>
               </li>
