@@ -40,7 +40,7 @@ export const light: Theme = {
   color: {
     primary: "#4e4e4e",
     secondary: "#311604",
-    third: "black",
+    third: "#e3e3e3",
     background: "#F4C6C6",
     border: "#e2e2e2",
     text: "#231F20",
@@ -77,12 +77,12 @@ export const dark: Theme = {
   ...light,
   name: "dark",
   color: {
-    primary: "white",
-    secondary: "darkblue",
-    third: "darkgreen",
-    background: "#F4C6C6",
+    primary: "#ffffff",
+    secondary: "white",
+    third: "#383838",
+    background: "#121212",
     border: "#ececec",
-    text: "#fff",
+    text: "#e3e3e3",
   },
 };
 

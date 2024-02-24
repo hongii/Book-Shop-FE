@@ -8,18 +8,23 @@ interface Props {
 
 // 프로젝트에 적용할 global style
 export const GlobalStyle = createGlobalStyle<Props>`
+  *{
+    font-family: "McLaren","Poor Story", "Montserrat", sans-serif;
+    color: ${(props) => (props.themeName === "light" ? "black" : "white")};
+  }
+
   body{
     padding: 0;
     margin: 0;
-    background-color:  ${(props) => (props.themeName === "light" ? "white" : "black")};
+    background-color:  ${(props) => (props.themeName === "light" ? "white" : "#121212")};
   }
 
   h1{
     margin: 0;
   }
 
-  *{
-    font-family: "McLaren","Poor Story", "Montserrat", sans-serif;
-    color: ${(props) => (props.themeName === "light" ? "black" : "white")};
+  a {
+    text-decoration: 'none';
+    color: 'inherit';
   }
 `;

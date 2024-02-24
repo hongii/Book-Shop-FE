@@ -1,11 +1,16 @@
 import styled from "styled-components";
-import logo from "../../assets/images/logoImg_white.png";
+import logoLight from "../../assets/images/logo_light.png";
+import logoDark from "../../assets/images/logo_dark.png";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
 
 const Footer = () => {
+  const { themeName } = useContext(ThemeContext);
+
   return (
     <FooterStyle>
       <h2 className="logo">
-        <img src={logo} alt="book shop logo" />
+        <img src={themeName === "light" ? logoLight : logoDark} alt="book shop logo" />
         HONG'S BOOK
       </h2>
       <div className="copyright">
@@ -33,6 +38,7 @@ const FooterStyle = styled.footer`
 
     img {
       width: 40px;
+      margin-right: 5px;
     }
   }
 

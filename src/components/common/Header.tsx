@@ -1,8 +1,12 @@
 import styled from "styled-components";
-import logo from "../../assets/images/logoImg.png";
+import logoLight from "../../assets/images/logo_light.png";
+import logoDark from "../../assets/images/logo_dark.png";
 import { FaSignInAlt } from "@react-icons/all-files/fa/FaSignInAlt";
 import { FaRegUser } from "@react-icons/all-files/fa/FaRegUser";
-// import ThemeSwitcher from "../header/ThemeSwitcher";
+import ThemeSwitcher from "../header/ThemeSwitcher";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/ThemeContext";
+import { Link } from "react-router-dom";
 
 const categories = [
   {
@@ -24,20 +28,24 @@ const categories = [
 ];
 
 const Header = () => {
+  const { themeName } = useContext(ThemeContext);
+
   return (
     <HeaderStyle>
-      <h1 className="logo">
-        <img src={logo} alt="book shop logo" />
-        HONG'S BOOK
-      </h1>
+      <Link to="/">
+        <h1 className="logo">
+          <img src={themeName === "light" ? logoLight : logoDark} alt="book shop logo" />
+          HONG'S BOOK
+        </h1>
+      </Link>
       <nav className="category">
         <ul>
           {categories.map((item) => {
             return (
               <li key={item.id}>
-                <a href={`/books${item.id !== null ? `?category_id=${item.id}` : ""}`}>
+                <Link to={`/books${item.id !== null ? `?category_id=${item.id}` : ""}`}>
                   {item.name}
-                </a>
+                </Link>
               </li>
             );
           })}
@@ -46,19 +54,19 @@ const Header = () => {
       <nav className="auth">
         <ul>
           <li>
-            <a href="/login">
+            <Link to="/login">
               <FaSignInAlt />
               &nbsp;로그인
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="/register">
+            <Link to="/signup">
               <FaRegUser /> &nbsp;회원가입
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
-      {/* <ThemeSwitcher /> */}
+      <ThemeSwitcher />
     </HeaderStyle>
   );
 };
@@ -74,6 +82,10 @@ const HeaderStyle = styled.header`
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid ${({ theme }) => theme.color.border};
+
+  a {
+    text-decoration: none;
+  }
 
   .logo {
     color: ${({ theme }) => theme.color.text};
@@ -92,7 +104,6 @@ const HeaderStyle = styled.header`
       gap: 32px;
     }
     li a {
-      text-decoration: none;
       font-size: 1.3rem;
       font-weight: 600;
       color: ${({ theme }) => theme.color.text};
@@ -109,7 +120,6 @@ const HeaderStyle = styled.header`
       gap: 16px;
     }
     li a {
-      text-decoration: none;
       font-size: 1rem;
       font-weight: 600;
       color: ${({ theme }) => theme.color.text};
