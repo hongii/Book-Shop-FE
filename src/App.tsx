@@ -6,7 +6,6 @@ import { BookShopThemeProvider } from "./context/ThemeContext";
 function App() {
   return (
     <BookShopThemeProvider>
-      <ThemeSwitcher />
       <Layout children={<HomePage />} />
     </BookShopThemeProvider>
   );

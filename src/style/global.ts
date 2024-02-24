@@ -19,6 +19,7 @@ export const GlobalStyle = createGlobalStyle<Props>`
   }
 
   *{
+    font-family: "McLaren","Poor Story", "Montserrat", sans-serif;
     color: ${(props) => (props.themeName === "light" ? "black" : "white")};
   }
 `;
