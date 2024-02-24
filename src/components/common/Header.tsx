@@ -7,28 +7,30 @@ import ThemeSwitcher from "../header/ThemeSwitcher";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
 import { Link } from "react-router-dom";
+import { useCategory } from "../../hooks/useCategory";
 
-const categories = [
-  {
-    id: 0,
-    name: "전체",
-  },
-  {
-    id: 1,
-    name: "동화",
-  },
-  {
-    id: 2,
-    name: "소설",
-  },
-  {
-    id: 3,
-    name: "사회",
-  },
-];
+// const categories = [
+//   {
+//     id: 0,
+//     name: "전체",
+//   },
+//   {
+//     id: 1,
+//     name: "동화",
+//   },
+//   {
+//     id: 2,
+//     name: "소설",
+//   },
+//   {
+//     id: 3,
+//     name: "사회",
+//   },
+// ];
 
 const Header = () => {
   const { themeName } = useContext(ThemeContext);
+  const category = useCategory();
 
   return (
     <HeaderStyle>
@@ -40,11 +42,13 @@ const Header = () => {
       </Link>
       <nav className="category">
         <ul>
-          {categories.map((item) => {
+          {category.map((item) => {
             return (
-              <li key={item.id}>
-                <Link to={`/books${item.id !== 0 ? `?category_id=${item.id}` : ""}`}>
-                  {item.name}
+              <li key={item.categoryId}>
+                <Link
+                  to={`/books${item.categoryId !== null ? `?category_id=${item.categoryId}` : ""}`}
+                >
+                  {item.categoryName}
                 </Link>
               </li>
             );

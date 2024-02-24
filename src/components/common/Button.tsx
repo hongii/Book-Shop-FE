@@ -12,7 +12,7 @@ interface Props {
 
 const Button = ({ children, size, scheme, isLoading, disabled }: Props) => {
   return (
-    <ButtonStyle size={size} scheme={scheme} isLoading={isLoading} disabled={disabled}>
+    <ButtonStyle size={size} scheme={scheme}>
       {children}
     </ButtonStyle>
   );
