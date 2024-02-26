@@ -13,6 +13,5 @@ export const useCategory = () => {
       setCategory(allCategories);
     });
   }, []);
-
-  return category;
+  return { category };
 };

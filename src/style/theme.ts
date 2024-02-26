@@ -1,5 +1,12 @@
 export type ThemeName = "light" | "dark";
-export type ColorKey = "primary" | "secondary" | "third" | "background" | "border" | "text";
+export type ColorKey =
+  | "primary"
+  | "secondary"
+  | "third"
+  | "background"
+  | "border"
+  | "text"
+  | "inputText";
 export type HeadingSize = "large" | "medium" | "small";
 export type ButtonSize = "large" | "medium" | "small";
 export type ButtonScheme = "primary" | "normal";
@@ -39,11 +46,12 @@ export const light: Theme = {
   name: "light",
   color: {
     primary: "#4e4e4e",
-    secondary: "#311604",
-    third: "#e3e3e3",
+    secondary: "#666",
+    third: "#311604",
     background: "#F4C6C6",
     border: "#e2e2e2",
     text: "#231F20",
+    inputText: "#231F20",
   },
   heading: {
     large: { fontSize: "2rem" },
@@ -57,7 +65,7 @@ export const light: Theme = {
   },
   buttonScheme: {
     // 확인 버튼
-    primary: { color: "white", backgroundColor: "midnightblue" },
+    primary: { color: "#231F20", backgroundColor: "#F4C6C6" },
     // 취소 버튼
     normal: { color: "black", backgroundColor: "lightgray" },
   },
@@ -77,12 +85,19 @@ export const dark: Theme = {
   ...light,
   name: "dark",
   color: {
-    primary: "#ffffff",
-    secondary: "white",
+    primary: "#e3e3e3",
+    secondary: "#ececec",
     third: "#383838",
-    background: "#121212",
+    background: "#383838",
     border: "#ececec",
-    text: "#e3e3e3",
+    text: "#ffffff",
+    inputText: "#231F20",
+  },
+  buttonScheme: {
+    // 확인 버튼
+    primary: { color: "#e3e3e3", backgroundColor: "#383838" },
+    // 취소 버튼
+    normal: { color: "#231F20", backgroundColor: "lightgray" },
   },
 };
 

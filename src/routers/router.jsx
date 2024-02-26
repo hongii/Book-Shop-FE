@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Error from "../components/common/Error";
 import HomePage from "../pages/HomePage";
 import Layout from "../components/layout/Layout";
+import JoinPage from "../pages/JoinPage";
 
 export const router = createBrowserRouter([
   {
@@ -17,11 +18,20 @@ export const router = createBrowserRouter([
       </Layout>
     ),
   },
+
   {
     path: "/books",
     element: (
       <Layout>
         <div>도서 목록 페이지</div>
+      </Layout>
+    ),
+  },
+  {
+    path: "/join",
+    element: (
+      <Layout>
+        <JoinPage />
       </Layout>
     ),
   },

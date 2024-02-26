@@ -30,7 +30,7 @@ import { useCategory } from "../../hooks/useCategory";
 
 const Header = () => {
   const { themeName } = useContext(ThemeContext);
-  const category = useCategory();
+  const { category } = useCategory();
 
   return (
     <HeaderStyle>
@@ -64,7 +64,7 @@ const Header = () => {
             </Link>
           </li>
           <li>
-            <Link to="/signup">
+            <Link to="/join">
               <FaRegUser /> &nbsp;회원가입
             </Link>
           </li>
@@ -123,15 +123,17 @@ const HeaderStyle = styled.header`
       display: flex;
       gap: 16px;
     }
-    li a {
-      font-size: 1rem;
-      font-weight: 600;
-      color: ${({ theme }) => theme.color.text};
-      display: flex;
-      align-items: center;
+    li {
+      a {
+        font-size: 1rem;
+        font-weight: 600;
+        color: ${({ theme }) => theme.color.text};
+        display: flex;
+        align-items: center;
+      }
 
       &:hover {
-        color: ${({ theme }) => theme.color.primary};
+        opacity: 0.8;
       }
     }
   }

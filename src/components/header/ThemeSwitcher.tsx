@@ -24,6 +24,10 @@ const IconButton = styled.button`
   border: none;
   cursor: pointer;
   background-color: transparent; /* 배경색을 투명으로 설정 */
+
+  &:hover {
+    opacity: 0.8;
+  }
 `;
 
 export default ThemeSwitcher;
