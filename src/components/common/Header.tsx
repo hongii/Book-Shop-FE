@@ -9,25 +9,6 @@ import { ThemeContext } from "../../context/ThemeContext";
 import { Link } from "react-router-dom";
 import { useCategory } from "../../hooks/useCategory";
 
-// const categories = [
-//   {
-//     id: 0,
-//     name: "전체",
-//   },
-//   {
-//     id: 1,
-//     name: "동화",
-//   },
-//   {
-//     id: 2,
-//     name: "소설",
-//   },
-//   {
-//     id: 3,
-//     name: "사회",
-//   },
-// ];
-
 const Header = () => {
   const { themeName } = useContext(ThemeContext);
   const { category } = useCategory();
@@ -92,6 +73,7 @@ const HeaderStyle = styled.header`
   }
 
   .logo {
+    font-family: "McLaren", sans-serif;
     color: ${({ theme }) => theme.color.text};
     display: flex;
     align-items: center;

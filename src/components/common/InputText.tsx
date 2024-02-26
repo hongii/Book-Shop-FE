@@ -5,18 +5,8 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   placeholder?: string;
 }
 
-const InputText = (
-  { placeholder, onChange, ...props }: Props,
-  ref: ForwardedRef<HTMLInputElement>,
-) => {
-  return (
-    <InputTextStyle
-      ref={ref}
-      placeholder={placeholder}
-      onChange={onChange}
-      {...props}
-    ></InputTextStyle>
-  );
+const InputText = ({ placeholder, ...props }: Props, ref: ForwardedRef<HTMLInputElement>) => {
+  return <InputTextStyle ref={ref} placeholder={placeholder} {...props}></InputTextStyle>;
 };
 
 const InputTextStyle = styled.input`

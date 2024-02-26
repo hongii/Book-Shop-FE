@@ -9,7 +9,7 @@ interface Props {
 // 프로젝트에 적용할 global style
 export const GlobalStyle = createGlobalStyle<Props>`
   *{
-    font-family: "McLaren","Poor Story", "Montserrat", sans-serif;
+    font-family: "Poor Story", "Montserrat", sans-serif;
     color: ${(props) => (props.themeName === "light" ? "black" : "white")};
   }
 

@@ -32,8 +32,9 @@ const FooterStyle = styled.footer`
   justify-content: center;
 
   .logo {
-    padding-right: 30px;
+    font-family: "McLaren", sans-serif;
     font-size: 1.2rem;
+    padding-right: 30px;
     color: ${({ theme }) => theme.color.text};
 
     img {
