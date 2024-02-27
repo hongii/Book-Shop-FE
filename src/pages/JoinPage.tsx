@@ -40,9 +40,9 @@ const JoinPage = () => {
 
   const onSubmit = async (data: JoinProps) => {
     try {
-      const res = await join(data);
+      const { message } = await join(data);
       setEmailCheck("");
-      showAlert(res.data.message);
+      showAlert(message);
       navigate("/login");
     } catch (err: any) {
       const { message: errMsg } = err.response.data;
@@ -151,7 +151,7 @@ const JoinPage = () => {
   );
 };
 
-const JoinPageStyle = styled.div`
+export const JoinPageStyle = styled.div`
   max-width: ${({ theme }) => theme.layout.width.small};
   margin: 80px auto;
 

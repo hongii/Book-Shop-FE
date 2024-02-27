@@ -3,6 +3,7 @@ import Error from "../components/common/Error";
 import HomePage from "../pages/HomePage";
 import Layout from "../components/layout/Layout";
 import JoinPage from "../pages/JoinPage";
+import ResetPasswordPage from "../pages/ResetPasswordPage";
 
 export const router = createBrowserRouter([
   {
@@ -32,6 +33,14 @@ export const router = createBrowserRouter([
     element: (
       <Layout>
         <JoinPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/reset",
+    element: (
+      <Layout>
+        <ResetPasswordPage />
       </Layout>
     ),
   },
