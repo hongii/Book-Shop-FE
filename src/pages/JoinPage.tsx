@@ -9,8 +9,7 @@ import { useForm } from "react-hook-form";
 import { join } from "../api/auth.api";
 import { useState } from "react";
 import { useAlert } from "../hooks/useAlert";
-import { contactRegex, emailRegex, passwordRegex } from "../constants/regexPatterns";
-
+import { emailOptions, passwordOptions, contactOptions } from "../config/registerOptions";
 export interface JoinProps {
   email: string;
   password: string;
@@ -69,8 +68,7 @@ const JoinPage = () => {
               placeholder="가입할 이메일을 입력해주세요."
               isError={errors.email || (!errors.email && emailCheck) ? true : false}
               {...register("email", {
-                required: { value: true, message: "이메일은 필수 입력 정보입니다." },
-                pattern: { value: emailRegex, message: "이메일 형식에 맞게 입력해 주세요." },
+                ...emailOptions,
                 onChange: handleChange,
               })}
             />
@@ -82,21 +80,7 @@ const JoinPage = () => {
               placeholder="비밀번호를 입력해주세요."
               type="password"
               isError={errors.password ? true : false}
-              {...register("password", {
-                required: { value: true, message: "비밀번호는 필수 입력 정보입니다." },
-                minLength: {
-                  value: 8,
-                  message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
-                },
-                maxLength: {
-                  value: 16,
-                  message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
-                },
-                pattern: {
-                  value: passwordRegex,
-                  message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
-                },
-              })}
+              {...register("password", passwordOptions)}
             />
             {errors.password && <small className="error-text">{errors.password.message}</small>}
           </fieldset>
@@ -105,13 +89,7 @@ const JoinPage = () => {
               placeholder="연락처를 입력해주세요."
               type="tel"
               isError={errors.contact ? true : false}
-              {...register("contact", {
-                required: { value: true, message: "연락처는 필수 입력 정보입니다." },
-                pattern: {
-                  value: contactRegex,
-                  message: "000-0000-0000 형태로 '-'기호를 사용해 주세요.",
-                },
-              })}
+              {...register("contact", contactOptions)}
             />
             {errors.contact && <small className="error-text">{errors.contact.message}</small>}
           </fieldset>

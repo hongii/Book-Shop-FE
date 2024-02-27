@@ -9,7 +9,7 @@ import { login } from "../api/auth.api";
 import { useState } from "react";
 import { JoinPageStyle } from "./JoinPage";
 import { useAuthStore } from "../store/authStore";
-import { emailRegex, passwordRegex } from "../constants/regexPatterns";
+import { emailOptions, passwordOptions } from "../config/registerOptions";
 
 export interface LoginProps {
   email: string;
@@ -23,14 +23,14 @@ const LoginPage = () => {
     formState: { errors },
   } = useForm<LoginProps>();
 
-  const [emailCheck, setEmailCheck] = useState("");
-  const { isLoggedIn, storeLogin } = useAuthStore();
+  const [loginCheckMsg, setLoginCheckMsg] = useState("");
+  const { storeLogin } = useAuthStore();
 
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value !== emailCheck) {
-      setEmailCheck("");
+    if (e.target.value !== loginCheckMsg) {
+      setLoginCheckMsg("");
     }
   };
 
@@ -39,12 +39,12 @@ const LoginPage = () => {
       const { id, email, name, contact, accessToken } = await login(data);
       console.log(id, email, name, contact, accessToken);
       storeLogin(accessToken);
-      setEmailCheck("");
+      setLoginCheckMsg("");
       navigate("/");
     } catch (err: any) {
       console.log(err);
       const { message: errMsg } = err.response.data;
-      setEmailCheck(errMsg);
+      setLoginCheckMsg(errMsg);
     }
   };
 
@@ -58,8 +58,7 @@ const LoginPage = () => {
               placeholder="이메일을 입력해주세요."
               isError={errors.email ? true : false}
               {...register("email", {
-                required: { value: true, message: "이메일은 필수 입력 정보입니다." },
-                pattern: { value: emailRegex, message: "이메일 형식에 맞게 입력해 주세요." },
+                ...emailOptions,
                 onChange: handleChange,
               })}
             />
@@ -70,26 +69,12 @@ const LoginPage = () => {
               placeholder="비밀번호를 입력해주세요."
               type="password"
               isError={errors.password ? true : false}
-              {...register("password", {
-                required: { value: true, message: "비밀번호는 필수 입력 정보입니다." },
-                minLength: {
-                  value: 8,
-                  message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
-                },
-                maxLength: {
-                  value: 16,
-                  message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
-                },
-                pattern: {
-                  value: passwordRegex,
-                  message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
-                },
-              })}
+              {...register("password", { ...passwordOptions, onChange: handleChange })}
             />
             {errors.password && <small className="error-text">{errors.password.message}</small>}
           </fieldset>
-          {!errors.email && !errors.password && emailCheck && (
-            <small className="error-text">{emailCheck}</small>
+          {!errors.email && !errors.password && loginCheckMsg && (
+            <small className="error-text">{loginCheckMsg}</small>
           )}
 
           <fieldset>

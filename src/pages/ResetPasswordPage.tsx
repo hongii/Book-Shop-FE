@@ -9,11 +9,12 @@ import { useState } from "react";
 import { useAlert } from "../hooks/useAlert";
 import { JoinPageStyle } from "./JoinPage";
 import { resetPassword, resetPasswordRequest } from "../api/auth.api";
-import { emailRegex, passwordRegex } from "../constants/regexPatterns";
+import { emailOptions, passwordOptions } from "../config/registerOptions";
 
 export interface ResetProps {
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 const ResetPasswordPage = () => {
@@ -66,8 +67,7 @@ const ResetPasswordPage = () => {
               disabled={resetRequested}
               isError={errors.email ? true : false}
               {...register("email", {
-                required: { value: true, message: "이메일은 필수 입력 정보입니다." },
-                pattern: { value: emailRegex, message: "이메일 형식에 맞게 입력해 주세요." },
+                ...emailOptions,
                 onChange: handleChange,
               })}
             />
@@ -77,29 +77,37 @@ const ResetPasswordPage = () => {
             )}
           </fieldset>
           {resetRequested && (
-            <fieldset>
-              <InputText
-                placeholder="변경할 비밀번호를 입력해주세요."
-                type="password"
-                isError={errors.password ? true : false}
-                {...register("password", {
-                  required: { value: true, message: "비밀번호는 필수 입력 정보입니다." },
-                  minLength: {
-                    value: 8,
-                    message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
-                  },
-                  maxLength: {
-                    value: 16,
-                    message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
-                  },
-                  pattern: {
-                    value: passwordRegex,
-                    message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
-                  },
-                })}
-              />
-              {errors.password && <small className="error-text">{errors.password.message}</small>}
-            </fieldset>
+            <>
+              <fieldset>
+                <InputText
+                  placeholder="새로운 비밀번호를 입력해주세요."
+                  type="password"
+                  isError={errors.password ? true : false}
+                  {...register("password", passwordOptions)}
+                />
+                {errors.password && <small className="error-text">{errors.password.message}</small>}
+              </fieldset>
+              <fieldset>
+                <InputText
+                  placeholder="새로운 비밀번호를 한번 더 입력해주세요."
+                  type="password"
+                  isError={errors.confirmPassword ? true : false}
+                  {...register("confirmPassword", {
+                    ...passwordOptions,
+                    validate: (value, formValues) => {
+                      console.log(value, formValues);
+                      console.log(errors.confirmPassword);
+                      return (
+                        value === formValues.password || "입력하신 비밀번호가 일치하지 않습니다."
+                      );
+                    },
+                  })}
+                />
+                {errors.confirmPassword && (
+                  <small className="error-text">{errors.confirmPassword.message}</small>
+                )}
+              </fieldset>
+            </>
           )}
           <fieldset>
             <Button type="submit" size="medium" scheme="primary">

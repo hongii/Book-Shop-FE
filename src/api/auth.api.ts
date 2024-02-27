@@ -44,3 +44,12 @@ export const resetPassword = async (userData: ResetProps) => {
     throw err;
   }
 };
+
+export const logout = async () => {
+  try {
+    const res = await httpClient.post("/users/logout");
+    return res.data;
+  } catch (err: any) {
+    throw err;
+  }
+};

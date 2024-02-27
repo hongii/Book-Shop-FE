@@ -2,17 +2,30 @@ import styled from "styled-components";
 import logoLight from "../../assets/images/logo_light.png";
 import logoDark from "../../assets/images/logo_dark.png";
 import { FaSignInAlt } from "@react-icons/all-files/fa/FaSignInAlt";
+import { FaSignOutAlt } from "@react-icons/all-files/fa/FaSignOutAlt";
 import { FaRegUser } from "@react-icons/all-files/fa/FaRegUser";
+import { IoCartOutline } from "@react-icons/all-files/io5/IoCartOutline";
 import ThemeSwitcher from "../header/ThemeSwitcher";
 import { useContext } from "react";
 import { ThemeContext } from "../../context/ThemeContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useCategory } from "../../hooks/useCategory";
+import { useAuthStore } from "../../store/authStore";
+import { logout } from "../../api/auth.api";
+import { useAlert } from "../../hooks/useAlert";
 
 const Header = () => {
   const { themeName } = useContext(ThemeContext);
   const { category } = useCategory();
-
+  const { isLoggedIn, storeLogout } = useAuthStore();
+  const navigate = useNavigate();
+  const showAlert = useAlert();
+  const handleLogout = async () => {
+    const { message } = await logout();
+    storeLogout();
+    showAlert(message);
+    navigate("/");
+  };
   return (
     <HeaderStyle>
       <Link to="/">
@@ -37,19 +50,41 @@ const Header = () => {
         </ul>
       </nav>
       <nav className="auth">
-        <ul>
-          <li>
-            <Link to="/login">
-              <FaSignInAlt />
-              &nbsp;로그인
-            </Link>
-          </li>
-          <li>
-            <Link to="/join">
-              <FaRegUser /> &nbsp;회원가입
-            </Link>
-          </li>
-        </ul>
+        {isLoggedIn && (
+          <ul>
+            <li>
+              <Link to="/cart">
+                <IoCartOutline />
+                &nbsp;장바구니
+              </Link>
+            </li>
+            <li>
+              <Link to="/orderlist">
+                <FaRegUser /> &nbsp;주문내역
+              </Link>
+            </li>
+            <li>
+              <button className="logout-btn" onClick={handleLogout}>
+                <FaSignOutAlt /> &nbsp;로그아웃
+              </button>
+            </li>
+          </ul>
+        )}
+        {!isLoggedIn && (
+          <ul>
+            <li>
+              <Link to="/login">
+                <FaSignInAlt />
+                &nbsp;로그인
+              </Link>
+            </li>
+            <li>
+              <Link to="/join">
+                <FaRegUser /> &nbsp;회원가입
+              </Link>
+            </li>
+          </ul>
+        )}
       </nav>
       <ThemeSwitcher />
     </HeaderStyle>
@@ -106,16 +141,26 @@ const HeaderStyle = styled.header`
       gap: 16px;
     }
     li {
-      a {
+      a,
+      .logout-btn {
         font-size: 1rem;
         font-weight: 600;
         color: ${({ theme }) => theme.color.text};
         display: flex;
         align-items: center;
+        justify-content: center;
       }
 
       &:hover {
         opacity: 0.8;
+      }
+
+      .logout-btn {
+        background-color: transparent;
+        border-radius: 8px;
+        border: none;
+        height: 100%;
+        cursor: pointer;
       }
     }
   }
