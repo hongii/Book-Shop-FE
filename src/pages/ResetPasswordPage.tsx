@@ -9,6 +9,7 @@ import { useState } from "react";
 import { useAlert } from "../hooks/useAlert";
 import { JoinPageStyle } from "./JoinPage";
 import { resetPassword, resetPasswordRequest } from "../api/auth.api";
+import { emailRegex, passwordRegex } from "../constants/regexPatterns";
 
 export interface ResetProps {
   email: string;
@@ -27,9 +28,6 @@ const ResetPasswordPage = () => {
 
   const navigate = useNavigate();
   const showAlert = useAlert();
-
-  const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@!^%*#?&])[A-Za-z\d@!^%*#?&]{8,16}$/;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== emailCheckMsg) {
@@ -65,20 +63,15 @@ const ResetPasswordPage = () => {
           <fieldset>
             <InputText
               placeholder="이메일을 입력해주세요."
-              type="email"
               disabled={resetRequested}
+              isError={errors.email ? true : false}
               {...register("email", {
-                required: true,
-                pattern: emailRegex,
+                required: { value: true, message: "이메일은 필수 입력 정보입니다." },
+                pattern: { value: emailRegex, message: "이메일 형식에 맞게 입력해 주세요." },
                 onChange: handleChange,
               })}
             />
-            {errors.email?.type === "required" && (
-              <small className="error-text">가입한 이메일을 입력해주세요.</small>
-            )}
-            {errors.email?.type === "pattern" && (
-              <small className="error-text">이메일 형식에 맞게 입력해 주세요.</small>
-            )}
+            {errors.email && <small className="error-text">{errors.email.message}</small>}
             {!errors.email && emailCheckMsg && (
               <small className="error-text">{emailCheckMsg}</small>
             )}
@@ -86,25 +79,26 @@ const ResetPasswordPage = () => {
           {resetRequested && (
             <fieldset>
               <InputText
-                placeholder="비밀번호를 입력해주세요."
+                placeholder="변경할 비밀번호를 입력해주세요."
                 type="password"
+                isError={errors.password ? true : false}
                 {...register("password", {
-                  required: true,
-                  minLength: 8,
-                  maxLength: 16,
-                  pattern: passwordRegex,
+                  required: { value: true, message: "비밀번호는 필수 입력 정보입니다." },
+                  minLength: {
+                    value: 8,
+                    message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
+                  },
+                  maxLength: {
+                    value: 16,
+                    message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
+                  },
+                  pattern: {
+                    value: passwordRegex,
+                    message: "8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.",
+                  },
                 })}
               />
-              {errors.password?.type === "required" && (
-                <small className="error-text">변경할 비밀번호를 입력해주세요.</small>
-              )}
-              {(errors.password?.type === "pattern" ||
-                errors.password?.type === "minLength" ||
-                errors.password?.type === "maxLength") && (
-                <small className="error-text">
-                  8~16자의 영문 대/소문자, 숫자, 특수문자를 사용해 주세요.
-                </small>
-              )}
+              {errors.password && <small className="error-text">{errors.password.message}</small>}
             </fieldset>
           )}
           <fieldset>

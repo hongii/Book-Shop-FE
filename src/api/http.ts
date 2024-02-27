@@ -14,6 +14,20 @@ const createClient = (config?: AxiosRequestConfig) => {
     ...config,
   });
 
+  // 요청 인터셉터
+  // axiosInstance.interceptors.request.use(
+  //   (config) => {
+  //     const accessToken = localStorage.getItem("AccessToken");
+  //     if (accessToken) {
+  //       config.headers.Authorization = `Bearer ${accessToken}`;
+  //     }
+  //     return config;
+  //   },
+  //   (err) => {
+  //     return Promise.reject(err);
+  //   },
+  // );
+
   // 응답 인터셉터 추가하기
   axiosInstance.interceptors.response.use(
     (res) => {

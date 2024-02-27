@@ -4,6 +4,7 @@ import HomePage from "../pages/HomePage";
 import Layout from "../components/layout/Layout";
 import JoinPage from "../pages/JoinPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
+import LoginPage from "../pages/LoginPage";
 
 export const router = createBrowserRouter([
   {
@@ -33,6 +34,14 @@ export const router = createBrowserRouter([
     element: (
       <Layout>
         <JoinPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/login",
+    element: (
+      <Layout>
+        <LoginPage />
       </Layout>
     ),
   },
