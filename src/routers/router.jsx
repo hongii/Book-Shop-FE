@@ -5,6 +5,7 @@ import Layout from "../components/layout/Layout";
 import JoinPage from "../pages/JoinPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 import LoginPage from "../pages/LoginPage";
+import BooksPage from "../pages/BooksPage";
 
 export const router = createBrowserRouter([
   {
@@ -25,7 +26,7 @@ export const router = createBrowserRouter([
     path: "/books",
     element: (
       <Layout>
-        <div>도서 목록 페이지</div>
+        <BooksPage />
       </Layout>
     ),
   },

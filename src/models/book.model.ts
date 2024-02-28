@@ -7,13 +7,12 @@ export interface Book {
   id: number;
   title: string;
   categoryId: number;
-  categoryName: string;
   pages: number;
   summary: string;
   author: string;
   price: number;
   publishedDate: string;
-  imgUrl: string;
+  imgUrl: string | number;
   likes: number;
   form: string;
   isbn: string;
@@ -24,4 +23,5 @@ export interface Book {
 
 export interface BookDetail extends Book {
   isLiked: boolean;
+  categoryName: string;
 }

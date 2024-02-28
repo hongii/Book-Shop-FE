@@ -24,7 +24,11 @@ export const GlobalStyle = createGlobalStyle<Props>`
   }
 
   a {
-    text-decoration: 'none';
-    color: 'inherit';
+    text-decoration: none;
+    color: inherit;
+  }
+
+  svg, path{
+    color: inherit;
   }
 `;

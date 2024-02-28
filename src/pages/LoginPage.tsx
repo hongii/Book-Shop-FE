@@ -37,12 +37,10 @@ const LoginPage = () => {
   const onSubmit = async (data: LoginProps) => {
     try {
       const { id, email, name, contact, accessToken } = await login(data);
-      console.log(id, email, name, contact, accessToken);
       storeLogin(accessToken);
       setLoginCheckMsg("");
       navigate("/");
     } catch (err: any) {
-      console.log(err);
       const { message: errMsg } = err.response.data;
       setLoginCheckMsg(errMsg);
     }
