@@ -60,10 +60,11 @@ const ResetPasswordPage = () => {
     <>
       <JoinPageStyle>
         <Title size="large">비밀번호 초기화</Title>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <fieldset>
             <InputText
               placeholder="이메일을 입력해주세요."
+              type="email"
               disabled={resetRequested}
               isError={errors.email ? true : false}
               {...register("email", {

@@ -50,10 +50,11 @@ const LoginPage = () => {
     <>
       <JoinPageStyle>
         <Title size="large">로그인</Title>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <fieldset>
             <InputText
               placeholder="이메일을 입력해주세요."
+              type="email"
               isError={errors.email ? true : false}
               {...register("email", {
                 ...emailOptions,

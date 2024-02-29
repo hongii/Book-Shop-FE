@@ -50,7 +50,7 @@ const JoinPage = () => {
     <>
       <JoinPageStyle>
         <Title size="large">회원가입</Title>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <fieldset>
             <InputText
               placeholder="이름을 입력해주세요."
@@ -66,6 +66,7 @@ const JoinPage = () => {
           <fieldset>
             <InputText
               placeholder="가입할 이메일을 입력해주세요."
+              type="text"
               isError={errors.email || (!errors.email && emailCheck) ? true : false}
               {...register("email", {
                 ...emailOptions,
