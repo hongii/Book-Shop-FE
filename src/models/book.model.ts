@@ -1,8 +1,3 @@
-interface Pagination {
-  totalBooks: number;
-  currentPage: number;
-}
-
 export interface Book {
   id: number;
   title: string;
@@ -18,7 +13,6 @@ export interface Book {
   isbn: string;
   detail: string; // 포맷
   contents: string; // 목차
-  pagination?: Pagination;
 }
 
 export interface BookDetail extends Book {

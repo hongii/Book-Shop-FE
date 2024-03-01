@@ -35,6 +35,9 @@ interface Theme {
   borderRadius: {
     default: string;
   };
+  borderShadow: {
+    itemShadow: string;
+  };
   layout: {
     width: {
       [key in LayoutWidth]: string;
@@ -64,13 +67,14 @@ export const light: Theme = {
     small: { fontSize: "0.75rem", padding: "0.25rem 0.5rem" },
   },
   buttonScheme: {
-    // 확인 버튼
     primary: { color: "#231F20", backgroundColor: "#F4C6C6" },
-    // 취소 버튼
-    normal: { color: "black", backgroundColor: "lightgray" },
+    normal: { color: "231F20", backgroundColor: "#e3e3e3" },
   },
   borderRadius: {
     default: "4px",
+  },
+  borderShadow: {
+    itemShadow: "0 0 4px rgba(0, 0, 0, 0.2)",
   },
   layout: {
     width: {
@@ -94,10 +98,11 @@ export const dark: Theme = {
     inputText: "#231F20",
   },
   buttonScheme: {
-    // 확인 버튼
-    primary: { color: "#e3e3e3", backgroundColor: "#383838" },
-    // 취소 버튼
-    normal: { color: "#231F20", backgroundColor: "lightgray" },
+    primary: { color: "#231F20", backgroundColor: "#e3e3e3" },
+    normal: { color: "#e3e3e3", backgroundColor: "#383838" },
+  },
+  borderShadow: {
+    itemShadow: "0 0 4px rgba(255, 255, 255, 0.3)",
   },
 };
 

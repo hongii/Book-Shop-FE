@@ -13,15 +13,26 @@ export const GlobalStyle = createGlobalStyle<Props>`
     color: ${(props) => (props.themeName === "light" ? "black" : "white")};
   }
 
+  /* html {
+    font-size: 1vw;
+  } */
+
   body{
     padding: 0;
     margin: 0;
     background-color:  ${(props) => (props.themeName === "light" ? "white" : "#121212")};
   }
 
-  h1{
+  h1 {
+    font-size: 2rem;
     margin: 0;
   }
+
+  /* h2 {
+    font-size:1.5rem;
+    margin: 0;
+  } */
+
 
   a {
     text-decoration: none;

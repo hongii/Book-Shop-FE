@@ -1,7 +1,64 @@
-import React from "react";
+import styled from "styled-components";
+import Button from "../common/Button";
+import { IoIosList } from "@react-icons/all-files/io/IoIosList";
+import { IoGrid } from "@react-icons/all-files/io5/IoGrid";
+import { useSearchParams } from "react-router-dom";
+import { QUERYSTRING } from "../../constants/querystring";
+import { useEffect } from "react";
+
+const viewOptions = [
+  {
+    value: "grid",
+    icon: <IoGrid />,
+  },
+  {
+    value: "list",
+    icon: <IoIosList />,
+  },
+];
+
+export type ViewMode = "grid" | "list";
 
 const BooksViewSwitcher = () => {
-  return <div>BooksViewSwitcher</div>;
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleSwitch = (value: ViewMode) => {
+    const newSearchParams = new URLSearchParams(searchParams);
+    newSearchParams.set(QUERYSTRING.VIEW, value);
+    setSearchParams(newSearchParams);
+  };
+
+  useEffect(() => {
+    if (!searchParams.get(QUERYSTRING.VIEW)) {
+      handleSwitch("grid");
+    }
+  }, []);
+
+  return (
+    <BooksViewSwitcherStyle>
+      {viewOptions.map((opt) => {
+        return (
+          <Button
+            key={opt.value}
+            size="medium"
+            scheme={searchParams.get(QUERYSTRING.VIEW) === opt.value ? "primary" : "normal"}
+            onClick={() => handleSwitch(opt.value as ViewMode)}
+          >
+            {opt.icon}
+          </Button>
+        );
+      })}
+    </BooksViewSwitcherStyle>
+  );
 };
+
+const BooksViewSwitcherStyle = styled.div`
+  display: flex;
+  gap: 4px;
+
+  button {
+    padding: 8px;
+  }
+`;
 
 export default BooksViewSwitcher;

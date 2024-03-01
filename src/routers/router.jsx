@@ -21,7 +21,6 @@ export const router = createBrowserRouter([
       </Layout>
     ),
   },
-
   {
     path: "/books",
     element: (

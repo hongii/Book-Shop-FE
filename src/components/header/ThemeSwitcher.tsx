@@ -9,7 +9,7 @@ const ThemeSwitcher = () => {
   return (
     <IconButton onClick={toggleTheme}>
       <IoInvertMode size={28} />
-      &nbsp;{themeName}
+      <span>&nbsp;{themeName}</span>
     </IconButton>
   );
 };
@@ -24,6 +24,10 @@ const IconButton = styled.button`
   border: none;
   cursor: pointer;
   background-color: transparent; /* 배경색을 투명으로 설정 */
+
+  span {
+    font-size: 1.1rem;
+  }
 
   &:hover {
     opacity: 0.8;

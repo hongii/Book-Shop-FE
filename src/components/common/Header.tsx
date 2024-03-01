@@ -31,7 +31,7 @@ const Header = () => {
       <Link to="/">
         <h1 className="logo">
           <img src={themeName === "light" ? logoLight : logoDark} alt="book shop logo" />
-          HONG'S BOOK
+          <span>HONG'S BOOK</span>
         </h1>
       </Link>
       <nav className="category">
@@ -40,7 +40,9 @@ const Header = () => {
             return (
               <li key={item.categoryId}>
                 <Link
-                  to={`/books${item.categoryId !== null ? `?category_id=${item.categoryId}` : ""}`}
+                  to={`/books${
+                    item.categoryId !== null ? `?page=1&category_id=${item.categoryId}` : "?page=1"
+                  }`}
                 >
                   {item.categoryName}
                 </Link>
@@ -108,14 +110,18 @@ const HeaderStyle = styled.header`
   }
 
   .logo {
-    font-family: "McLaren", sans-serif;
     color: ${({ theme }) => theme.color.text};
     display: flex;
     align-items: center;
     cursor: pointer;
+
     img {
       width: 80px;
       margin-right: 5px;
+    }
+
+    span {
+      font-family: "McLaren", sans-serif;
     }
   }
 
