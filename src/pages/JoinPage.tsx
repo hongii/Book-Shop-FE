@@ -55,7 +55,7 @@ const JoinPage = () => {
             <InputText
               placeholder="이름을 입력해주세요."
               type="text"
-              isError={errors.name ? true : false}
+              $isError={errors.name ? true : false}
               {...register("name", {
                 required: { value: true, message: "이름은 필수 입력 정보입니다." },
                 minLength: { value: 2, message: "2글자 이상 입력해야 합니다." },
@@ -67,7 +67,7 @@ const JoinPage = () => {
             <InputText
               placeholder="가입할 이메일을 입력해주세요."
               type="text"
-              isError={errors.email || (!errors.email && emailCheck) ? true : false}
+              $isError={errors.email || (!errors.email && emailCheck) ? true : false}
               {...register("email", {
                 ...emailOptions,
                 onChange: handleChange,
@@ -80,7 +80,7 @@ const JoinPage = () => {
             <InputText
               placeholder="비밀번호를 입력해주세요."
               type="password"
-              isError={errors.password ? true : false}
+              $isError={errors.password ? true : false}
               {...register("password", passwordOptions)}
             />
             {errors.password && <small className="error-text">{errors.password.message}</small>}
@@ -89,7 +89,7 @@ const JoinPage = () => {
             <InputText
               placeholder="연락처를 입력해주세요."
               type="tel"
-              isError={errors.contact ? true : false}
+              $isError={errors.contact ? true : false}
               {...register("contact", contactOptions)}
             />
             {errors.contact && <small className="error-text">{errors.contact.message}</small>}

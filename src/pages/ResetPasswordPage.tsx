@@ -66,7 +66,7 @@ const ResetPasswordPage = () => {
               placeholder="이메일을 입력해주세요."
               type="email"
               disabled={resetRequested}
-              isError={errors.email ? true : false}
+              $isError={errors.email ? true : false}
               {...register("email", {
                 ...emailOptions,
                 onChange: handleChange,
@@ -83,7 +83,7 @@ const ResetPasswordPage = () => {
                 <InputText
                   placeholder="새로운 비밀번호를 입력해주세요."
                   type="password"
-                  isError={errors.password ? true : false}
+                  $isError={errors.password ? true : false}
                   {...register("password", passwordOptions)}
                 />
                 {errors.password && <small className="error-text">{errors.password.message}</small>}
@@ -92,7 +92,7 @@ const ResetPasswordPage = () => {
                 <InputText
                   placeholder="새로운 비밀번호를 한번 더 입력해주세요."
                   type="password"
-                  isError={errors.confirmPassword ? true : false}
+                  $isError={errors.confirmPassword ? true : false}
                   {...register("confirmPassword", {
                     ...passwordOptions,
                     validate: (value, formValues) => {
