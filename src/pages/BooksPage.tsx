@@ -42,7 +42,7 @@ const BooksStyle = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 24px;
+  gap: 16px;
 
   .filter {
     display: flex;

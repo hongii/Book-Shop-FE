@@ -18,6 +18,7 @@ const Button = ({ children, size, scheme, isLoading, ...props }: Props) => {
 };
 
 const ButtonStyle = styled.button<Omit<Props, "children">>`
+  white-space: nowrap;
   font-size: ${({ theme, size }) => theme.buttonSize[size].fontSize};
   padding: ${({ theme, size }) => theme.buttonSize[size].padding};
   color: ${({ theme, scheme }) => theme.buttonScheme[scheme].color};

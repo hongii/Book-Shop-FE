@@ -35,16 +35,16 @@ const BookItemStyle = styled.section<Pick<Props, "view">>`
   display: flex;
   flex-direction: ${({ view }) => (view === "grid" ? "column" : "row")};
   box-shadow: ${({ theme }) => theme.borderShadow.itemShadow};
-  min-width: ${({ view }) => (view === "grid" ? "150px" : "")};
+  /* min-width: ${({ view }) => (view === "grid" ? "150px" : "")}; */
 
   .book-img {
     border-radius: ${({ theme }) => theme.borderRadius.default};
     overflow: hidden;
-    width: ${({ view }) => (view === "grid" ? "auto" : "160px")};
-    flex-shrink: 0;
+    max-width: ${({ view }) => (view === "grid" ? "auto" : "200px")};
 
     img {
       max-width: 100%;
+      object-fit: fill;
     }
   }
 
@@ -54,15 +54,15 @@ const BookItemStyle = styled.section<Pick<Props, "view">>`
     flex: ${({ view }) => (view === "grid" ? "0" : "1")};
 
     .title {
-      font-size: 1.25rem;
+      font-size: 1.5rem;
       font-weight: 700;
       margin: 0 0 12px 0;
     }
 
     .summary {
       line-height: 1.2;
-      height: calc(2 * 1.2 * 0.75rem); /* 2줄 * 상속받은 line-height(=1.5) * font-size(=0.75rem) */
-      font-size: 0.75rem;
+      height: calc(2 * 1.2 * 1.15rem); /* 2줄 * 상속받은 line-height(=1.5) * font-size(=0.75rem) */
+      font-size: 1.15rem;
       color: ${({ theme }) => theme.color.secondary};
       margin: 0 0 4px 0;
 
@@ -74,7 +74,7 @@ const BookItemStyle = styled.section<Pick<Props, "view">>`
     }
 
     .author {
-      font-size: 0.75rem;
+      font-size: 1rem;
       color: ${({ theme }) => theme.color.secondary};
       margin: 0 0 4px 0;
     }
@@ -87,7 +87,7 @@ const BookItemStyle = styled.section<Pick<Props, "view">>`
     }
 
     .likes {
-      font-size: 0.875rem;
+      font-size: 1rem;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
@@ -103,7 +103,7 @@ const BookItemStyle = styled.section<Pick<Props, "view">>`
     }
 
     span {
-      font-size: 0.875rem;
+      font-size: 1rem;
       font-weight: 700;
       color: ${({ theme }) => theme.color.primary};
     }

@@ -4,6 +4,7 @@ export type ColorKey =
   | "secondary"
   | "third"
   | "background"
+  | "backgroundRGBA"
   | "border"
   | "text"
   | "inputText";
@@ -37,6 +38,7 @@ interface Theme {
   };
   borderShadow: {
     itemShadow: string;
+    listShadow: string;
   };
   layout: {
     width: {
@@ -52,19 +54,20 @@ export const light: Theme = {
     secondary: "#666",
     third: "#311604",
     background: "#F4C6C6",
+    backgroundRGBA: "rgba(227, 227, 227, 0.8)",
     border: "#e2e2e2",
     text: "#231F20",
     inputText: "#231F20",
   },
   heading: {
-    large: { fontSize: "2rem" },
-    medium: { fontSize: "1.5rem" },
-    small: { fontSize: "1rem" },
+    large: { fontSize: "2.5rem" },
+    medium: { fontSize: "1.75rem" },
+    small: { fontSize: "1.5rem" },
   },
   buttonSize: {
     large: { fontSize: "1.5rem", padding: "1rem 2rem" },
-    medium: { fontSize: "1rem", padding: "0.5rem 1.5rem" },
-    small: { fontSize: "0.75rem", padding: "0.25rem 0.5rem" },
+    medium: { fontSize: "1.25rem", padding: "0.5rem 1.5rem" },
+    small: { fontSize: "1rem", padding: "0.25rem 0.5rem" },
   },
   buttonScheme: {
     primary: { color: "#231F20", backgroundColor: "#F4C6C6" },
@@ -75,6 +78,7 @@ export const light: Theme = {
   },
   borderShadow: {
     itemShadow: "0 0 4px rgba(0, 0, 0, 0.2)",
+    listShadow: "0 0 8px rgba(0, 0, 0, 0.3)",
   },
   layout: {
     width: {
@@ -93,6 +97,7 @@ export const dark: Theme = {
     secondary: "#ececec",
     third: "#383838",
     background: "#383838",
+    backgroundRGBA: "rgba(153, 153, 153, 0.8)",
     border: "#ececec",
     text: "#ffffff",
     inputText: "#231F20",
@@ -103,6 +108,7 @@ export const dark: Theme = {
   },
   borderShadow: {
     itemShadow: "0 0 4px rgba(255, 255, 255, 0.3)",
+    listShadow: "0 0 8px rgba(255, 255, 255, 0.2)",
   },
 };
 
