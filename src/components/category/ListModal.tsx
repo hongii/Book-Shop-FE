@@ -1,16 +1,9 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useCategory } from "../../hooks/useCategory";
-import { useEffect, useRef, useState } from "react";
-import useOnClickOutside from "../../hooks/useOnClickOutside";
 
-interface Props {
-  setModalOpen: (isOpen: boolean) => void;
-  modalOpen: boolean;
-}
-const ListModal = ({ setModalOpen, modalOpen }: Props) => {
+const ListModal = () => {
   const { category } = useCategory();
-  // const ref = useRef(null);
 
   return (
     <ListModalStyle>
@@ -19,7 +12,7 @@ const ListModal = ({ setModalOpen, modalOpen }: Props) => {
           <h2>도서 카테고리</h2>
           {category.map((item) => {
             return (
-              <li key={item.categoryId} onClick={() => setModalOpen(false)}>
+              <li key={item.categoryId}>
                 <Link
                   to={`/books${
                     item.categoryId !== null ? `?page=1&category_id=${item.categoryId}` : "?page=1"

@@ -52,7 +52,7 @@ const Header = () => {
         >
           <BsList />
         </button>
-        {modalOpen && <ListModal modalOpen={modalOpen} setModalOpen={setModalOpen} />}
+        {modalOpen && <ListModal />}
       </div>
 
       <div className="auth-themeswitcher">
