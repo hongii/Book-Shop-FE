@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { getToken, removeToken } from "../store/authStore";
+import { getToken, removeToken, setToken } from "../store/authStore";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const DEFAULT_TIMEOUT = Number(process.env.REACT_APP_DEFAULT_TIMEOUT);
@@ -19,7 +19,7 @@ const createClient = (config?: AxiosRequestConfig) => {
   axiosInstance.interceptors.request.use(
     (config) => {
       const accessToken = getToken();
-      config.headers.Authorization = accessToken ? `Bearer ${accessToken}` : "";
+      config.headers.authorization = accessToken ? `Bearer ${accessToken}` : "";
       return config;
     },
     (err) => {
@@ -30,11 +30,18 @@ const createClient = (config?: AxiosRequestConfig) => {
   // 응답 인터셉터
   axiosInstance.interceptors.response.use(
     (res) => {
+      const newAccessToken = res.headers.authorization;
+      if (newAccessToken) {
+        const token = newAccessToken.split(" ")[1];
+        setToken(token);
+      }
       return res;
     },
     (err) => {
-      if (err.response.stataus === 401) {
+      if (err.response.status === 401) {
         removeToken();
+        window.alert(err.response.data.message);
+
         window.location.href = "/login";
         return;
       }

@@ -8,6 +8,7 @@ const ListModal = () => {
   return (
     <ListModalStyle>
       <nav className="category">
+        <div className="rhombus"></div>
         <ul>
           <h2>도서 카테고리</h2>
           {category.map((item) => {
@@ -34,14 +35,15 @@ const ListModalStyle = styled.div`
 
   .category {
     position: absolute;
-    left: -2.4rem;
-    top: 1.5rem;
+    left: -4.5rem;
+    top: 2.8rem;
     width: 150px;
     z-index: 100;
 
-    background: ${({ theme }) => theme.color.background};
+    background-color: ${({ theme }) => theme.color.background};
     box-shadow: ${({ theme }) => theme.borderShadow.listShadow};
     border-radius: 6px;
+    border: 1px solid #e0e0e0;
   }
 
   ul {
@@ -54,6 +56,21 @@ const ListModalStyle = styled.div`
     height: 100%;
     width: 100%;
     /* border-radius: ${({ theme }) => theme.borderRadius.default}; */
+  }
+
+  .rhombus::before {
+    display: inline-block;
+    position: absolute;
+    content: "";
+    width: 20px;
+    height: 20px;
+    top: -11px;
+    left: 20px;
+    transform: rotate(45deg);
+    background-color: ${({ theme }) => theme.color.background};
+    border: 1px solid ${({ theme }) => theme.color.border};
+    border-right: none;
+    border-bottom: none;
   }
 
   h2 {
@@ -74,7 +91,7 @@ const ListModalStyle = styled.div`
     transition: opacity 0.2s ease;
 
     &:hover {
-      background: ${({ theme }) => theme.color.backgroundRGBA};
+      background-color: ${({ theme }) => theme.color.backgroundRGBA};
     }
 
     a {

@@ -6,6 +6,7 @@ import JoinPage from "../pages/JoinPage";
 import ResetPasswordPage from "../pages/ResetPasswordPage";
 import LoginPage from "../pages/LoginPage";
 import BooksPage from "../pages/BooksPage";
+import BookDetailPage from "../pages/BookDetailPage";
 
 export const router = createBrowserRouter([
   {
@@ -18,14 +19,6 @@ export const router = createBrowserRouter([
     errorElement: (
       <Layout>
         <Error />
-      </Layout>
-    ),
-  },
-  {
-    path: "/books",
-    element: (
-      <Layout>
-        <BooksPage />
       </Layout>
     ),
   },
@@ -50,6 +43,22 @@ export const router = createBrowserRouter([
     element: (
       <Layout>
         <ResetPasswordPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/books",
+    element: (
+      <Layout>
+        <BooksPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/books/:bookId",
+    element: (
+      <Layout>
+        <BookDetailPage />
       </Layout>
     ),
   },

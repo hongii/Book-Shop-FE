@@ -104,7 +104,7 @@ const HeaderStyle = styled.header`
   margin: 0 auto;
   /* max-width: ${({ theme }) => theme.layout.width.large}; */
   background-color: ${({ theme }) => theme.color.background};
-  padding: 10px;
+  padding: 1rem;
 
   display: flex;
   align-items: center;
@@ -114,18 +114,20 @@ const HeaderStyle = styled.header`
   .logo-category {
     display: flex;
     align-items: center;
+  }
 
-    .dropdown-list-btn {
-      margin-left: 1.2rem;
-      font-size: 2rem;
-      border: 1px solid ${({ theme }) => theme.color.border};
-      border-radius: 50%;
-      background-color: ${({ theme }) => theme.buttonScheme.normal.backgroundColor};
-      cursor: pointer;
+  .dropdown-list-btn {
+    padding: 5px;
+    display: flex;
+    margin-left: 1.2rem;
+    font-size: 2rem;
+    border: 1px solid ${({ theme }) => theme.color.border};
+    border-radius: 50%;
+    background-color: ${({ theme }) => theme.buttonScheme.normal.backgroundColor};
+    cursor: pointer;
 
-      &:hover {
-        opacity: 0.8;
-      }
+    &:hover {
+      opacity: 0.8;
     }
   }
 

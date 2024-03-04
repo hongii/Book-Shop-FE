@@ -15,11 +15,11 @@ const BooksPage = () => {
     <>
       <BooksStyle>
         <Title size="large">도서 검색 결과</Title>
+
         <div className="filter">
           <BooksFilter />
           <BooksViewSwitcher />
         </div>
-
         {isEmpty ? (
           <BooksEmpty message={message as string} />
         ) : (
@@ -37,7 +37,7 @@ const BooksStyle = styled.div`
   width: 100%;
   margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
-  padding: 10px;
+  padding: 2rem;
 
   display: flex;
   flex-direction: column;

@@ -1,5 +1,5 @@
 import { Category } from "./../models/category.model";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { fetchCategory } from "../api/category.api";
 import { useLocation } from "react-router-dom";
 
@@ -7,7 +7,7 @@ export const useCategory = () => {
   const location = useLocation();
   const [category, setCategory] = useState<Category[]>([]);
 
-  const setActive = () => {
+  const setActive = useCallback(() => {
     const params = new URLSearchParams(location.search);
     const id = params.get("category_id");
     setCategory((prev) => {
@@ -25,7 +25,7 @@ export const useCategory = () => {
         }
       });
     });
-  };
+  }, []);
 
   useEffect(() => {
     fetchCategory().then((results) => {
@@ -35,11 +35,11 @@ export const useCategory = () => {
       setCategory(allCategories);
       setActive();
     });
-  }, []);
+  }, [setActive]);
 
   useEffect(() => {
     setActive();
-  }, [location.search]);
+  }, [location.search, setActive]);
 
   return { category };
 };

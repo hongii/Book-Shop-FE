@@ -24,7 +24,7 @@ const FooterStyle = styled.footer`
   width: 100%;
   margin: 0 auto;
   /* max-width: ${({ theme }) => theme.layout.width.large}; */
-  padding: 10px;
+  padding: 1rem;
   border-top: 2px solid ${({ theme }) => theme.color.border};
 
   display: flex;

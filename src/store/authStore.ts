@@ -18,7 +18,7 @@ export const getToken = () => {
   return token; // 로컬 스토리지에 "token"필드가 없는 경우엔 null을 반환
 };
 
-const setToken = (token: string) => {
+export const setToken = (token: string) => {
   localStorage.setItem("token", token);
 };
 
