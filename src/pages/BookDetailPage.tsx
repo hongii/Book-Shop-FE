@@ -8,6 +8,7 @@ import { formatDate, formatNumber } from "../utils/format";
 import { Link } from "react-router-dom";
 import EllipsisBox from "../components/common/EllipsisBox";
 import LikeButton from "../components/book/LikeButton";
+import AddToCart from "../components/book/AddToCart";
 
 const bookInfoList = [
   {
@@ -60,8 +61,10 @@ const BookDetailPage = () => {
             );
           })}
           <p className="summary">{bookDetail.summary}</p>
+          {/* <div className="button-set"> */}
           <LikeButton book={bookDetail} onClick={handleClickLike} />
-          <div className="add-to-cart">장바구니 넣기</div>
+          <AddToCart book={bookDetail} />
+          {/* </div> */}
         </div>
       </header>
       <section className="contents">
@@ -79,6 +82,7 @@ const BookDetailPageStyle = styled.section`
   margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
   padding: 2rem;
+  position: relative;
 
   header {
     display: flex;
@@ -119,11 +123,11 @@ const BookDetailPageStyle = styled.section`
     dd {
       font-size: 1.3rem;
     }
-  }
 
-  a {
-    color: ${({ theme }) => theme.color.third};
-    text-decoration: underline;
+    a {
+      color: ${({ theme }) => theme.color.third};
+      text-decoration: underline;
+    }
   }
 
   p {
@@ -132,8 +136,10 @@ const BookDetailPageStyle = styled.section`
     /* margin: 0; */
   }
 
-  .contents {
-  }
+  /* .button-set {
+    display: flex;
+    justify-content: space-between;
+  } */
 `;
 
 export default BookDetailPage;
