@@ -28,7 +28,7 @@ const ResetPasswordPage = () => {
   const [resetRequested, setResetRequested] = useState(false);
 
   const navigate = useNavigate();
-  const showAlert = useAlert();
+  const { showAlert } = useAlert();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== emailCheckMsg) {

@@ -20,7 +20,7 @@ const Header = () => {
   const { themeName } = useContext(ThemeContext);
   const navigate = useNavigate();
   const { isLoggedIn, storeLogout } = useAuthStore();
-  const showAlert = useAlert();
+  const { showAlert } = useAlert();
 
   const ref = useRef(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -60,7 +60,7 @@ const Header = () => {
           {isLoggedIn && (
             <ul>
               <li>
-                <Link to="/cart">
+                <Link to="/carts">
                   <IoCartOutline />
                   &nbsp;장바구니
                 </Link>

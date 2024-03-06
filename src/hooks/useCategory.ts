@@ -25,7 +25,7 @@ export const useCategory = () => {
         }
       });
     });
-  }, []);
+  }, [location.search]);
 
   useEffect(() => {
     fetchCategory().then((results) => {

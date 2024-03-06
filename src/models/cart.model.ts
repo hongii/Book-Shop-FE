@@ -5,5 +5,5 @@ export interface Cart {
   summary: string;
   price: number;
   quantity: number;
-  imgUrl?: string;
+  imgUrl: string;
 }

@@ -64,7 +64,6 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
   justify-content: space-between;
   flex-wrap: nowrap;
   gap: 1rem;
-  height: 100%;
 
   .count {
     display: flex;
@@ -72,12 +71,11 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
     justify-content: space-between;
     flex-wrap: nowrap;
     gap: 0.1rem;
-    height: 100%;
 
     input {
       text-align: center;
       outline: none;
-      height: 100%;
+      padding: 0.5rem 1.5rem;
     }
   }
 

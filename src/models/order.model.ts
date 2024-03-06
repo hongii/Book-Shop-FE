@@ -1,10 +1,10 @@
-interface CartItem {
-  cartItemId: string;
-  bookId: string;
+export interface CartItem {
+  cartItemId: number;
+  bookId: number;
   quantity: number;
 }
 
-interface Delivery {
+export interface Delivery {
   address: string;
   receiver: string;
   contact: string;

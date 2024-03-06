@@ -19,7 +19,11 @@ const createClient = (config?: AxiosRequestConfig) => {
   axiosInstance.interceptors.request.use(
     (config) => {
       const accessToken = getToken();
-      config.headers.authorization = accessToken ? `Bearer ${accessToken}` : "";
+      if (accessToken) {
+        config.headers.authorization = `Bearer ${accessToken}`;
+      } else {
+        delete config.headers.authorization;
+      }
       return config;
     },
     (err) => {

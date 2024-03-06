@@ -26,7 +26,7 @@ const JoinPage = () => {
 
   const [emailCheck, setEmailCheck] = useState("");
   const navigate = useNavigate();
-  const showAlert = useAlert();
+  const { showAlert } = useAlert();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== emailCheck) {

@@ -7,6 +7,8 @@ import ResetPasswordPage from "../pages/ResetPasswordPage";
 import LoginPage from "../pages/LoginPage";
 import BooksPage from "../pages/BooksPage";
 import BookDetailPage from "../pages/BookDetailPage";
+import CartPage from "../pages/CartPage";
+import OrderPage from "../pages/OrderPage";
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +61,22 @@ export const router = createBrowserRouter([
     element: (
       <Layout>
         <BookDetailPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/carts",
+    element: (
+      <Layout>
+        <CartPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/orders",
+    element: (
+      <Layout>
+        <OrderPage />
       </Layout>
     ),
   },
