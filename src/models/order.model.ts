@@ -17,3 +17,22 @@ export interface Order {
   totalPrice: number;
   totalQuantity: number;
 }
+
+export interface OrderList extends Order {
+  orderId: number;
+  createdAt: string;
+}
+
+export interface OrderDetail {
+  bookId: number;
+  title: string;
+  author: string;
+  price: number;
+  quantity: number;
+  imgUrl: string;
+  form: string;
+}
+
+export interface OrderListDetail extends OrderList {
+  detail?: OrderDetail[];
+}

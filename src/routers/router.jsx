@@ -9,6 +9,7 @@ import BooksPage from "../pages/BooksPage";
 import BookDetailPage from "../pages/BookDetailPage";
 import CartPage from "../pages/CartPage";
 import OrderPage from "../pages/OrderPage";
+import OrderListPage from "../pages/OrderList";
 
 export const router = createBrowserRouter([
   {
@@ -77,6 +78,14 @@ export const router = createBrowserRouter([
     element: (
       <Layout>
         <OrderPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/orderlist",
+    element: (
+      <Layout>
+        <OrderListPage />
       </Layout>
     ),
   },

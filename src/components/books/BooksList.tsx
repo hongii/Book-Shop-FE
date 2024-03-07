@@ -22,7 +22,7 @@ const BooksList = ({ books }: Props) => {
     } else {
       setView("grid");
     }
-  }, [view]);
+  }, [search]);
 
   return (
     <BooksListStyle view={view}>

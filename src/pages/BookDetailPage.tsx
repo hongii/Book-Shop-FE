@@ -61,10 +61,8 @@ const BookDetailPage = () => {
             );
           })}
           <p className="summary">{bookDetail.summary}</p>
-          {/* <div className="button-set"> */}
           <LikeButton book={bookDetail} onClick={handleClickLike} />
           <AddToCart book={bookDetail} />
-          {/* </div> */}
         </div>
       </header>
       <section className="contents">
@@ -107,7 +105,6 @@ const BookDetailPageStyle = styled.section`
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    /* gap: 16px; */
 
     dl {
       margin: 0;
@@ -133,13 +130,7 @@ const BookDetailPageStyle = styled.section`
   p {
     font-size: 1.3rem;
     margin: 1.2rem 0;
-    /* margin: 0; */
   }
-
-  /* .button-set {
-    display: flex;
-    justify-content: space-between;
-  } */
 `;
 
 export default BookDetailPage;

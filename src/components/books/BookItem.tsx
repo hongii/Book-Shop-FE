@@ -16,7 +16,7 @@ const BookItem = ({ book, view }: Props) => {
     <BookItemStyle view={view}>
       <Link to={`/books/${book.id}`}>
         <div className="book-img">
-          <img src={getImgSrc(book.id)} alt={book.title} />
+          <img src={getImgSrc(Number(book.imgUrl))} alt={book.title} />
         </div>
         <div className="contents">
           <h2 className="title">{book.title}</h2>
