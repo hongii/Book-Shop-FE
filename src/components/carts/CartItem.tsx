@@ -6,6 +6,7 @@ import CheckIconButton from "./CheckIconButton";
 import { useMemo } from "react";
 import { useAlert } from "../../hooks/useAlert";
 import { getImgSrc } from "../../utils/image";
+import { useNavigate } from "react-router-dom";
 
 interface CartsProps {
   cart: Cart;
@@ -15,8 +16,8 @@ interface CartsProps {
 }
 
 const CartItem = ({ cart, selectedItems, onSelected, onDeleted }: CartsProps) => {
-  console.log(cart);
   const { showConfirm } = useAlert();
+  const navigate = useNavigate();
   const isSelected = useMemo(
     () => selectedItems.includes(cart.cartItemId),
     [selectedItems, cart.cartItemId],
@@ -34,7 +35,7 @@ const CartItem = ({ cart, selectedItems, onSelected, onDeleted }: CartsProps) =>
     <CartItemStyle>
       <div className="check-content-container">
         <CheckIconButton isSelected={isSelected} onClick={handleOnClick} />
-        <div className="book-img">
+        <div className="book-img" onClick={() => navigate(`/books/${cart.bookId}`)}>
           <img src={getImgSrc(+cart.imgUrl)} alt="book-img" />
         </div>
         <div className="book-contents">
@@ -66,6 +67,7 @@ const CartItemStyle = styled.div`
   }
 
   .book-img {
+    cursor: pointer;
     img {
       border-radius: ${({ theme }) => theme.borderRadius.default};
       max-width: 130px;

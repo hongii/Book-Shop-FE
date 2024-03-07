@@ -9,7 +9,12 @@ import { useForm } from "react-hook-form";
 import { join } from "../api/auth.api";
 import { useState } from "react";
 import { useAlert } from "../hooks/useAlert";
-import { emailOptions, passwordOptions, contactOptions } from "../config/registerOptions";
+import {
+  emailOptions,
+  passwordOptions,
+  contactOptions,
+  nameOptions,
+} from "../config/registerOptions";
 export interface JoinProps {
   email: string;
   password: string;
@@ -56,10 +61,7 @@ const JoinPage = () => {
               placeholder="이름을 입력해주세요."
               type="text"
               $isError={errors.name ? true : false}
-              {...register("name", {
-                required: { value: true, message: "이름은 필수 입력 정보입니다." },
-                minLength: { value: 2, message: "2글자 이상 입력해야 합니다." },
-              })}
+              {...register("name", nameOptions)}
             />
             {errors.name && <small className="error-text">{errors.name.message}</small>}
           </fieldset>

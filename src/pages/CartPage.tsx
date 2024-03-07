@@ -90,7 +90,7 @@ const CartPage = () => {
           linkMsg="전체 도서 보러가기"
         />
       ) : (
-        <section className="cart-container">
+        <section className="container">
           <div className="contents">
             {carts.map((item) => (
               <CartItemComponent
@@ -114,13 +114,13 @@ const CartPage = () => {
   );
 };
 
-const CartPageStyle = styled.div`
+export const CartPageStyle = styled.div`
   width: 100%;
   margin: 0 auto;
   max-width: ${({ theme }) => theme.layout.width.large};
   padding: 2rem;
 
-  .cart-container {
+  .container {
     display: flex;
     justify-content: space-between;
     gap: 2rem;

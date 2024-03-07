@@ -28,3 +28,8 @@ export const contactOptions = {
     message: "000-0000-0000 형태로 '-'기호를 사용해 주세요.",
   },
 };
+
+export const nameOptions = {
+  required: { value: true, message: "이름은 필수 입력 정보입니다." },
+  minLength: { value: 2, message: "2글자 이상 입력해야 합니다." },
+};
