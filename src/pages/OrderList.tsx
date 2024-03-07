@@ -70,21 +70,6 @@ const OrderListPage = () => {
                   {selectedOrderId === order.orderId && isOpen && (
                     <tr>
                       <td colSpan={9}>
-                        {/* <ul className="detail">
-                        {order.detail?.map((item) => {
-                          return (
-                            <li key={item.bookId}>
-                              <div>
-                                <span>{item.bookId}</span>
-                                <span>{item.title}</span>
-                                <span>{item.author}</span>
-                                <span>{item.quantity}</span>
-                                <span>{formatNumber(item.price)}원</span>
-                              </div>
-                            </li>
-                          );
-                        })}
-                      </ul> */}
                         {order.detail?.map((item) => {
                           return <OrderItemDetail key={item.bookId} orderItem={item} />;
                         })}
