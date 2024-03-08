@@ -1,15 +1,15 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import InputText from "../components/common/InputText";
+import InputText from "@/components/common/InputText";
 import { useForm } from "react-hook-form";
-import Title from "../components/common/Title";
-import CartSummary from "../components/carts/CartSummary";
-import Button from "../components/common/Button";
-import { CartPageStyle } from "./CartPage";
-import { Delivery, Order } from "../models/order.model";
-import { useAlert } from "../hooks/useAlert";
-import FindAddressButton from "../components/order/FindAddressButton";
-import { requestOrder } from "../api/order.api";
+import Title from "@/components/common/Title";
+import CartSummary from "@/components/carts/CartSummary";
+import Button from "@/components/common/Button";
+import { CartPageStyle } from "@/pages/CartPage";
+import { Delivery, Order } from "@/models/order.model";
+import { useAlert } from "@/hooks/useAlert";
+import FindAddressButton from "@/components/order/FindAddressButton";
+import { requestOrder } from "@/api/order.api";
 
 interface DeliveryProps extends Delivery {
   detailAddress: string;

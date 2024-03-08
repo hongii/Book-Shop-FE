@@ -1,15 +1,14 @@
-import Title from "../components/common/Title";
-import InputText from "../components/common/InputText";
-import Button from "../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
+import Title from "@/components/common/Title";
+import InputText from "@/components/common/InputText";
+import Button from "@/components/common/Button";
+import { Link } from "react-router-dom";
 import { FaSignInAlt } from "@react-icons/all-files/fa/FaSignInAlt";
 import { FaRegUser } from "@react-icons/all-files/fa/FaRegUser";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
-import { useAlert } from "../hooks/useAlert";
-import { JoinPageStyle } from "./JoinPage";
-import { resetPassword, resetPasswordRequest } from "../api/auth.api";
-import { emailOptions, passwordOptions } from "../config/registerOptions";
+import { JoinPageStyle } from "@/pages/JoinPage";
+import { emailOptions, passwordOptions } from "@/config/registerOptions";
+import { useAuth } from "@/hooks/useAuth";
 
 export interface ResetProps {
   email: string;
@@ -18,17 +17,13 @@ export interface ResetProps {
 }
 
 const ResetPasswordPage = () => {
+  const [emailCheckMsg, setEmailCheckMsg] = useState("");
+  const { errorMsg, resetRequested, userResetPassword, userResetPasswordRequest } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<ResetProps>();
-
-  const [emailCheckMsg, setEmailCheckMsg] = useState("");
-  const [resetRequested, setResetRequested] = useState(false);
-
-  const navigate = useNavigate();
-  const { showAlert } = useAlert();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.value !== emailCheckMsg) {
@@ -37,22 +32,13 @@ const ResetPasswordPage = () => {
   };
 
   const onSubmit = async (data: ResetProps) => {
-    try {
-      if (resetRequested) {
-        // 비밀번호 초기화(비밀번호 변경과정)
-        const { message } = await resetPassword(data);
-        showAlert(message);
-        setResetRequested(false);
-        navigate("/login");
-      } else {
-        // 비밀번호 초기화 요청(가입한 이메일 확인과정)
-        await resetPasswordRequest(data);
-        setEmailCheckMsg("");
-        setResetRequested(true);
-      }
-    } catch (err: any) {
-      const { message: errMsg } = err.response.data;
-      setEmailCheckMsg(errMsg);
+    if (resetRequested) {
+      // 비밀번호 초기화(비밀번호 변경과정)
+      await userResetPassword(data);
+    } else {
+      // 비밀번호 초기화 요청(가입한 이메일 확인과정)
+      await userResetPasswordRequest(data);
+      setEmailCheckMsg(data.email);
     }
   };
 
@@ -73,9 +59,7 @@ const ResetPasswordPage = () => {
               })}
             />
             {errors.email && <small className="error-text">{errors.email.message}</small>}
-            {!errors.email && emailCheckMsg && (
-              <small className="error-text">{emailCheckMsg}</small>
-            )}
+            {!errors.email && emailCheckMsg && <small className="error-text">{errorMsg}</small>}
           </fieldset>
           {resetRequested && (
             <>
@@ -96,8 +80,6 @@ const ResetPasswordPage = () => {
                   {...register("confirmPassword", {
                     ...passwordOptions,
                     validate: (value, formValues) => {
-                      console.log(value, formValues);
-                      console.log(errors.confirmPassword);
                       return (
                         value === formValues.password || "입력하신 비밀번호가 일치하지 않습니다."
                       );

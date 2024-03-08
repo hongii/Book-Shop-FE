@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Title from "../components/common/Title";
-import { useOrders } from "../hooks/useOrders";
-import { formatDate, formatNumber } from "../utils/format";
-import Button from "../components/common/Button";
-import OrderItemDetail from "../components/order/OrderItemDetail";
+import Title from "@/components/common/Title";
+import { useOrders } from "@/hooks/useOrders";
+import { formatDate, formatNumber } from "@/utils/format";
+import Button from "@/components/common/Button";
+import OrderItemDetail from "@/components/order/OrderItemDetail";
 
 const OrderListPage = () => {
   const { orderList, selectedOrderId, getOrderDetail } = useOrders();
   const [clickOrderId, setClickOrderId] = useState<number | null>(null);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  console.log(orderList);
 
   const handleDetailButton = async (orderId: number) => {
     await getOrderDetail(orderId);

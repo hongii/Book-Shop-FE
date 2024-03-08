@@ -1,15 +1,13 @@
-import Title from "../components/common/Title";
-import InputText from "../components/common/InputText";
-import Button from "../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
+import Title from "@/components/common/Title";
+import InputText from "@/components/common/InputText";
+import Button from "@/components/common/Button";
+import { Link } from "react-router-dom";
 import { FaRegUser } from "@react-icons/all-files/fa/FaRegUser";
 import { FaWhmcs } from "@react-icons/all-files/fa/FaWhmcs";
 import { useForm } from "react-hook-form";
-import { login } from "../api/auth.api";
-import { useState } from "react";
-import { JoinPageStyle } from "./JoinPage";
-import { useAuthStore } from "../store/authStore";
-import { emailOptions, passwordOptions } from "../config/registerOptions";
+import { JoinPageStyle } from "@/pages/JoinPage";
+import { emailOptions, passwordOptions } from "@/config/registerOptions";
+import { useAuth } from "@/hooks/useAuth";
 
 export interface LoginProps {
   email: string;
@@ -17,33 +15,15 @@ export interface LoginProps {
 }
 
 const LoginPage = () => {
+  const { errorMsg, userLogin } = useAuth();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginProps>();
 
-  const [loginCheckMsg, setLoginCheckMsg] = useState("");
-  const { storeLogin } = useAuthStore();
-
-  const navigate = useNavigate();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value !== loginCheckMsg) {
-      setLoginCheckMsg("");
-    }
-  };
-
   const onSubmit = async (data: LoginProps) => {
-    try {
-      const { id, email, name, contact, accessToken } = await login(data);
-      storeLogin(accessToken);
-      setLoginCheckMsg("");
-      navigate("/");
-    } catch (err: any) {
-      const { message: errMsg } = err.response.data;
-      setLoginCheckMsg(errMsg);
-    }
+    await userLogin(data);
   };
 
   return (
@@ -55,26 +35,25 @@ const LoginPage = () => {
             <InputText
               placeholder="이메일을 입력해주세요."
               type="email"
-              $isError={errors.email ? true : false}
-              {...register("email", {
-                ...emailOptions,
-                onChange: handleChange,
-              })}
+              $isError={!errorMsg && errors.email ? true : false}
+              {...register("email", emailOptions)}
             />
-            {errors.email && <small className="error-text">{errors.email.message}</small>}
+            {!errorMsg && errors.email && (
+              <small className="error-text">{errors.email.message}</small>
+            )}
           </fieldset>
           <fieldset>
             <InputText
               placeholder="비밀번호를 입력해주세요."
               type="password"
-              $isError={errors.password ? true : false}
-              {...register("password", { ...passwordOptions, onChange: handleChange })}
+              $isError={!errorMsg && errors.password ? true : false}
+              {...register("password", passwordOptions)}
             />
-            {errors.password && <small className="error-text">{errors.password.message}</small>}
+            {!errorMsg && errors.password && (
+              <small className="error-text">{errors.password.message}</small>
+            )}
           </fieldset>
-          {!errors.email && !errors.password && loginCheckMsg && (
-            <small className="error-text">{loginCheckMsg}</small>
-          )}
+          {errorMsg && <small className="error-text">{errorMsg}</small>}
 
           <fieldset>
             <Button type="submit" size="medium" scheme="primary">

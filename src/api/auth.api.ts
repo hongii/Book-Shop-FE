@@ -1,7 +1,7 @@
-import { LoginProps } from "../pages/LoginPage";
-import { ResetProps } from "../pages/ResetPasswordPage";
-import { JoinProps } from "./../pages/JoinPage";
-import { httpClient } from "./http";
+import { LoginProps } from "@/pages/LoginPage";
+import { ResetProps } from "@/pages/ResetPasswordPage";
+import { JoinProps } from "@/pages/JoinPage";
+import { httpClient } from "@/api/http";
 
 export const join = async (userData: JoinProps) => {
   try {

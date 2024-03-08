@@ -1,15 +1,15 @@
 import styled from "styled-components";
-import Title from "../components/common/Title";
-import { useCarts } from "../hooks/useCarts";
+import Title from "@/components/common/Title";
+import { useCarts } from "@/hooks/useCarts";
 import { useMemo, useState } from "react";
-import Empty from "../components/common/Empty";
+import Empty from "@/components/common/Empty";
 import { IoCartOutline } from "@react-icons/all-files/io5/IoCartOutline";
 import { FaBook } from "@react-icons/all-files/fa/FaBook";
-import CartSummary from "../components/carts/CartSummary";
-import Button from "../components/common/Button";
-import { useAlert } from "../hooks/useAlert";
-import { CartItem, Order } from "../models/order.model";
-import CartItemComponent from "../components/carts/CartItem";
+import CartSummary from "@/components/carts/CartSummary";
+import Button from "@/components/common/Button";
+import { useAlert } from "@/hooks/useAlert";
+import { CartItem, Order } from "@/models/order.model";
+import CartItemComponent from "@/components/carts/CartItem";
 import { useNavigate } from "react-router-dom";
 
 const CartPage = () => {
