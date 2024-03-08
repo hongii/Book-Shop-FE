@@ -1,92 +1,65 @@
 import { createBrowserRouter } from "react-router-dom";
-import Error from "../components/common/Error";
-import HomePage from "../pages/HomePage";
-import Layout from "../components/layout/Layout";
-import JoinPage from "../pages/JoinPage";
-import ResetPasswordPage from "../pages/ResetPasswordPage";
-import LoginPage from "../pages/LoginPage";
-import BooksPage from "../pages/BooksPage";
-import BookDetailPage from "../pages/BookDetailPage";
-import CartPage from "../pages/CartPage";
-import OrderPage from "../pages/OrderPage";
-import OrderListPage from "../pages/OrderList";
+import Error from "@/components/common/Error";
+import HomePage from "@/pages/HomePage";
+import Layout from "@/components/layout/Layout";
+import JoinPage from "@/pages/JoinPage";
+import ResetPasswordPage from "@/pages/ResetPasswordPage";
+import LoginPage from "@/pages/LoginPage";
+import BooksPage from "@/pages/BooksPage";
+import BookDetailPage from "@/pages/BookDetailPage";
+import CartPage from "@/pages/CartPage";
+import OrderPage from "@/pages/OrderPage";
+import OrderListPage from "@/pages/OrderList";
 
-export const router = createBrowserRouter([
+const preRouterList = [
   {
     path: "/",
-    element: (
-      <Layout>
-        <HomePage />
-      </Layout>
-    ),
+    element: <HomePage />,
+  },
+  {
+    path: "/join",
+    element: <JoinPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/reset",
+    element: <ResetPasswordPage />,
+  },
+  {
+    path: "/books",
+    element: <BooksPage />,
+  },
+  {
+    path: "/books/:bookId",
+    element: <BookDetailPage />,
+  },
+  {
+    path: "/carts",
+    element: <CartPage />,
+  },
+  {
+    path: "/orders",
+    element: <OrderPage />,
+  },
+  {
+    path: "/orderlist",
+    element: <OrderListPage />,
+  },
+];
+
+const routerList = preRouterList.map((item) => {
+  return {
+    ...item,
+    element: <Layout>{item.element}</Layout>,
     errorElement: (
       <Layout>
         <Error />
       </Layout>
     ),
-  },
-  {
-    path: "/join",
-    element: (
-      <Layout>
-        <JoinPage />
-      </Layout>
-    ),
-  },
-  {
-    path: "/login",
-    element: (
-      <Layout>
-        <LoginPage />
-      </Layout>
-    ),
-  },
-  {
-    path: "/reset",
-    element: (
-      <Layout>
-        <ResetPasswordPage />
-      </Layout>
-    ),
-  },
-  {
-    path: "/books",
-    element: (
-      <Layout>
-        <BooksPage />
-      </Layout>
-    ),
-  },
-  {
-    path: "/books/:bookId",
-    element: (
-      <Layout>
-        <BookDetailPage />
-      </Layout>
-    ),
-  },
-  {
-    path: "/carts",
-    element: (
-      <Layout>
-        <CartPage />
-      </Layout>
-    ),
-  },
-  {
-    path: "/orders",
-    element: (
-      <Layout>
-        <OrderPage />
-      </Layout>
-    ),
-  },
-  {
-    path: "/orderlist",
-    element: (
-      <Layout>
-        <OrderListPage />
-      </Layout>
-    ),
-  },
-]);
+  };
+});
+
+export const router = createBrowserRouter(routerList);
