@@ -1,16 +1,33 @@
-import Title from "../components/common/Title";
+import Title from "@/components/common/Title";
 import styled from "styled-components";
-import BooksFilter from "../components/books/BooksFilter";
-import BooksList from "../components/books/BooksList";
-import Page from "../components/books/Page";
-import BooksViewSwitcher from "../components/books/BooksViewSwitcher";
-import { useBooks } from "../hooks/useBooks";
-import Empty from "../components/common/Empty";
+import BooksFilter from "@/components/books/BooksFilter";
+import BooksList from "@/components/books/BooksList";
+import Page from "@/components/books/Page";
+import BooksViewSwitcher from "@/components/books/BooksViewSwitcher";
+import { useBooks } from "@/hooks/useBooks";
+import Empty from "@/components/common/Empty";
 import { FaRegGrinBeamSweat } from "@react-icons/all-files/fa/FaRegGrinBeamSweat";
 import { HiCursorClick } from "@react-icons/all-files/hi/HiCursorClick";
+import Loading from "@/components/common/Loading";
 
 const BooksPage = () => {
-  const { books, pagination, isEmpty, message } = useBooks();
+  const { books, pagination, isEmpty, message, isBooksLoading } = useBooks();
+
+  // if (isEmpty) {
+  //   return (
+  //     <Empty
+  //       icon={<FaRegGrinBeamSweat />}
+  //       linkIcon={<HiCursorClick />}
+  //       title={message as string}
+  //       link="/"
+  //       linkMsg="메인 화면으로 가기"
+  //     />
+  //   );
+  // }
+
+  if (isBooksLoading || !books || !pagination) {
+    return <Loading />;
+  }
 
   return (
     <BooksStyle>
@@ -20,7 +37,7 @@ const BooksPage = () => {
         <BooksFilter />
         <BooksViewSwitcher />
       </div>
-      {isEmpty ? (
+      {isEmpty && (
         <Empty
           icon={<FaRegGrinBeamSweat />}
           linkIcon={<HiCursorClick />}
@@ -28,7 +45,8 @@ const BooksPage = () => {
           link="/"
           linkMsg="메인 화면으로 가기"
         />
-      ) : (
+      )}
+      {!isEmpty && (
         <>
           <BooksList books={books} />
           <Page pagination={pagination} />
