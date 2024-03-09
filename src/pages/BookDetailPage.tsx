@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useBookDetail } from "@/hooks/useBookDetail";
 import { getImgSrc } from "@/utils/image";
@@ -9,6 +9,10 @@ import { Link } from "react-router-dom";
 import EllipsisBox from "@/components/common/EllipsisBox";
 import LikeButton from "@/components/book/LikeButton";
 import AddToCart from "@/components/book/AddToCart";
+import { useAlert } from "@/hooks/useAlert";
+import { useAuthStore } from "@/store/authStore";
+import Error from "@/components/common/Error";
+import Loading from "@/components/common/Loading";
 
 const bookInfoList = [
   {
@@ -31,13 +35,23 @@ const bookInfoList = [
 
 const BookDetailPage = () => {
   const { bookId } = useParams();
-  const { bookDetail, toggleLike } = useBookDetail(bookId);
+  const { isLoggedIn } = useAuthStore();
+  const { showConfirm } = useAlert();
+  const navigate = useNavigate();
+  const { bookDetail, toggleLike, isBookDetailLoading } = useBookDetail(bookId);
+
+  if (!bookId) return <Error />;
+  if (isBookDetailLoading) return <Loading />;
+  if (!bookDetail) return <Error />;
 
   const handleClickLike = () => {
-    toggleLike();
-  };
+    if (!isLoggedIn) {
+      showConfirm("로그인이 필요합니다. 로그인 후 이용해주세요.", () => navigate("/login"));
+      return;
+    }
 
-  if (!bookDetail) return null;
+    toggleLike(+bookId);
+  };
 
   return (
     <BookDetailPageStyle>

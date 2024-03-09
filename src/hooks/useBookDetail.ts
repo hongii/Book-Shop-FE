@@ -1,66 +1,45 @@
-import { useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { FetchToggleBookLike, fetchDetailBooks, toggleLikeBook } from "../api/books.api";
-import { BookDetail } from "../models/book.model";
-import { useAuthStore } from "../store/authStore";
-import { requestAddToCart } from "../api/carts.api";
-import { useAlert } from "./useAlert";
+import { useState } from "react";
+import { fetchDetailBooks, toggleLikeBook } from "@/api/books.api";
+import { addToCartParams, requestAddToCart } from "@/api/carts.api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryKey } from "@/constants/queryKey";
 
 export const useBookDetail = (bookId: string | undefined) => {
-  const [bookDetail, setBookDetail] = useState<BookDetail | null>(null);
   const [isAddToCart, setIsAddToCart] = useState<boolean>(false);
-  const { isLoggedIn } = useAuthStore();
-  const navigate = useNavigate();
-  const { showConfirm } = useAlert();
 
-  const addToCart = async (quantity: number) => {
-    if (!isLoggedIn) {
-      showConfirm("로그인이 필요합니다. 로그인 후 이용해주세요.", () => navigate("/login"));
-      return;
-    }
+  const { data: bookDetail, isLoading: isBookDetailLoading } = useQuery({
+    queryKey: [queryKey.bookDetail, bookId],
+    queryFn: () => (bookId && Number(bookId) ? fetchDetailBooks(bookId) : Promise.resolve(null)),
+  });
 
-    if (!bookDetail) return;
+  const { mutate: addToCart } = useMutation({
+    mutationFn: ({ bookId, quantity }: addToCartParams) => requestAddToCart({ bookId, quantity }),
+    onSuccess: () => {
+      setIsAddToCart(true);
+      setTimeout(() => {
+        setIsAddToCart(false);
+      }, 3000);
+    },
+  });
 
-    await requestAddToCart({ bookId: bookDetail.id, quantity });
-    setIsAddToCart(true);
-    setTimeout(() => {
-      setIsAddToCart(false);
-    }, 3000);
-  };
+  const queryClient = useQueryClient();
 
-  const toggleLike = () => {
-    // 로그인하지 않은 사용자의 좋아요 버튼 클릭 시, 서버로 요청 보내지 않고 프론트에서 선처리
-    if (!isLoggedIn) {
-      showConfirm("로그인이 필요합니다. 로그인 후 이용해주세요.", () => navigate("/login"));
-      return;
-    }
-
-    if (!bookDetail) return;
-
-    toggleLikeBook(bookDetail.id).then((res: FetchToggleBookLike) => {
-      const { likes, message } = res;
-      if (message === "liked") {
-        setBookDetail({
+  const { mutate: toggleLike } = useMutation({
+    mutationFn: async (bookId: number) => {
+      const { likes, message } = await toggleLikeBook(bookId);
+      return { likes, message };
+    },
+    onSuccess: ({ likes, message }) => {
+      if (bookDetail) {
+        const updatedBookDetail = {
           ...bookDetail,
           likes: likes,
-          isLiked: true,
-        });
-      } else {
-        setBookDetail({
-          ...bookDetail,
-          likes: likes,
-          isLiked: false,
-        });
+          isLiked: message === "liked",
+        };
+        queryClient.setQueryData([queryKey.bookDetail, bookId], updatedBookDetail);
       }
-    });
-  };
+    },
+  });
 
-  useEffect(() => {
-    if (!bookId) return;
-
-    fetchDetailBooks(bookId).then((res: BookDetail) => {
-      setBookDetail(res);
-    });
-  }, [bookId]);
-  return { bookDetail, toggleLike, addToCart, isAddToCart };
+  return { bookDetail, isBookDetailLoading, toggleLike, addToCart, isAddToCart };
 };

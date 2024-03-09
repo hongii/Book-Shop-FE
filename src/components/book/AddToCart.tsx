@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import InputText from "../common/InputText";
-import Button from "../common/Button";
+import InputText from "@/components/common/InputText";
+import Button from "@/components/common/Button";
 import { useState } from "react";
-import { BookDetail } from "../../models/book.model";
-import { Link } from "react-router-dom";
-import { useBookDetail } from "../../hooks/useBookDetail";
+import { BookDetail } from "@/models/book.model";
+import { Link, useNavigate } from "react-router-dom";
+import { useBookDetail } from "@/hooks/useBookDetail";
+import { useAlert } from "@/hooks/useAlert";
+import { useAuthStore } from "@/store/authStore";
 
 interface Props {
   book: BookDetail;
@@ -13,9 +15,21 @@ interface Props {
 const AddToCart = ({ book }: Props) => {
   const [quantity, setQuantity] = useState<number>(1);
   const { addToCart, isAddToCart } = useBookDetail(book.id.toString());
+  const { isLoggedIn } = useAuthStore();
+  const { showConfirm } = useAlert();
+  const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuantity(Number(e.target.value));
+  };
+
+  const handleAddToCart = () => {
+    if (!isLoggedIn) {
+      showConfirm("로그인이 필요합니다. 로그인 후 이용해주세요.", () => navigate("/login"));
+      return;
+    }
+
+    addToCart({ bookId: book.id, quantity });
   };
 
   const handleIncrease = () => {
@@ -37,13 +51,7 @@ const AddToCart = ({ book }: Props) => {
           -
         </Button>
       </div>
-      <Button
-        size="medium"
-        scheme="primary"
-        onClick={() => {
-          addToCart(quantity);
-        }}
-      >
+      <Button size="medium" scheme="primary" onClick={handleAddToCart}>
         장바구니에 담기
       </Button>
       <div className="add-message">
