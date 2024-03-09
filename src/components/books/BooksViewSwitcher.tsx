@@ -57,7 +57,7 @@ const BooksViewSwitcherStyle = styled.div`
   gap: 4px;
 
   button {
-    padding: 8px;
+    padding: 0.5rem;
   }
 `;
 

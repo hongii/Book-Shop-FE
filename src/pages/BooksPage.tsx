@@ -13,18 +13,6 @@ import Loading from "@/components/common/Loading";
 const BooksPage = () => {
   const { books, pagination, isEmpty, message, isBooksLoading } = useBooks();
 
-  // if (isEmpty) {
-  //   return (
-  //     <Empty
-  //       icon={<FaRegGrinBeamSweat />}
-  //       linkIcon={<HiCursorClick />}
-  //       title={message as string}
-  //       link="/"
-  //       linkMsg="메인 화면으로 가기"
-  //     />
-  //   );
-  // }
-
   if (isBooksLoading || !books || !pagination) {
     return <Loading />;
   }
