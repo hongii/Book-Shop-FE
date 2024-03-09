@@ -2,6 +2,7 @@ import { useLocation } from "react-router-dom";
 import { fetchBooks } from "@/api/books.api";
 import { LIMIT, QUERYSTRING } from "@/constants/querystring";
 import { useQuery } from "@tanstack/react-query";
+import { queryKey } from "@/constants/queryKey";
 
 export const useBooks = () => {
   const location = useLocation();
@@ -16,7 +17,7 @@ export const useBooks = () => {
   };
 
   const { data: booksData, isLoading: isBooksLoading } = useQuery({
-    queryKey: ["books", location.search],
+    queryKey: [queryKey.books, params],
     queryFn: () => fetchBooks(params),
   });
 
