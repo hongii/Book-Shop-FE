@@ -62,7 +62,9 @@ const OrderPage = () => {
               주문 상품
             </Title>
             <strong>
-              {mainBookTitle} 외 총 {totalQuantity}권
+              {orderDataFromCart.items.length > 0
+                ? `${mainBookTitle} 외 총 ${totalQuantity}권`
+                : `${mainBookTitle} 총 ${totalQuantity}권`}
             </strong>
           </div>
           <section className="order-info">

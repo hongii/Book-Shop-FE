@@ -3,4 +3,5 @@ export const queryKey = {
   categories: "categories",
   carts: "carts",
   bookDetail: "bookDetail",
+  orderList: "orderList",
 };
