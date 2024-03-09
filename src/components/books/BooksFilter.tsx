@@ -1,12 +1,17 @@
 import styled from "styled-components";
-import { useCategory } from "../../hooks/useCategory";
-import Button from "../common/Button";
+import { useCategory } from "@/hooks/useCategory";
+import Button from "@/components/common/Button";
 import { useSearchParams } from "react-router-dom";
-import { QUERYSTRING } from "../../constants/querystring";
+import { QUERYSTRING } from "@/constants/querystring";
+import Loading from "@/components/common/Loading";
 
 const BooksFilter = () => {
-  const { category } = useCategory();
+  const { categories, isCategoriesLoading } = useCategory();
   const [searchParams, setSearchParams] = useSearchParams();
+
+  if (isCategoriesLoading || !categories) {
+    return <Loading />;
+  }
 
   const resetClickedPage = (newSearchParams: URLSearchParams) => {
     newSearchParams.set(QUERYSTRING.PAGE, "1");
@@ -35,7 +40,7 @@ const BooksFilter = () => {
   return (
     <BooksFilterStyle>
       <div className="category">
-        {category.map((item) => (
+        {categories.map((item) => (
           <Button
             size="medium"
             scheme={item.isActive ? "primary" : "normal"}

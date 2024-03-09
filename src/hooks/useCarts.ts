@@ -1,27 +1,25 @@
-import { useEffect, useState } from "react";
-import { fetchAllCart, requestDeletedCartItem } from "../api/carts.api";
-import { Cart } from "../models/cart.model";
+import { fetchAllCart, requestDeletedCartItem } from "@/api/carts.api";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryKey } from "@/constants/queryKey";
 
 export const useCarts = () => {
-  const [carts, setCarts] = useState<Cart[]>([]);
-  const [isEmpty, setIsEmpty] = useState<boolean>(true);
-  const [message, setMessage] = useState<string | null>("");
+  const { data: carts, isLoading: isCartsLoading } = useQuery({
+    queryKey: [queryKey.carts],
+    queryFn: fetchAllCart,
+  });
 
-  const deletedCartItem = async (cartId: number) => {
-    await requestDeletedCartItem(cartId);
-    setCarts((prev) => prev.filter((item) => item.cartItemId !== cartId));
-    setIsEmpty(carts.length === 0);
+  const queryClient = useQueryClient();
+
+  const { mutate: deletedCartItem } = useMutation({
+    mutationFn: (cartId: number) => requestDeletedCartItem(cartId),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: [queryKey.carts] }),
+  });
+
+  return {
+    carts: carts?.items,
+    isEmpty: carts?.items.length === 0,
+    message: carts?.message,
+    isCartsLoading,
+    deletedCartItem,
   };
-
-  useEffect(() => {
-    const fetchCartData = async () => {
-      const { items, message } = await fetchAllCart();
-      setCarts(items);
-      setIsEmpty(items.length === 0);
-      setMessage(message);
-    };
-    fetchCartData();
-  }, []);
-
-  return { carts, isEmpty, message, deletedCartItem };
 };

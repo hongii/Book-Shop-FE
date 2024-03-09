@@ -1,9 +1,13 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useCategory } from "../../hooks/useCategory";
+import { useCategory } from "@/hooks/useCategory";
 
 const ListModal = () => {
-  const { category } = useCategory();
+  const { categories, isCategoriesLoading } = useCategory();
+
+  if (isCategoriesLoading || !categories) {
+    return null;
+  }
 
   return (
     <ListModalStyle>
@@ -11,7 +15,7 @@ const ListModal = () => {
         <div className="rhombus"></div>
         <ul>
           <h2>도서 카테고리</h2>
-          {category.map((item) => {
+          {categories.map((item) => {
             return (
               <li key={item.categoryId}>
                 <Link
@@ -55,7 +59,6 @@ const ListModalStyle = styled.div`
     gap: 0.5rem;
     height: 100%;
     width: 100%;
-    /* border-radius: ${({ theme }) => theme.borderRadius.default}; */
   }
 
   .rhombus::before {

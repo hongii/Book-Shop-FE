@@ -19,6 +19,7 @@ export const useBooks = () => {
   const { data: booksData, isLoading: isBooksLoading } = useQuery({
     queryKey: [queryKey.books, params],
     queryFn: () => fetchBooks(params),
+    staleTime: 1000 * 60 * 60,
   });
 
   return {
