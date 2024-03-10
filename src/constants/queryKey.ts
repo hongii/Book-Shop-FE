@@ -3,5 +3,6 @@ export const queryKey = {
   categories: "categories",
   carts: "carts",
   bookDetail: "bookDetail",
+  bookReview: "bookReview",
   orderList: "orderList",
 };

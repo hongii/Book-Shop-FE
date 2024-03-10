@@ -3,6 +3,7 @@ import { fetchDetailBooks, toggleLikeBook } from "@/api/books.api";
 import { addToCartParams, requestAddToCart } from "@/api/carts.api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKey } from "@/constants/queryKey";
+import { fetchBookReview } from "@/api/review.api";
 
 export const useBookDetail = (bookId: string | undefined) => {
   const [isAddToCart, setIsAddToCart] = useState<boolean>(false);
@@ -10,6 +11,11 @@ export const useBookDetail = (bookId: string | undefined) => {
   const { data: bookDetail, isLoading: isBookDetailLoading } = useQuery({
     queryKey: [queryKey.bookDetail, bookId],
     queryFn: () => (bookId && Number(bookId) ? fetchDetailBooks(bookId) : Promise.resolve(null)),
+  });
+
+  const { data: bookReview, isLoading: isBookReviewLoading } = useQuery({
+    queryKey: [queryKey.bookReview, bookId],
+    queryFn: () => (bookId ? fetchBookReview(bookId) : Promise.resolve(null)),
   });
 
   const { mutate: addToCart } = useMutation({
@@ -41,5 +47,13 @@ export const useBookDetail = (bookId: string | undefined) => {
     },
   });
 
-  return { bookDetail, isBookDetailLoading, toggleLike, addToCart, isAddToCart };
+  return {
+    bookDetail,
+    isBookDetailLoading,
+    toggleLike,
+    addToCart,
+    isAddToCart,
+    bookReview,
+    isBookReviewLoading,
+  };
 };

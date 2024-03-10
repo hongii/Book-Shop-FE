@@ -38,7 +38,8 @@ const BookDetailPage = () => {
   const { isLoggedIn } = useAuthStore();
   const { showConfirm } = useAlert();
   const navigate = useNavigate();
-  const { bookDetail, toggleLike, isBookDetailLoading } = useBookDetail(bookId);
+  const { bookDetail, toggleLike, isBookDetailLoading, bookReview, isBookReviewLoading } =
+    useBookDetail(bookId);
 
   if (!bookId) return <Error />;
   if (isBookDetailLoading) return <Loading />;

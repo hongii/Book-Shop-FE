@@ -55,6 +55,13 @@
   },
   "devDependencies": {
     "@craco/craco": "^7.1.0",
+    "@faker-js/faker": "^8.4.1",
+    "msw": "^2.2.3",
     "react-app-alias": "^2.2.2"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
