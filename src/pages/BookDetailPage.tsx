@@ -13,6 +13,7 @@ import { useAlert } from "@/hooks/useAlert";
 import { useAuthStore } from "@/store/authStore";
 import Error from "@/components/common/Error";
 import Loading from "@/components/common/Loading";
+import BookReview from "@/components/book/BookReview";
 
 const bookInfoList = [
   {
@@ -42,8 +43,8 @@ const BookDetailPage = () => {
     useBookDetail(bookId);
 
   if (!bookId) return <Error />;
-  if (isBookDetailLoading) return <Loading />;
-  if (!bookDetail) return <Error />;
+  if (isBookDetailLoading || isBookReviewLoading) return <Loading />;
+  if (!bookDetail || !bookReview) return <Error />;
 
   const handleClickLike = () => {
     if (!isLoggedIn) {
@@ -80,10 +81,18 @@ const BookDetailPage = () => {
         </div>
       </header>
       <section className="contents">
-        <Title size="medium">상세 설명</Title>
-        <EllipsisBox line={7}>{bookDetail.detail}</EllipsisBox>
-        <Title size="medium">목차</Title>
-        <p className="index">{bookDetail.contents}</p>
+        <div>
+          <Title size="medium">상세 설명</Title>
+          <EllipsisBox line={7}>{bookDetail.detail}</EllipsisBox>
+        </div>
+        <div>
+          <Title size="medium">목차</Title>
+          <p className="index">{bookDetail.contents}</p>
+        </div>
+        <div>
+          <Title size="medium">{`리뷰(${bookReview.length})`}</Title>
+          <BookReview reviews={bookReview} />
+        </div>
       </section>
     </BookDetailPageStyle>
   );
@@ -144,6 +153,12 @@ const BookDetailPageStyle = styled.section`
   p {
     font-size: 1.3rem;
     margin: 1.2rem 0;
+  }
+
+  .contents {
+    display: flex;
+    flex-direction: column;
+    gap: 1.7rem;
   }
 `;
 
