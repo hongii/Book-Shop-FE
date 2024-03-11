@@ -19,7 +19,7 @@ const ReviewButton = ({ isClicked, handleClick }: ReviewButtonProps) => {
   return (
     <div className="review-btn">
       <Button size="medium" scheme="primary" onClick={handleClick}>
-        {isClicked ? "취소" : "리뷰 쓰기"}
+        {isClicked ? "취소" : "리뷰 작성"}
       </Button>
     </div>
   );
