@@ -18,12 +18,15 @@ const Tabs = ({ children, active = 0 }: TabsProps) => {
   const [activeIndex, setActiveIndex] = useState(active);
   const tabs = React.Children.toArray(children) as React.ReactElement<TabProps>[];
 
-  console.log(tabs);
   return (
     <TabsStyle>
       <div className="tab-header">
         {tabs.map((tab, i) => (
-          <button className={activeIndex === i ? "active" : ""} onClick={() => setActiveIndex(i)}>
+          <button
+            key={tab.props.title}
+            className={activeIndex === i ? "active" : ""}
+            onClick={() => setActiveIndex(i)}
+          >
             {tab.props.title}
           </button>
         ))}
