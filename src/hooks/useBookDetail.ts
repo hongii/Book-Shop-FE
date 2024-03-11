@@ -1,12 +1,16 @@
+import { addBookReviewRequest } from "@/api/review.api";
 import { useState } from "react";
 import { fetchDetailBooks, toggleLikeBook } from "@/api/books.api";
 import { addToCartParams, requestAddToCart } from "@/api/carts.api";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { queryKey } from "@/constants/queryKey";
-import { fetchBookReview } from "@/api/review.api";
+import { addBookReview, fetchBookReview } from "@/api/review.api";
+import { useAlert } from "@/hooks/useAlert";
+import { BookReviewItem } from "@/models/book.model";
 
 export const useBookDetail = (bookId: string | undefined) => {
   const [isAddToCart, setIsAddToCart] = useState<boolean>(false);
+  const { showAlert } = useAlert();
 
   const { data: bookDetail, isLoading: isBookDetailLoading } = useQuery({
     queryKey: [queryKey.bookDetail, bookId],
@@ -29,7 +33,6 @@ export const useBookDetail = (bookId: string | undefined) => {
   });
 
   const queryClient = useQueryClient();
-
   const { mutate: toggleLike } = useMutation({
     mutationFn: async (bookId: number) => {
       const { likes, message } = await toggleLikeBook(bookId);
@@ -47,6 +50,23 @@ export const useBookDetail = (bookId: string | undefined) => {
     },
   });
 
+  const { mutate: addReview } = useMutation({
+    mutationFn: ({ bookId, reviewData }: addBookReviewRequest) => addBookReview(bookId, reviewData),
+    onSuccess: ({ message, reviewData }) => {
+      const previousData: BookReviewItem[] | undefined = queryClient.getQueryData([
+        queryKey.bookReview,
+        bookId,
+      ]);
+
+      console.log(previousData);
+      if (previousData) {
+        const newData = [...previousData, reviewData];
+        queryClient.setQueryData([queryKey.bookReview, bookId], newData);
+      }
+      showAlert(message);
+    },
+  });
+
   return {
     bookDetail,
     isBookDetailLoading,
@@ -55,5 +75,6 @@ export const useBookDetail = (bookId: string | undefined) => {
     isAddToCart,
     bookReview,
     isBookReviewLoading,
+    addReview,
   };
 };

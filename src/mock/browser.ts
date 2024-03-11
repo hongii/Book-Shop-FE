@@ -1,7 +1,7 @@
 import { setupWorker } from "msw/browser";
-import { reviewsById } from "./review";
+import { addReview, reviewsById } from "./review";
 
-const handlers = [reviewsById];
+const handlers = [reviewsById, addReview];
 
 // 서비스 워커 생성
 export const worker = setupWorker(...handlers);

@@ -91,7 +91,7 @@ const BookDetailPage = () => {
         </div>
         <div>
           <Title size="medium">{`리뷰(${bookReview.length})`}</Title>
-          <BookReview reviews={bookReview} />
+          <BookReview reviews={bookReview} bookId={bookId} />
         </div>
       </section>
     </BookDetailPageStyle>

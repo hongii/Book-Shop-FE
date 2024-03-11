@@ -4,12 +4,12 @@ import { LoginProps } from "@/pages/LoginPage";
 import { useAuthStore } from "@/store/authStore";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAlert } from "./useAlert";
+import { useAlert } from "@/hooks/useAlert";
 import { ResetProps } from "@/pages/ResetPasswordPage";
 
 export const useAuth = () => {
   // 상태
-  const { isLoggedIn, storeLogin, storeLogout } = useAuthStore();
+  const { storeLogin } = useAuthStore();
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [resetRequested, setResetRequested] = useState(false);
   const { showAlert } = useAlert();
@@ -31,7 +31,7 @@ export const useAuth = () => {
   const userLogin = async (data: LoginProps) => {
     try {
       const { id, email, name, contact, accessToken } = await login(data);
-      storeLogin(accessToken);
+      storeLogin(accessToken, name);
       setErrorMsg(null);
       navigate("/");
     } catch (err: any) {
