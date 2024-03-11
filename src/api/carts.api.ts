@@ -1,7 +1,7 @@
-import { Cart } from "../models/cart.model";
-import { httpClient } from "./http";
+import { Cart } from "@/models/cart.model";
+import { httpClient } from "@/api/http";
 
-interface addToCartParams {
+export interface addToCartParams {
   bookId: number;
   quantity: number;
 }

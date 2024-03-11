@@ -1,20 +1,20 @@
 import styled from "styled-components";
-import Title from "../components/common/Title";
-import InputText from "../components/common/InputText";
-import Button from "../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
+import Title from "@/components/common/Title";
+import InputText from "@/components/common/InputText";
+import Button from "@/components/common/Button";
+import { Link } from "react-router-dom";
 import { FaWhmcs } from "@react-icons/all-files/fa/FaWhmcs";
 import { FaSignInAlt } from "@react-icons/all-files/fa/FaSignInAlt";
 import { useForm } from "react-hook-form";
-import { join } from "../api/auth.api";
-import { useState } from "react";
-import { useAlert } from "../hooks/useAlert";
+import { useAuth } from "@/hooks/useAuth";
 import {
   emailOptions,
   passwordOptions,
   contactOptions,
   nameOptions,
-} from "../config/registerOptions";
+} from "@/config/registerOptions";
+import { useState } from "react";
+
 export interface JoinProps {
   email: string;
   password: string;
@@ -23,32 +23,23 @@ export interface JoinProps {
 }
 
 const JoinPage = () => {
+  const { userJoin, errorMsg } = useAuth();
+  const [lastEmail, setLastEmail] = useState<string>("");
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<JoinProps>();
 
-  const [emailCheck, setEmailCheck] = useState("");
-  const navigate = useNavigate();
-  const { showAlert } = useAlert();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value !== emailCheck) {
-      setEmailCheck("");
+  const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.value !== lastEmail) {
+      setLastEmail("");
     }
   };
 
   const onSubmit = async (data: JoinProps) => {
-    try {
-      const { message } = await join(data);
-      setEmailCheck("");
-      showAlert(message);
-      navigate("/login");
-    } catch (err: any) {
-      const { message: errMsg } = err.response.data;
-      setEmailCheck(errMsg);
-    }
+    await userJoin(data);
+    setLastEmail(data.email);
   };
 
   return (
@@ -69,14 +60,11 @@ const JoinPage = () => {
             <InputText
               placeholder="가입할 이메일을 입력해주세요."
               type="text"
-              $isError={errors.email || (!errors.email && emailCheck) ? true : false}
-              {...register("email", {
-                ...emailOptions,
-                onChange: handleChange,
-              })}
+              $isError={errors.email || (!errors.email && lastEmail) ? true : false}
+              {...register("email", { ...emailOptions, onChange: handleOnChange })}
             />
             {errors.email && <small className="error-text">{errors.email.message}</small>}
-            {!errors.email && emailCheck && <small className="error-text">{emailCheck}</small>}
+            {!errors.email && lastEmail && <small className="error-text">{errorMsg}</small>}
           </fieldset>
           <fieldset>
             <InputText

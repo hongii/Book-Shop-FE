@@ -1,22 +1,41 @@
 import styled from "styled-components";
-import Title from "../components/common/Title";
-import { useCarts } from "../hooks/useCarts";
-import { useMemo, useState } from "react";
-import Empty from "../components/common/Empty";
+import Title from "@/components/common/Title";
+import { useCarts } from "@/hooks/useCarts";
+import { useState } from "react";
+import Empty from "@/components/common/Empty";
 import { IoCartOutline } from "@react-icons/all-files/io5/IoCartOutline";
 import { FaBook } from "@react-icons/all-files/fa/FaBook";
-import CartSummary from "../components/carts/CartSummary";
-import Button from "../components/common/Button";
-import { useAlert } from "../hooks/useAlert";
-import { CartItem, Order } from "../models/order.model";
-import CartItemComponent from "../components/carts/CartItem";
+import CartSummary from "@/components/carts/CartSummary";
+import Button from "@/components/common/Button";
+import { useAlert } from "@/hooks/useAlert";
+import { CartItem, Order } from "@/models/order.model";
+import CartItemComponent from "@/components/carts/CartItem";
 import { useNavigate } from "react-router-dom";
+import Loading from "@/components/common/Loading";
 
 const CartPage = () => {
-  const { carts, isEmpty, message, deletedCartItem } = useCarts();
+  const { carts, isEmpty, message, isCartsLoading, deletedCartItem } = useCarts();
   const [selectedItems, setSelectedItems] = useState<number[]>([]);
   const { showAlert } = useAlert();
   const navigate = useNavigate();
+
+  if (isCartsLoading || !carts) {
+    return <Loading />;
+  }
+
+  const totalQuantity = carts?.reduce((acc, item) => {
+    if (selectedItems.includes(item.cartItemId)) {
+      return acc + item.quantity;
+    }
+    return acc;
+  }, 0);
+
+  const totalPrice = carts?.reduce((acc, item) => {
+    if (selectedItems.includes(item.cartItemId)) {
+      return acc + item.price * item.quantity;
+    }
+    return acc;
+  }, 0);
 
   const handleSelected = (id: number) => {
     if (selectedItems.includes(id)) {
@@ -28,8 +47,8 @@ const CartPage = () => {
     }
   };
 
-  const handleDeleted = async (id: number) => {
-    await deletedCartItem(id);
+  const handleDeleted = (id: number) => {
+    deletedCartItem(id);
   };
 
   const handleOrder = () => {
@@ -40,14 +59,14 @@ const CartPage = () => {
 
     // 주문서 작성 페이지로 이동하기 전에 주문서 작성할 때 필요한 데이터를 넘겨줌(배송지 정보는 제외)
     const orderItems: CartItem[] = carts
-      .filter((item) => selectedItems.includes(item.cartItemId))
+      ?.filter((item) => selectedItems.includes(item.cartItemId))
       .map((item) => ({
         cartItemId: item.cartItemId,
         bookId: item.bookId,
         quantity: item.quantity,
       }));
 
-    const mainBookTitle = carts.find(({ cartItemId }) => cartItemId === selectedItems[0])
+    const mainBookTitle = carts?.find(({ cartItemId }) => cartItemId === selectedItems[0])
       ?.title as string;
 
     const orderData: Omit<Order, "delivery"> = {
@@ -59,24 +78,6 @@ const CartPage = () => {
 
     navigate("/orders", { state: orderData });
   };
-
-  const totalQuantity = useMemo(() => {
-    return carts.reduce((acc, item) => {
-      if (selectedItems.includes(item.cartItemId)) {
-        return acc + item.quantity;
-      }
-      return acc;
-    }, 0);
-  }, [selectedItems, carts]);
-
-  const totalPrice = useMemo(() => {
-    return carts.reduce((acc, item) => {
-      if (selectedItems.includes(item.cartItemId)) {
-        return acc + item.price * item.quantity;
-      }
-      return acc;
-    }, 0);
-  }, [selectedItems, carts]);
 
   return (
     <CartPageStyle>

@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import styled from "styled-components";
-import Button from "./Button";
+import Button from "@/components/common/Button";
 import { FaAngleDown } from "@react-icons/all-files/fa/FaAngleDown";
 
 interface Props {
@@ -21,7 +21,7 @@ const EllipsisBox = ({ children, line }: Props) => {
 
       // 컴포넌트가 마운트될 때 실제 텍스트의 줄 수를 계산
       const textHeight = textRef.current?.clientHeight ?? 1; // 상세 설명이 차지하는 요소의 높이
-      console.log(textHeight, Math.round(textHeight / (fontSize * 1.5)));
+      // console.log(textHeight, Math.round(textHeight / (fontSize * 1.5)));
       return Math.round(textHeight / (fontSize * 1.5));
     }
     return 1;

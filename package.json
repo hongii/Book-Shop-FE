@@ -4,6 +4,8 @@
   "private": true,
   "dependencies": {
     "@react-icons/all-files": "^4.1.0",
+    "@tanstack/react-query": "^5.25.0",
+    "@tanstack/react-query-devtools": "^5.25.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -27,9 +29,9 @@
     "zustand": "^4.5.1"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
+    "start": "craco start",
+    "build": "craco build",
+    "test": "craco test",
     "eject": "react-scripts eject",
     "typecheck": "tsc --noEmit --skipLibCheck"
   },
@@ -49,6 +51,17 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@craco/craco": "^7.1.0",
+    "@faker-js/faker": "^8.4.1",
+    "msw": "^2.2.3",
+    "react-app-alias": "^2.2.2"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
     ]
   }
 }

@@ -18,17 +18,17 @@ const BookItem = ({ book, view }: Props) => {
         <div className="book-img">
           <img src={getImgSrc(Number(book.imgUrl))} alt={book.title} />
         </div>
-        <div className="contents">
-          <h2 className="title">{book.title}</h2>
-          <p className="summary"> {book.summary}</p>
-          <p className="author"> {book.author}</p>
-          <p className="price"> {formatNumber(book.price)}원</p>
-          <button className="likes">
-            <GoHeart />
-            <span>{book.likes}</span>
-          </button>
-        </div>
       </Link>
+      <div className="contents">
+        <h2 className="title">{book.title}</h2>
+        <p className="summary"> {book.summary}</p>
+        <p className="author"> {book.author}</p>
+        <p className="price"> {formatNumber(book.price)}원</p>
+        <button className="likes">
+          <GoHeart />
+          <span>{book.likes}</span>
+        </button>
+      </div>
     </BookItemStyle>
   );
 };
@@ -37,12 +37,12 @@ const BookItemStyle = styled.section<Pick<Props, "view">>`
   display: flex;
   flex-direction: ${({ view }) => (view === "grid" ? "column" : "row")};
   box-shadow: ${({ theme }) => theme.borderShadow.itemShadow};
-  /* min-width: ${({ view }) => (view === "grid" ? "150px" : "")}; */
+  border-radius: ${({ theme }) => theme.borderRadius.default};
 
   .book-img {
     border-radius: ${({ theme }) => theme.borderRadius.default};
     overflow: hidden;
-    max-width: ${({ view }) => (view === "grid" ? "auto" : "200px")};
+    max-width: ${({ view }) => (view === "grid" ? "auto" : "180px")};
 
     img {
       max-width: 100%;

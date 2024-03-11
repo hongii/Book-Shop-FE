@@ -1,17 +1,19 @@
-import { Category } from "./../models/category.model";
-import { useCallback, useEffect, useState } from "react";
-import { fetchCategory } from "../api/category.api";
+import { Category } from "@/models/category.model";
+import { useCallback } from "react";
+import { fetchCategory } from "@/api/category.api";
 import { useLocation } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { queryKey } from "@/constants/queryKey";
 
 export const useCategory = () => {
   const location = useLocation();
-  const [category, setCategory] = useState<Category[]>([]);
+  const setActive = useCallback(
+    (fetchData: Category[]) => {
+      const allCategories = [{ categoryId: null, categoryName: "전체" }, ...fetchData];
+      const params = new URLSearchParams(location.search);
+      const id = params.get("category_id");
 
-  const setActive = useCallback(() => {
-    const params = new URLSearchParams(location.search);
-    const id = params.get("category_id");
-    setCategory((prev) => {
-      return prev.map((item) => {
+      return allCategories.map((item) => {
         if (id) {
           return {
             ...item,
@@ -24,22 +26,17 @@ export const useCategory = () => {
           };
         }
       });
-    });
-  }, [location.search]);
+    },
+    [location.search],
+  );
 
-  useEffect(() => {
-    fetchCategory().then((results) => {
-      if (!results) return;
+  const { data: fetchCategories, isLoading: isCategoriesLoading } = useQuery({
+    queryKey: [queryKey.categories],
+    queryFn: fetchCategory,
+    select: (data) => setActive(data?.categories),
+    staleTime: 1000 * 60 * 60 * 12,
+    gcTime: 1000 * 60 * 60 * 24,
+  });
 
-      const allCategories = [{ categoryId: null, categoryName: "전체" }, ...results.categories];
-      setCategory(allCategories);
-      setActive();
-    });
-  }, [setActive]);
-
-  useEffect(() => {
-    setActive();
-  }, [location.search, setActive]);
-
-  return { category };
+  return { categories: fetchCategories, isCategoriesLoading };
 };
