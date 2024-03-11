@@ -7,7 +7,9 @@ export type ColorKey =
   | "backgroundRGBA"
   | "border"
   | "text"
-  | "inputText";
+  | "inputText"
+  | "themeIconColor"
+  | "authIconColor";
 export type HeadingSize = "large" | "medium" | "small";
 export type ButtonSize = "large" | "medium" | "small";
 export type ButtonScheme = "primary" | "normal";
@@ -58,6 +60,8 @@ export const light: Theme = {
     border: "#e3e3e3",
     text: "#231F20",
     inputText: "#231F20",
+    themeIconColor: "#FA6607",
+    authIconColor: "#5b5b5b",
   },
   heading: {
     large: { fontSize: "2.5rem" },
@@ -71,7 +75,7 @@ export const light: Theme = {
   },
   buttonScheme: {
     primary: { color: "#231F20", backgroundColor: "#F4C6C6" },
-    normal: { color: "231F20", backgroundColor: "#e3e3e3" },
+    normal: { color: "#231F20", backgroundColor: "#e3e3e3" },
   },
   borderRadius: {
     default: "4px",
@@ -101,6 +105,8 @@ export const dark: Theme = {
     border: "#e0e0e0",
     text: "#ffffff",
     inputText: "#231F20",
+    themeIconColor: "#4799e2",
+    authIconColor: "#ececec",
   },
   buttonScheme: {
     primary: { color: "#231F20", backgroundColor: "#e3e3e3" },

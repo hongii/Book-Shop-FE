@@ -1,14 +1,14 @@
 import { useContext } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
+import { ThemeContext } from "@/context/ThemeContext";
 import styled from "styled-components";
-import { IoInvertMode } from "@react-icons/all-files/io5/IoInvertMode";
-
+import { IoMdMoon } from "@react-icons/all-files/io/IoMdMoon";
+import { IoSunny } from "@react-icons/all-files/io5/IoSunny";
 const ThemeSwitcher = () => {
   const { themeName, toggleTheme } = useContext(ThemeContext);
 
   return (
     <IconButton onClick={toggleTheme}>
-      <IoInvertMode size={28} />
+      {themeName === "light" ? <IoSunny /> : <IoMdMoon />}
       <span>&nbsp;{themeName}</span>
     </IconButton>
   );
@@ -19,14 +19,20 @@ const IconButton = styled.button`
   align-items: center;
   justify-content: center;
   padding: 0;
-  width: 70px;
-  /* height: 30px; */
   border: none;
   cursor: pointer;
+  width: 5rem;
   background-color: transparent; /* 배경색을 투명으로 설정 */
+
+  svg {
+    width: 2rem;
+    height: 2rem;
+    fill: ${({ theme }) => theme.color.themeIconColor};
+  }
 
   span {
     font-size: 1.1rem;
+    color: ${({ theme }) => theme.color.themeIconColor};
   }
 
   &:hover {
