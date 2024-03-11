@@ -43,17 +43,16 @@ const DropdownStyle = styled.div`
     svg,
     path,
     circle {
-      width: 2rem;
-      height: 2rem;
+      width: 2.4rem;
+      height: 2.4rem;
       fill: ${({ theme }) => theme.color.authIconColor};
     }
   }
 
   .panel {
     position: absolute;
-    top: 3.6rem;
+    top: 3.35rem;
     right: -1rem;
-    padding: 1rem;
     background-color: ${({ theme }) => theme.color.background};
     box-shadow: ${({ theme }) => theme.borderShadow.listShadow};
     border-radius: ${({ theme }) => theme.borderRadius.default};

@@ -39,25 +39,26 @@ const CategoryStyle = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0.5rem;
+    /* gap: 0.5rem; */
     white-space: nowrap;
 
     h2 {
-      padding: 0.3rem;
-      font-size: 1.5rem;
+      padding: 0.8rem;
+      font-size: 1.6rem;
       font-weight: 600;
       border-bottom: 2px solid ${({ theme }) => theme.color.border};
+      color: ${({ theme }) => theme.color.third};
     }
 
     li {
+      width: 100%;
       white-space: nowrap;
       text-align: center;
       cursor: pointer;
-      width: 100%;
       font-size: 1.3rem;
       font-weight: 600;
       color: ${({ theme }) => theme.color.text};
-      border-radius: 6px;
+      border-radius: 4px;
       transition: opacity 0.2s ease;
 
       &:hover {
@@ -65,7 +66,7 @@ const CategoryStyle = styled.div`
       }
 
       a {
-        padding: 10px;
+        padding: 0.8rem;
         display: block;
       }
     }

@@ -54,7 +54,6 @@ const BookReviewStyle = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
-  margin: 1.2rem 0;
 
   .review-btn {
     align-self: flex-end;

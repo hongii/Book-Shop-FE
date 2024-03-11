@@ -72,6 +72,8 @@ const AddBookReview = ({ children, toggleReviewButton, bookId }: Props) => {
 };
 
 const AddBookReviewStyle = styled.div`
+  margin-top: 0.5rem;
+
   form {
     display: flex;
     flex-direction: column;

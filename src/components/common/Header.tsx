@@ -51,45 +51,48 @@ const Header = () => {
       </div>
 
       <div className="auth-themeswitcher">
-        <nav className="auth">
-          <Dropdown toggleButtonIcon={<FaUserCircle />}>
-            {isLoggedIn && (
+        {isLoggedIn && (
+          <nav className="auth">
+            <Dropdown toggleButtonIcon={<FaUserCircle />}>
               <ul>
-                <li>
+                <li className="auth-link">
                   <Link to="/carts">
                     <IoCartOutline />
                     &nbsp;장바구니
                   </Link>
                 </li>
-                <li>
+                <li className="auth-link">
                   <Link to="/orderlist">
                     <FaRegUser /> &nbsp;주문내역
                   </Link>
                 </li>
-                <li>
+                <li className="auth-link">
                   <button className="logout-btn" onClick={handleLogout}>
                     <FaSignOutAlt /> &nbsp;로그아웃
                   </button>
                 </li>
               </ul>
-            )}
-            {!isLoggedIn && (
-              <ul>
-                <li>
-                  <Link to="/login">
-                    <FaSignInAlt />
-                    &nbsp;로그인
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/join">
-                    <FaRegUser /> &nbsp;회원가입
-                  </Link>
-                </li>
-              </ul>
-            )}
-          </Dropdown>
-        </nav>
+            </Dropdown>
+          </nav>
+        )}
+
+        {!isLoggedIn && (
+          <nav className="no-auth">
+            <ul>
+              <li>
+                <Link to="/login">
+                  <FaSignInAlt />
+                  &nbsp;로그인
+                </Link>
+              </li>
+              <li>
+                <Link to="/join">
+                  <FaRegUser /> &nbsp;회원가입
+                </Link>
+              </li>
+            </ul>
+          </nav>
+        )}
         <ThemeSwitcher />
       </div>
     </HeaderStyle>
@@ -158,36 +161,63 @@ const HeaderStyle = styled.header`
   }
 
   .auth {
+    white-space: nowrap;
     ul {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      gap: 16px;
+      margin: 0;
     }
-    li {
-      white-space: nowrap;
-
-      a,
-      .logout-btn {
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: ${({ theme }) => theme.color.text};
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    a {
+      padding: 0.8rem;
+      display: block;
+      &:hover {
+        opacity: 0.8;
       }
+    }
+
+    .auth-link,
+    .logout-btn {
+      width: 100%;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: ${({ theme }) => theme.color.text};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: transparent;
+      height: 100%;
+      cursor: pointer;
 
       &:hover {
         opacity: 0.8;
       }
 
       .logout-btn {
-        background-color: transparent;
+        padding: 0.8rem;
         border-radius: 8px;
         border: none;
-        height: 100%;
-        cursor: pointer;
+        background-color: transparent;
+      }
+    }
+  }
+
+  .no-auth {
+    ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+    li {
+      color: ${({ theme }) => theme.color.text};
+      text-align: center;
+      white-space: nowrap;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: ${({ theme }) => theme.color.text};
+
+      &:hover {
+        opacity: 0.8;
       }
     }
   }

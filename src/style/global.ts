@@ -8,12 +8,12 @@ interface Props {
 
 // 프로젝트에 적용할 global style
 export const GlobalStyle = createGlobalStyle<Props>`
-  *{
+  * {
     font-family: "Poor Story", "Montserrat", sans-serif;
     color: ${(props) => (props.themeName === "light" ? "black" : "white")};
   }
 
-  body{
+  body {
     padding: 0;
     margin: 0;
     background-color:  ${(props) => (props.themeName === "light" ? "white" : "#121212")};
@@ -35,8 +35,12 @@ export const GlobalStyle = createGlobalStyle<Props>`
     color: inherit;
   }
 
-  svg, path{
+  svg, path {
     color: inherit;
+  }
+
+  li {
+    list-style: none;
   }
 
   @media (min-width: 0) and (max-width: 600px){

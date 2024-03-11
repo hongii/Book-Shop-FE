@@ -14,6 +14,7 @@ import { useAuthStore } from "@/store/authStore";
 import Error from "@/components/common/Error";
 import Loading from "@/components/common/Loading";
 import BookReview from "@/components/book/BookReview";
+import { Tab, Tabs } from "@/components/common/Tabs";
 
 const bookInfoList = [
   {
@@ -81,18 +82,26 @@ const BookDetailPage = () => {
         </div>
       </header>
       <section className="contents">
-        <div>
-          <Title size="medium">상세 설명</Title>
-          <EllipsisBox line={7}>{bookDetail.detail}</EllipsisBox>
-        </div>
-        <div>
-          <Title size="medium">목차</Title>
-          <p className="index">{bookDetail.contents}</p>
-        </div>
-        <div>
-          <Title size="medium">{`리뷰(${bookReview.length})`}</Title>
-          <BookReview reviews={bookReview} bookId={bookId} />
-        </div>
+        <Tabs>
+          <Tab title="상세 설명">
+            <div>
+              <Title size="medium">상세 설명</Title>
+              <EllipsisBox line={7}>{bookDetail.detail}</EllipsisBox>
+            </div>
+          </Tab>
+          <Tab title="목차">
+            <div>
+              <Title size="medium">목차</Title>
+              <p className="index">{bookDetail.contents}</p>
+            </div>
+          </Tab>
+          <Tab title="리뷰">
+            <div>
+              <Title size="medium">{`리뷰(${bookReview.length})`}</Title>
+              <BookReview reviews={bookReview} bookId={bookId} />
+            </div>
+          </Tab>
+        </Tabs>
       </section>
     </BookDetailPageStyle>
   );
