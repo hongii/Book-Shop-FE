@@ -7,10 +7,13 @@ import { queryKey } from "@/constants/queryKey";
 import { addBookReview, fetchBookReview } from "@/api/review.api";
 import { useAlert } from "@/hooks/useAlert";
 import { BookReviewItem } from "@/models/book.model";
+import { useToast } from "@/hooks/useToast";
 
 export const useBookDetail = (bookId: string | undefined) => {
   const [isAddToCart, setIsAddToCart] = useState<boolean>(false);
   const { showAlert } = useAlert();
+  const { showToast } = useToast();
+  const queryClient = useQueryClient();
 
   const { data: bookDetail, isLoading: isBookDetailLoading } = useQuery({
     queryKey: [queryKey.bookDetail, bookId],
@@ -32,7 +35,6 @@ export const useBookDetail = (bookId: string | undefined) => {
     },
   });
 
-  const queryClient = useQueryClient();
   const { mutate: toggleLike } = useMutation({
     mutationFn: async (bookId: number) => {
       const { likes, message } = await toggleLikeBook(bookId);
@@ -46,6 +48,10 @@ export const useBookDetail = (bookId: string | undefined) => {
           isLiked: message === "liked",
         };
         queryClient.setQueryData([queryKey.bookDetail, bookId], updatedBookDetail);
+
+        const showMessage =
+          message === "liked" ? "좋아요를 추가하였습니다." : "좋아요를 취소하였습니다.";
+        showToast(showMessage);
       }
     },
   });

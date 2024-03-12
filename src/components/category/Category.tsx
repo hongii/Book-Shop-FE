@@ -58,7 +58,7 @@ const CategoryStyle = styled.div`
       font-size: 1.3rem;
       font-weight: 600;
       color: ${({ theme }) => theme.color.text};
-      border-radius: 4px;
+      border-radius: ${({ theme }) => theme.borderRadius.default};
       transition: opacity 0.2s ease;
 
       &:hover {

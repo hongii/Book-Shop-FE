@@ -9,7 +9,8 @@ export type ColorKey =
   | "text"
   | "inputText"
   | "themeIconColor"
-  | "authIconColor";
+  | "authIconColor"
+  | "toastColor";
 export type HeadingSize = "large" | "medium" | "small";
 export type ButtonSize = "large" | "medium" | "small";
 export type ButtonScheme = "primary" | "normal";
@@ -62,6 +63,7 @@ export const light: Theme = {
     inputText: "#231F20",
     themeIconColor: "#FA6607",
     authIconColor: "#5b5b5b",
+    toastColor: "#d9d2e9",
   },
   heading: {
     large: { fontSize: "2.5rem" },
@@ -107,6 +109,7 @@ export const dark: Theme = {
     inputText: "#231F20",
     themeIconColor: "#4799e2",
     authIconColor: "#ececec",
+    toastColor: "#0a4981",
   },
   buttonScheme: {
     primary: { color: "#231F20", backgroundColor: "#e3e3e3" },
