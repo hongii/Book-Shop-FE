@@ -8,16 +8,22 @@ interface LayoutProps {
 
 const Layout = ({ children }: LayoutProps) => {
   return (
-    <>
+    <WrapperStyle>
       <Header />
       <LayoutStyle>{children}</LayoutStyle>
       <Footer />
-    </>
+    </WrapperStyle>
   );
 };
+const WrapperStyle = styled.div`
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+`;
 
 const LayoutStyle = styled.main`
   width: 100%;
+  flex: 1;
   margin: 0 auto;
 `;
 
