@@ -16,10 +16,13 @@ const Dropdown = ({ children, toggleButtonIcon, isOpen = false }: Props) => {
   });
 
   return (
-    <DropdownStyle ref={dropdouwnRef}>
-      <button className="toggle" onClick={() => setOpen((prev) => !prev)}>
-        {toggleButtonIcon}
-      </button>
+    <DropdownStyle>
+      <div ref={dropdouwnRef}>
+        <button className="toggle" onClick={() => setOpen((prev) => !prev)}>
+          {toggleButtonIcon}
+        </button>
+      </div>
+
       {open && (
         <div className="panel">
           <div className="rhombus"></div>

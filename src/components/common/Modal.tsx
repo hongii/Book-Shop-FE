@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { IoClose } from "@react-icons/all-files/io5/IoClose";
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import useOnClickOutside from "@/hooks/useOnClickOutside";
 
 interface Props {
   children: React.ReactNode;
@@ -12,14 +13,10 @@ const Modal = ({ children, onClosed }: Props) => {
   const [isFadeout, setIsFadeOut] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
+  useOnClickOutside(modalRef, () => setIsFadeOut(true));
+
   const handleClose = () => {
     setIsFadeOut(true);
-  };
-
-  const handleOverlay = (e: React.MouseEvent) => {
-    if (modalRef.current !== null && !modalRef.current.contains(e.target as Node)) {
-      handleClose();
-    }
   };
 
   const handleAnimationEnd = () => {
@@ -43,11 +40,7 @@ const Modal = ({ children, onClosed }: Props) => {
   }, []);
 
   return createPortal(
-    <ModalStyle
-      className={isFadeout ? "fade-out" : "fade-in"}
-      onClick={handleOverlay}
-      onAnimationEnd={handleAnimationEnd}
-    >
+    <ModalStyle className={isFadeout ? "fade-out" : "fade-in"} onAnimationEnd={handleAnimationEnd}>
       <div className="modal-body" ref={modalRef}>
         <div className="modal-contents">{children}</div>
         <button className="modal-close" onClick={handleClose}>
