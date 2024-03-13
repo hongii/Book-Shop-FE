@@ -23,6 +23,7 @@ const WrapperStyle = styled.div`
 
 const LayoutStyle = styled.main`
   width: 100%;
+  max-width: 70%;
   flex: 1;
   margin: 0 auto;
 `;
