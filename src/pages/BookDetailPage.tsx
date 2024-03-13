@@ -15,6 +15,8 @@ import Error from "@/components/common/Error";
 import Loading from "@/components/common/Loading";
 import BookReview from "@/components/book/BookReview";
 import { Tab, Tabs } from "@/components/common/Tabs";
+import Modal from "@/components/common/Modal";
+import { useState } from "react";
 
 const bookInfoList = [
   {
@@ -42,6 +44,7 @@ const BookDetailPage = () => {
   const navigate = useNavigate();
   const { bookDetail, toggleLike, isBookDetailLoading, bookReview, isBookReviewLoading } =
     useBookDetail(bookId);
+  const [isImgOpen, setIsImgOpen] = useState<boolean>(false);
 
   if (!bookId) return <Error />;
   if (isBookDetailLoading || isBookReviewLoading) return <Loading />;
@@ -59,26 +62,40 @@ const BookDetailPage = () => {
   return (
     <BookDetailPageStyle>
       <header>
-        <div className="img">
+        <div className="img" onClick={() => setIsImgOpen(true)}>
           <img src={getImgSrc(+bookDetail.imgUrl)} alt={bookDetail.title} />
         </div>
-        <div className="info">
-          <Title size="large" color="text">
-            {bookDetail.title}
-          </Title>
-          {bookInfoList.map((item) => {
-            return (
-              <dl key={item.key}>
-                <dt>{item.label}</dt>
-                <dd>
-                  {item.filter ? item.filter(bookDetail) : bookDetail[item.key as keyof BookDetail]}
-                </dd>
-              </dl>
-            );
-          })}
-          <p className="summary">{bookDetail.summary}</p>
-          <LikeButton book={bookDetail} onClick={handleClickLike} />
-          <AddToCart book={bookDetail} />
+        {isImgOpen && (
+          <Modal onClosed={() => setIsImgOpen(false)}>
+            <ModalBookImg>
+              <img src={getImgSrc(+bookDetail.imgUrl)} alt={bookDetail.title} />
+            </ModalBookImg>
+          </Modal>
+        )}
+        <div className="info-contianer">
+          <div className="info">
+            <Title size="large" color="text">
+              {bookDetail.title}
+            </Title>
+            {bookInfoList.map((item) => {
+              return (
+                <dl key={item.key}>
+                  <dt>{item.label}</dt>
+                  <dd>
+                    {item.filter
+                      ? item.filter(bookDetail)
+                      : bookDetail[item.key as keyof BookDetail]}
+                  </dd>
+                </dl>
+              );
+            })}
+            {/* <p className="summary">{bookDetail.summary}</p> */}
+            <EllipsisBox line={4}>{bookDetail.summary}</EllipsisBox>
+          </div>
+          <div className="sub-info">
+            <LikeButton book={bookDetail} onClick={handleClickLike} />
+            <AddToCart book={bookDetail} />
+          </div>
         </div>
       </header>
       <section className="contents">
@@ -86,7 +103,7 @@ const BookDetailPage = () => {
           <Tab title="상세 설명">
             <div>
               <Title size="medium">상세 설명</Title>
-              <EllipsisBox line={7}>{bookDetail.detail}</EllipsisBox>
+              <p className="detail">{bookDetail.detail}</p>
             </div>
           </Tab>
           <Tab title="목차">
@@ -107,6 +124,15 @@ const BookDetailPage = () => {
   );
 };
 
+const ModalBookImg = styled.div`
+  display: flex;
+
+  img {
+    flex: 1;
+    width: 100%;
+  }
+`;
+
 const BookDetailPageStyle = styled.section`
   width: 100%;
   margin: 0 auto;
@@ -116,19 +142,28 @@ const BookDetailPageStyle = styled.section`
 
   header {
     display: flex;
-    gap: 1.6rem;
+    flex-wrap: wrap;
+    gap: 3rem;
     padding: 0 0 24px 0;
   }
 
   .img {
     flex: 1;
-    width: 100%;
+    min-width: 40%;
+    cursor: pointer;
 
     img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      /* height: 100%; */
+      object-fit: contain;
     }
+  }
+
+  .info-contianer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex: 1;
   }
 
   .info {
@@ -141,12 +176,12 @@ const BookDetailPageStyle = styled.section`
     dl {
       margin: 0;
       display: flex;
+      justify-content: space-between;
     }
 
     dt {
       font-size: 1.6rem;
       color: ${({ theme }) => theme.color.secondary};
-      width: 80px;
     }
 
     dd {
@@ -157,6 +192,13 @@ const BookDetailPageStyle = styled.section`
       color: ${({ theme }) => theme.color.third};
       text-decoration: underline;
     }
+  }
+
+  .sub-info {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
   }
 
   p {
