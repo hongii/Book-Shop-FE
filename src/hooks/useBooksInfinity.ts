@@ -21,7 +21,7 @@ export const useBooksInfinity = () => {
     return await fetchBooks(params);
   };
 
-  const { data, fetchNextPage, hasNextPage, isFetching } = useInfiniteQuery({
+  const { data, fetchNextPage, hasNextPage, isFetching, isLoading } = useInfiniteQuery({
     queryKey: [queryKey.books, location.search],
     queryFn: ({ pageParam = 1 }) => getBooks({ pageParam }),
     getNextPageParam: (lastPage) => {
@@ -44,7 +44,8 @@ export const useBooksInfinity = () => {
     pagination,
     isEmpty,
     message,
-    isBooksLoading: isFetching,
+    isBooksFetching: isFetching,
+    isBookLoading: isLoading,
     fetchNextPage,
     hasNextPage,
   };

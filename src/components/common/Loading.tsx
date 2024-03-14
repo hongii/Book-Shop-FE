@@ -10,8 +10,14 @@ const Loading = () => {
 };
 
 const LoadingStyle = styled.div`
-  padding: 30rem;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  max-width: ${({ theme }) => theme.layout.width.large};
+  margin: 0 auto;
+  padding: 5rem 0;
 
   @keyframes rotate {
     0% {

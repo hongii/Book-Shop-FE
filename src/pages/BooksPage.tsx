@@ -14,8 +14,16 @@ import Button from "@/components/common/Button";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const BooksPage = () => {
-  const { books, pagination, isEmpty, message, isBooksLoading, fetchNextPage, hasNextPage } =
-    useBooksInfinity();
+  const {
+    books,
+    pagination,
+    isEmpty,
+    message,
+    isBooksFetching,
+    isBookLoading,
+    fetchNextPage,
+    hasNextPage,
+  } = useBooksInfinity();
 
   const moreRef = useIntersectionObserver(
     ([entry]) => {
@@ -27,11 +35,11 @@ const BooksPage = () => {
   );
 
   const loadMore = () => {
-    if (!hasNextPage) return;
+    if (!hasNextPage || isBooksFetching) return;
     fetchNextPage();
   };
 
-  if (!books || isBooksLoading) {
+  if (!books || isBookLoading) {
     return <Loading />;
   }
 

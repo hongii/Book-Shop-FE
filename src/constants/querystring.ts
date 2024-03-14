@@ -5,4 +5,4 @@ export const QUERYSTRING = {
   VIEW: "view",
 };
 
-export const LIMIT = 8;
+export const LIMIT = 4;
