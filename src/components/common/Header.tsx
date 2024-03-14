@@ -1,32 +1,29 @@
 import styled from "styled-components";
-import logoLight from "../../assets/images/logo_light.png";
-import logoDark from "../../assets/images/logo_dark.png";
+import logoLight from "@/assets/images/logo_light.png";
+import logoDark from "@/assets/images/logo_dark.png";
 import { FaSignInAlt } from "@react-icons/all-files/fa/FaSignInAlt";
 import { FaSignOutAlt } from "@react-icons/all-files/fa/FaSignOutAlt";
 import { FaRegUser } from "@react-icons/all-files/fa/FaRegUser";
+import { FaUserCircle } from "@react-icons/all-files/fa/FaUserCircle";
 import { IoCartOutline } from "@react-icons/all-files/io5/IoCartOutline";
-import { BsList } from "@react-icons/all-files/bs/BsList";
-import ThemeSwitcher from "../header/ThemeSwitcher";
-import { useContext, useRef, useState } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
+import { IoList } from "@react-icons/all-files/io5/IoList";
+import ThemeSwitcher from "@/components/header/ThemeSwitcher";
+import { useContext } from "react";
+import { ThemeContext } from "@/context/ThemeContext";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuthStore } from "../../store/authStore";
-import { logout } from "../../api/auth.api";
-import { useAlert } from "../../hooks/useAlert";
-import useOnClickOutside from "../../hooks/useOnClickOutside";
-import ListModal from "../category/ListModal";
+import { useAuthStore } from "@/store/authStore";
+import { logout } from "@/api/auth.api";
+import { useAlert } from "@/hooks/useAlert";
+import Dropdown from "@/components/common/Dropdown";
+import { useCategory } from "@/hooks/useCategory";
+import Category from "@/components/category/Category";
 
 const Header = () => {
   const { themeName } = useContext(ThemeContext);
   const navigate = useNavigate();
   const { isLoggedIn, storeLogout } = useAuthStore();
+  const { categories, isCategoriesLoading } = useCategory();
   const { showAlert } = useAlert();
-
-  const ref = useRef(null);
-  const [modalOpen, setModalOpen] = useState(false);
-  useOnClickOutside(ref, () => {
-    setModalOpen(false);
-  });
 
   const handleLogout = async () => {
     const { message } = await logout();
@@ -35,6 +32,9 @@ const Header = () => {
     navigate("/");
   };
 
+  if (isCategoriesLoading || !categories) {
+    return null;
+  }
   return (
     <HeaderStyle>
       <div className="logo-category">
@@ -45,39 +45,39 @@ const Header = () => {
           </h1>
         </Link>
 
-        <button
-          className="dropdown-list-btn"
-          ref={ref}
-          onClick={() => setModalOpen((prev) => !prev)}
-        >
-          <BsList />
-        </button>
-        {modalOpen && <ListModal />}
+        <Dropdown toggleButtonIcon={<IoList />}>
+          <Category />
+        </Dropdown>
       </div>
 
       <div className="auth-themeswitcher">
-        <nav className="auth">
-          {isLoggedIn && (
-            <ul>
-              <li>
-                <Link to="/carts">
-                  <IoCartOutline />
-                  &nbsp;장바구니
-                </Link>
-              </li>
-              <li>
-                <Link to="/orderlist">
-                  <FaRegUser /> &nbsp;주문내역
-                </Link>
-              </li>
-              <li>
-                <button className="logout-btn" onClick={handleLogout}>
-                  <FaSignOutAlt /> &nbsp;로그아웃
-                </button>
-              </li>
-            </ul>
-          )}
-          {!isLoggedIn && (
+        {isLoggedIn && (
+          <nav className="auth">
+            <Dropdown toggleButtonIcon={<FaUserCircle />}>
+              <ul>
+                <li className="auth-link">
+                  <Link to="/carts">
+                    <IoCartOutline />
+                    &nbsp;장바구니
+                  </Link>
+                </li>
+                <li className="auth-link">
+                  <Link to="/orderlist">
+                    <FaRegUser /> &nbsp;주문내역
+                  </Link>
+                </li>
+                <li className="auth-link">
+                  <button className="logout-btn" onClick={handleLogout}>
+                    <FaSignOutAlt /> &nbsp;로그아웃
+                  </button>
+                </li>
+              </ul>
+            </Dropdown>
+          </nav>
+        )}
+
+        {!isLoggedIn && (
+          <nav className="no-auth">
             <ul>
               <li>
                 <Link to="/login">
@@ -91,8 +91,8 @@ const Header = () => {
                 </Link>
               </li>
             </ul>
-          )}
-        </nav>
+          </nav>
+        )}
         <ThemeSwitcher />
       </div>
     </HeaderStyle>
@@ -114,17 +114,22 @@ const HeaderStyle = styled.header`
   .logo-category {
     display: flex;
     align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
   }
 
   .dropdown-list-btn {
-    padding: 5px;
+    padding: 0.15rem 0.1rem 0.1rem 0.15rem;
     display: flex;
-    margin-left: 1.2rem;
     font-size: 2rem;
-    border: 1px solid ${({ theme }) => theme.color.border};
+    border: 1px solid ${({ theme }) => theme.color.authIconColor};
+    background: none;
     border-radius: 50%;
-    background-color: ${({ theme }) => theme.buttonScheme.normal.backgroundColor};
     cursor: pointer;
+
+    svg {
+      fill: ${({ theme }) => theme.color.authIconColor};
+    }
 
     &:hover {
       opacity: 0.8;
@@ -152,42 +157,70 @@ const HeaderStyle = styled.header`
   .auth-themeswitcher {
     display: flex;
     align-items: center;
+    gap: 1rem;
   }
 
   .auth {
+    white-space: nowrap;
     ul {
+      margin: 0;
+    }
+    a {
+      padding: 0.8rem;
+      display: block;
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    .auth-link,
+    .logout-btn {
+      width: 100%;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: ${({ theme }) => theme.color.text};
       display: flex;
       align-items: center;
-      gap: 16px;
-    }
-    li {
-      white-space: nowrap;
-
-      a,
-      .logout-btn {
-        font-size: 1.3rem;
-        font-weight: 600;
-        color: ${({ theme }) => theme.color.text};
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+      justify-content: center;
+      background-color: transparent;
+      height: 100%;
+      cursor: pointer;
 
       &:hover {
         opacity: 0.8;
       }
 
       .logout-btn {
-        background-color: transparent;
+        padding: 0.8rem;
         border-radius: 8px;
         border: none;
-        height: 100%;
-        cursor: pointer;
+        background-color: transparent;
+      }
+    }
+  }
+
+  .no-auth {
+    ul {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+    }
+    li {
+      color: ${({ theme }) => theme.color.text};
+      text-align: center;
+      white-space: nowrap;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: ${({ theme }) => theme.color.text};
+
+      &:hover {
+        opacity: 0.8;
       }
     }
   }
 `;
 
 export default Header;
-// color  #FFF1F6
-// light 모드 글자색 #423E3A

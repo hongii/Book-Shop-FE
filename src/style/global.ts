@@ -8,12 +8,12 @@ interface Props {
 
 // 프로젝트에 적용할 global style
 export const GlobalStyle = createGlobalStyle<Props>`
-  *{
+  * {
     font-family: "Poor Story", "Montserrat", sans-serif;
     color: ${(props) => (props.themeName === "light" ? "black" : "white")};
   }
 
-  body{
+  body {
     padding: 0;
     margin: 0;
     background-color:  ${(props) => (props.themeName === "light" ? "white" : "#121212")};
@@ -35,29 +35,35 @@ export const GlobalStyle = createGlobalStyle<Props>`
     color: inherit;
   }
 
-  svg, path{
+  svg, path {
     color: inherit;
   }
 
+  li {
+    list-style: none;
+  }
+
+
+
   @media (min-width: 0) and (max-width: 600px){
     html {
-      font-size: 1.6vw;
+      font-size: 1.5vw;
     }
   }
 
   @media (min-width: 600px) and (max-width: 900px){
     html {
-      font-size: 1.4vw;
-    }
-  }
-
-  @media (min-width: 900px) and (max-width: 1080px){
-    html {
       font-size: 1.2vw;
     }
   }
 
-  @media (min-width: 1080px) and (max-width: 1300px){
+  /* @media (min-width: 900px) and (max-width: 1080px){
+    html {
+      font-size: 1.2vw;
+    }
+  } */
+
+  @media (min-width: 900px) and (max-width: 1300px){
     html {
       font-size: 1vw;
     }
