@@ -11,18 +11,18 @@ interface Props {
 const Dropdown = ({ children, toggleButtonIcon, isOpen = false }: Props) => {
   const [open, setOpen] = useState(isOpen);
   const dropdouwnRef = useRef<HTMLDivElement>(null);
+
   useOnClickOutside(dropdouwnRef, () => {
     setOpen(false);
   });
 
   return (
-    <DropdownStyle>
-      <div ref={dropdouwnRef}>
+    <DropdownStyle ref={dropdouwnRef}>
+      <div>
         <button className="toggle" onClick={() => setOpen((prev) => !prev)}>
           {toggleButtonIcon}
         </button>
       </div>
-
       {open && (
         <div className="panel">
           <div className="rhombus"></div>

@@ -62,8 +62,12 @@ const BookDetailPage = () => {
   return (
     <BookDetailPageStyle>
       <header>
-        <div className="img" onClick={() => setIsImgOpen(true)}>
-          <img src={getImgSrc(+bookDetail.imgUrl)} alt={bookDetail.title} />
+        <div className="img">
+          <img
+            onClick={() => setIsImgOpen(true)}
+            src={getImgSrc(+bookDetail.imgUrl)}
+            alt={bookDetail.title}
+          />
         </div>
         {isImgOpen && (
           <Modal onClosed={() => setIsImgOpen(false)}>
@@ -150,9 +154,9 @@ const BookDetailPageStyle = styled.section`
   .img {
     flex: 1;
     min-width: 40%;
-    cursor: pointer;
 
     img {
+      cursor: pointer;
       width: 100%;
       /* height: 100%; */
       object-fit: contain;
