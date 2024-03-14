@@ -11,12 +11,27 @@ import { HiCursorClick } from "@react-icons/all-files/hi/HiCursorClick";
 import Loading from "@/components/common/Loading";
 import { useBooksInfinity } from "@/hooks/useBooksInfinity";
 import Button from "@/components/common/Button";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 const BooksPage = () => {
   const { books, pagination, isEmpty, message, isBooksLoading, fetchNextPage, hasNextPage } =
     useBooksInfinity();
 
-  if (isBooksLoading || !books || !pagination) {
+  const moreRef = useIntersectionObserver(
+    ([entry]) => {
+      if (entry.isIntersecting) {
+        loadMore();
+      }
+    },
+    { threshold: 0.5 },
+  );
+
+  const loadMore = () => {
+    if (!hasNextPage) return;
+    fetchNextPage();
+  };
+
+  if (!books || isBooksLoading) {
     return <Loading />;
   }
 
@@ -24,32 +39,35 @@ const BooksPage = () => {
     <BooksStyle>
       <div className="main-contents">
         <Title size="large">도서 검색 결과</Title>
-
         <div className="filter">
           <BooksFilter />
           <BooksViewSwitcher />
         </div>
-        {isEmpty && (
-          <Empty
-            icon={<FaRegGrinBeamSweat />}
-            linkIcon={<HiCursorClick />}
-            title={message as string}
-            link="/"
-            linkMsg="메인 화면으로 가기"
-          />
-        )}
-        {!isEmpty && <BooksList books={books} />}
+        <div className="books">
+          {isEmpty && (
+            <Empty
+              icon={<FaRegGrinBeamSweat />}
+              linkIcon={<HiCursorClick />}
+              title={message as string}
+              link="/"
+              linkMsg="메인 화면으로 가기"
+            />
+          )}
+          {!isEmpty && <BooksList books={books} />}
+        </div>
       </div>
 
-      <div className="more">
-        <Button
-          size="medium"
-          scheme="primary"
-          onClick={() => fetchNextPage()}
-          disabled={!hasNextPage}
-        >
-          {hasNextPage ? "더 많은 도서보기" : "마지막 페이지"}
-        </Button>
+      <div className="more" ref={moreRef}>
+        {!isEmpty && (
+          <Button
+            size="medium"
+            scheme="primary"
+            onClick={() => fetchNextPage()}
+            disabled={!hasNextPage}
+          >
+            {hasNextPage ? "더 많은 도서보기" : "마지막 페이지"}
+          </Button>
+        )}
       </div>
 
       {/* {!isEmpty && <Page pagination={pagination} />} */}
@@ -70,6 +88,7 @@ const BooksStyle = styled.div`
   gap: 1rem;
 
   .main-contents {
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -81,6 +100,10 @@ const BooksStyle = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 10px 0;
+  }
+
+  .books {
+    flex: 1;
   }
 
   .more {
