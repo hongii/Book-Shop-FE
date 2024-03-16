@@ -8,17 +8,25 @@ import { Link } from "react-router-dom";
 
 interface Props {
   book: Book;
-  view: ViewMode;
+  isFake?: boolean;
+  view?: ViewMode;
 }
 
-const BookItem = ({ book, view }: Props) => {
+const BookItem = ({ book, view, isFake = false }: Props) => {
   return (
     <BookItemStyle view={view}>
-      <Link to={`/books/${book.id}`}>
+      {isFake ? (
         <div className="book-img">
           <img src={getImgSrc(Number(book.imgUrl))} alt={book.title} />
         </div>
-      </Link>
+      ) : (
+        <Link to={`/books/${book.id}`}>
+          <div className="book-img">
+            <img src={getImgSrc(Number(book.imgUrl))} alt={book.title} />
+          </div>
+        </Link>
+      )}
+
       <div className="contents">
         <h2 className="title">{book.title}</h2>
         <p className="summary"> {book.summary}</p>
@@ -33,7 +41,7 @@ const BookItem = ({ book, view }: Props) => {
   );
 };
 
-const BookItemStyle = styled.section<Pick<Props, "view">>`
+export const BookItemStyle = styled.section<Pick<Props, "view">>`
   display: flex;
   flex-direction: ${({ view }) => (view === "grid" ? "column" : "row")};
   box-shadow: ${({ theme }) => theme.borderShadow.itemShadow};
@@ -51,7 +59,7 @@ const BookItemStyle = styled.section<Pick<Props, "view">>`
   }
 
   .contents {
-    padding: 16px;
+    padding: 1.2rem;
     position: relative;
     flex: ${({ view }) => (view === "grid" ? "0" : "1")};
 

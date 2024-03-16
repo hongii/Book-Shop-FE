@@ -15,3 +15,8 @@ export const addBookReview = async (bookId: string, reviewData: BookReviewItemWr
   const { data } = await httpClient.post(`/reviews/${bookId}`, reviewData);
   return data;
 };
+
+export const fetchReviewsAll = async () => {
+  const { data } = await httpClient.get<BookReviewItem[]>(`/reviews/`);
+  return data;
+};

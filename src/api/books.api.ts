@@ -54,3 +54,12 @@ export const toggleLikeBook = async (bookId: number) => {
     throw err;
   }
 };
+
+export const fetchBestBooks = async () => {
+  try {
+    const res = await httpClient.get<Book[]>(`/books/best`);
+    return res.data;
+  } catch (err: any) {
+    throw err;
+  }
+};
