@@ -45,7 +45,6 @@ const Banner = ({ banners }: Props) => {
 
     const slideBanners = [banners[banners.length - 1], ...banners, banners[0]];
     setSlideBanners(slideBanners);
-    console.log(slideBanners);
   }, [banners]);
 
   useEffect(() => {

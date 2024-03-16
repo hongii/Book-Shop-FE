@@ -27,8 +27,8 @@ const LoginPage = () => {
   };
 
   return (
-    <>
-      <JoinPageStyle>
+    <JoinPageStyle>
+      <div className="container">
         <Title size="large">로그인</Title>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <fieldset>
@@ -77,8 +77,8 @@ const LoginPage = () => {
             </div>
           </fieldset>
         </form>
-      </JoinPageStyle>
-    </>
+      </div>
+    </JoinPageStyle>
   );
 };
 

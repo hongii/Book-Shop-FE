@@ -43,8 +43,8 @@ const JoinPage = () => {
   };
 
   return (
-    <>
-      <JoinPageStyle>
+    <JoinPageStyle>
+      <div className="container">
         <Title size="large">회원가입</Title>
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <fieldset>
@@ -106,14 +106,25 @@ const JoinPage = () => {
             </div>
           </fieldset>
         </form>
-      </JoinPageStyle>
-    </>
+      </div>
+    </JoinPageStyle>
   );
 };
 
 export const JoinPageStyle = styled.div`
-  max-width: ${({ theme }) => theme.layout.width.small};
-  margin: 80px auto;
+  width: 100%;
+  /* height: 50%; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 100px auto;
+
+  .container {
+    max-width: ${({ theme }) => theme.layout.width.small};
+    width: 100%;
+    padding-bottom: 3rem;
+    /* height: 50%; */
+  }
 
   fieldset {
     border: none;

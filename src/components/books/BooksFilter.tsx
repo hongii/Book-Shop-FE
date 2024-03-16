@@ -66,7 +66,9 @@ const BooksFilter = () => {
 
 const BooksFilterStyle = styled.div`
   display: flex;
-  gap: 24px;
+  /* flex-direction: column; */
+  gap: 2rem;
+  margin-bottom: 10px;
 
   .category {
     display: flex;

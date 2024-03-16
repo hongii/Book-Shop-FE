@@ -25,13 +25,13 @@ const IconButton = styled.button`
   background-color: transparent; /* 배경색을 투명으로 설정 */
 
   svg {
-    width: 2rem;
-    height: 2rem;
+    width: 2.4rem;
+    height: 2.4rem;
     fill: ${({ theme }) => theme.color.themeIconColor};
   }
 
   span {
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     color: ${({ theme }) => theme.color.themeIconColor};
   }
 

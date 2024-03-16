@@ -20,7 +20,7 @@ const BooksPage = () => {
     isEmpty,
     message,
     isBooksFetching,
-    isBookLoading,
+    isBooksLoading,
     fetchNextPage,
     hasNextPage,
   } = useBooksInfinity();
@@ -39,7 +39,7 @@ const BooksPage = () => {
     fetchNextPage();
   };
 
-  if (!books || isBookLoading) {
+  if (!books || isBooksLoading) {
     return <Loading />;
   }
 
@@ -100,14 +100,14 @@ const BooksStyle = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    gap: 16px;
+    gap: 0.8rem;
   }
 
   .filter {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 0;
+    flex-wrap: wrap;
   }
 
   .books {
