@@ -8,9 +8,12 @@ import { addBookReview, fetchBookReview } from "@/api/review.api";
 import { useAlert } from "@/hooks/useAlert";
 import { BookReviewItem } from "@/models/book.model";
 import { useToast } from "@/hooks/useToast";
+import { useCartStore } from "@/store/cartStore";
 
 export const useBookDetail = (bookId: string | undefined) => {
   const [isAddToCart, setIsAddToCart] = useState<boolean>(false);
+  const [resMessage, setResMessage] = useState<string>("");
+  const { updateCartItemsCount } = useCartStore();
   const { showAlert } = useAlert();
   const { showToast } = useToast();
   const queryClient = useQueryClient();
@@ -26,8 +29,13 @@ export const useBookDetail = (bookId: string | undefined) => {
   });
 
   const { mutate: addToCart } = useMutation({
-    mutationFn: ({ bookId, quantity }: addToCartParams) => requestAddToCart({ bookId, quantity }),
-    onSuccess: () => {
+    mutationFn: async ({ bookId, quantity }: addToCartParams) => {
+      const { cartItemsCount, message } = await requestAddToCart({ bookId, quantity });
+      return { cartItemsCount, message };
+    },
+    onSuccess: ({ cartItemsCount, message }) => {
+      updateCartItemsCount(cartItemsCount);
+      setResMessage(message);
       setIsAddToCart(true);
       setTimeout(() => {
         setIsAddToCart(false);
@@ -82,5 +90,6 @@ export const useBookDetail = (bookId: string | undefined) => {
     bookReview,
     isBookReviewLoading,
     addReview,
+    message: resMessage,
   };
 };

@@ -28,7 +28,13 @@ const CartItem = ({ cart, selectedItems, onSelected, onDeleted }: CartsProps) =>
   };
 
   const handleOnDelete = () => {
-    showConfirm("선택한 상품을 삭제하시겠어요?", () => onDeleted(cart.cartItemId));
+    showConfirm("선택한 상품을 삭제하시겠어요?", () => {
+      if (selectedItems.includes(cart.cartItemId)) {
+        // 체크표시 누른 상태에서 아이템 삭제 누른경우 -> selectedItems에서도 해당 아이템 제거해야함
+        onSelected(cart.cartItemId);
+      }
+      onDeleted(cart.cartItemId);
+    });
   };
 
   return (

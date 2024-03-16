@@ -14,7 +14,7 @@ interface Props {
 
 const AddToCart = ({ book }: Props) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const { addToCart, isAddToCart } = useBookDetail(book.id.toString());
+  const { addToCart, isAddToCart, message } = useBookDetail(book.id.toString());
   const { isLoggedIn } = useAuthStore();
   const { showConfirm } = useAlert();
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ const AddToCart = ({ book }: Props) => {
         장바구니에 담기
       </Button>
       <div className="add-message">
-        <p>장바구니에 추가되었습니다.</p>
+        <p>{message}</p>
         <Link to="/carts">보러가기</Link>
       </div>
     </AddToCartStyle>
@@ -101,12 +101,13 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
     transition: all 0.5s ease;
 
     p {
-      color: ${({ theme }) => theme.color};
+      color: ${({ theme }) => theme.color.text};
     }
 
     a {
       font-weight: 600;
       font-size: 1.3rem;
+      color: ${({ theme }) => theme.color.third};
     }
   }
 `;
