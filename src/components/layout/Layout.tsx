@@ -35,7 +35,7 @@ const LayoutStyle = styled.main`
   }
 
   @media ${({ theme }) => theme.mediaQuery.desktop} {
-    max-width: 80vw;
+    max-width: 70vw;
   }
 `;
 

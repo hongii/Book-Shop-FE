@@ -110,10 +110,10 @@ const HeaderStyle = styled.header`
 
   @media ${({ theme }) => theme.mediaQuery.desktop} {
     .logo {
-      font-size: 3rem;
+      font-size: 2.2rem;
 
       img {
-        max-width: 80px;
+        max-width: 70px;
       }
     }
   }

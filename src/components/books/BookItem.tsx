@@ -106,14 +106,14 @@ export const BookItemStyle = styled.section<Pick<Props, "view">>`
 
   @media ${({ theme }) => theme.mediaQuery.mobile} {
     .title {
-      font-size: 2.5rem;
+      font-size: 2.2rem;
     }
     p {
-      font-size: 2.3rem;
+      font-size: 2rem;
     }
     .summary {
-      height: calc(2 * 1.2 * 2.3rem);
-      font-size: 2.3rem;
+      height: calc(2 * 1.2 * 2rem);
+      font-size: 2rem;
     }
 
     .book-img {
@@ -124,14 +124,14 @@ export const BookItemStyle = styled.section<Pick<Props, "view">>`
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     .title {
-      font-size: 2.3rem;
+      font-size: 2rem;
     }
     p {
-      font-size: 2rem;
+      font-size: 1.7rem;
     }
     .summary {
-      height: calc(2 * 1.2 * 2rem);
-      font-size: 2rem;
+      height: calc(2 * 1.2 * 1.8rem);
+      font-size: 1.8rem;
     }
     .book-img {
       overflow: hidden;
@@ -141,10 +141,10 @@ export const BookItemStyle = styled.section<Pick<Props, "view">>`
 
   @media ${({ theme }) => theme.mediaQuery.desktop} {
     .title {
-      font-size: 2rem;
+      font-size: 1.7rem;
     }
     p {
-      font-size: 1.6rem;
+      font-size: 1.5rem;
     }
     .summary {
       height: calc(2 * 1.2 * 1.6rem);

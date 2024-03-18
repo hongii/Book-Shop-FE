@@ -79,16 +79,16 @@ export const light: Theme = {
     mobile: {
       large: { fontSize: "3.8rem" },
       medium: { fontSize: "3rem" },
-      small: { fontSize: "2rem" },
+      small: { fontSize: "2.2rem" },
     },
     tablet: {
       large: { fontSize: "3rem" },
-      medium: { fontSize: "2rem" },
-      small: { fontSize: "1.5rem" },
+      medium: { fontSize: "2.4rem" },
+      small: { fontSize: "1.8rem" },
     },
     desktop: {
       large: { fontSize: "2.5rem" },
-      medium: { fontSize: "1.75rem" },
+      medium: { fontSize: "2rem" },
       small: { fontSize: "1.5rem" },
     },
   },
