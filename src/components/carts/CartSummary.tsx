@@ -15,7 +15,7 @@ const CartSummary = ({ totalQuantity, totalPrice }: Props) => {
         <dd>{totalQuantity}권</dd>
       </dl>
       <dl>
-        <dt>결제 예정 금액</dt>
+        <dt>결제 예상 금액</dt>
         <dd>{formatNumber(totalPrice)}원</dd>
       </dl>
     </CartSummaryStyle>

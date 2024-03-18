@@ -99,6 +99,20 @@ const ToastStyle = styled.div`
     padding: 0;
     cursor: pointer;
   }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    font-size: 1.8rem;
+    .closed-button {
+      font-size: 1.8rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    font-size: 1.6rem;
+    .closed-button {
+      font-size: 1.6rem;
+    }
+  }
 `;
 
 export default Toast;

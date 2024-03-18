@@ -95,22 +95,46 @@ const AddBookReviewStyle = styled.div`
       resize: none;
       border-radius: ${({ theme }) => theme.borderRadius.default};
       border: 1px solid ${({ theme }) => theme.color.border};
+      font-size: 1.5rem;
     }
     .error-msg {
       color: red;
-      font-size: 1rem;
+      font-size: 1.5rem;
     }
 
     .sub-content {
       display: flex;
-      gap: 0.5rem;
+      gap: 1rem;
       justify-content: flex-end;
       align-items: center;
 
       select {
+        border-radius: ${({ theme }) => theme.borderRadius.default};
         padding: 0.5rem;
-        font-size: 1.25rem;
+        font-size: 1.5rem;
+        option {
+          cursor: pointer;
+        }
       }
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    form .error-msg,
+    form textarea {
+      font-size: 2rem;
+    }
+    form .sub-content select {
+      font-size: 2.5rem;
+    }
+  }
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    form .error-msg,
+    form textarea {
+      font-size: 1.8rem;
+    }
+    form .sub-content select {
+      font-size: 2rem;
     }
   }
 `;

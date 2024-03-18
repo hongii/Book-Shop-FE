@@ -27,7 +27,6 @@ export const useOrders = () => {
 
   useEffect(() => {
     fetchOrderList().then((data: OrderListResult) => {
-      // console.log(data);
       const { orders, message } = data;
       setOrderList(orders);
     });
