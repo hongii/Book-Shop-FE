@@ -1,5 +1,5 @@
 import { Banner } from "@/models/banner.model";
-import { httpClient } from "./http";
+import { httpClient } from "@/api/http";
 
 export const fetchBanners = async () => {
   try {

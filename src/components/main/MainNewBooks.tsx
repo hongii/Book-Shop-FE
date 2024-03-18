@@ -1,6 +1,6 @@
 import { Book } from "@/models/book.model";
 import styled from "styled-components";
-import BookItem from "../books/BookItem";
+import BookItem from "@/components/books/BookItem";
 
 interface Props {
   books: Book[];

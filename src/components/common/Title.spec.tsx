@@ -1,6 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import Title from "./Title";
-import { BookShopThemeProvider } from "../../context/ThemeContext";
+import Title from "@/components/common/Title";
+import { BookShopThemeProvider } from "@/context/ThemeContext";
 
 describe("Title Component Testing!", () => {
   it("render check", () => {

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { BookDetail } from "../../models/book.model";
-import Button from "../common/Button";
+import { BookDetail } from "@/models/book.model";
+import Button from "@/components/common/Button";
 import { GoHeart } from "@react-icons/all-files/go/GoHeart";
 
 interface Props {

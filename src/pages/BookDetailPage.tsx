@@ -155,7 +155,6 @@ const BookDetailPageStyle = styled.section`
     img {
       cursor: pointer;
       width: 100%;
-      /* height: 100%; */
       object-fit: contain;
     }
   }

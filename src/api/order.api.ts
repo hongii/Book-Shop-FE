@@ -1,5 +1,5 @@
-import { Order, OrderDetail, OrderList } from "../models/order.model";
-import { httpClient } from "./http";
+import { Order, OrderDetail, OrderList } from "@/models/order.model";
+import { httpClient } from "@/api/http";
 
 export const requestOrder = async (orderData: Order) => {
   try {

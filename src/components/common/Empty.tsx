@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Title from "../common/Title";
+import Title from "@/components/common/Title";
 import { Link } from "react-router-dom";
 
 interface Props {
