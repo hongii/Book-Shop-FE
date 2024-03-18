@@ -20,7 +20,8 @@ const AddToCart = ({ book }: Props) => {
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuantity(Number(e.target.value));
+    const inputValue = e.target.value;
+    setQuantity(inputValue === "" ? 1 : parseInt(inputValue));
   };
 
   const handleAddToCart = () => {
@@ -43,7 +44,7 @@ const AddToCart = ({ book }: Props) => {
   return (
     <AddToCartStyle $isAddToCart={isAddToCart}>
       <div className="count">
-        <InputText type="number" value={quantity} onChange={handleChange} readOnly />
+        <InputText type="number" value={quantity} onChange={handleChange} />
         <Button size="medium" scheme="normal" onClick={handleIncrease}>
           +
         </Button>
@@ -85,6 +86,11 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
       text-align: center;
       outline: none;
     }
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
   }
 
   button {
@@ -92,7 +98,7 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
   }
 
   .add-message {
-    position: absolute;
+    position: fixed;
     top: 50vmin;
     left: 50%;
     background-color: ${({ theme }) => theme.color.background};

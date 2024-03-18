@@ -37,3 +37,12 @@ export const requestDeletedCartItem = async (cartItemId: number) => {
     throw err;
   }
 };
+
+export const requestChangeQuantity = async (cartItemId: number, quantity: number) => {
+  try {
+    const { data } = await httpClient.put(`/carts/${cartItemId}`, { quantity });
+    return data;
+  } catch (err: any) {
+    throw err;
+  }
+};
