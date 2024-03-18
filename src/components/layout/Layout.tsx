@@ -1,5 +1,5 @@
-import Header from "../common/Header";
-import Footer from "../common/Footer";
+import Header from "@/components/header/Header";
+import Footer from "@/components/footer/Footer";
 import styled from "styled-components";
 
 interface LayoutProps {
@@ -35,7 +35,7 @@ const LayoutStyle = styled.main`
   }
 
   @media ${({ theme }) => theme.mediaQuery.desktop} {
-    max-width: 80vw;
+    max-width: 70vw;
   }
 `;
 

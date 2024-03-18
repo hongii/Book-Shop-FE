@@ -1,8 +1,8 @@
 import styled from "styled-components";
-import logoWhite from "../../assets/images/logo_white.png";
-import logoDark from "../../assets/images/logo_dark_footer.png";
+import logoWhite from "@/assets/images/logo_white.png";
+import logoDark from "@/assets/images/logo_dark_footer.png";
 import { useContext } from "react";
-import { ThemeContext } from "../../context/ThemeContext";
+import { ThemeContext } from "@/context/ThemeContext";
 
 const Footer = () => {
   const { themeName } = useContext(ThemeContext);

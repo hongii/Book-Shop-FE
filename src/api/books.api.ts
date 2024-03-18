@@ -1,6 +1,6 @@
-import { Pagination } from "./../models/pagination.model";
-import { Book, BookDetail } from "../models/book.model";
-import { httpClient } from "./http";
+import { Pagination } from "@/models/pagination.model";
+import { Book, BookDetail } from "@/models/book.model";
+import { httpClient } from "@/api/http";
 
 export interface FetchBooksParams {
   category_id?: number;

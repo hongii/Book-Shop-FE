@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { getToken, removeToken, setToken } from "../store/authStore";
+import { getToken, removeToken, setToken } from "@/store/authStore";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const DEFAULT_TIMEOUT = Number(process.env.REACT_APP_DEFAULT_TIMEOUT);

@@ -1,6 +1,6 @@
 import { Banner as IBanner } from "@/models/banner.model";
 import styled from "styled-components";
-import BannerItem from "./BannerItem";
+import BannerItem from "@/components/banner/BannerItem";
 import { useEffect, useMemo, useState } from "react";
 import { FaAngleLeft } from "@react-icons/all-files/fa/FaAngleLeft";
 import { FaAngleRight } from "@react-icons/all-files/fa/FaAngleRight";

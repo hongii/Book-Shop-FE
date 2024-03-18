@@ -78,7 +78,7 @@ const BookDetailPage = () => {
         )}
         <div className="info-contianer">
           <div className="info">
-            <Title size="large" color="text">
+            <Title size="medium" color="text">
               {bookDetail.title}
             </Title>
             {bookInfoList.map((item) => {
@@ -155,7 +155,6 @@ const BookDetailPageStyle = styled.section`
     img {
       cursor: pointer;
       width: 100%;
-      /* height: 100%; */
       object-fit: contain;
     }
   }
@@ -168,8 +167,6 @@ const BookDetailPageStyle = styled.section`
   }
 
   .info {
-    flex: 1;
-
     display: flex;
     flex-direction: column;
     gap: 1rem;
@@ -213,21 +210,21 @@ const BookDetailPageStyle = styled.section`
     }
 
     dt {
-      font-size: 2.4rem;
+      font-size: 2.2rem;
     }
 
     dd {
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
 
     p {
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
   }
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     dt {
-      font-size: 2.2rem;
+      font-size: 2rem;
     }
 
     dd {
@@ -240,8 +237,12 @@ const BookDetailPageStyle = styled.section`
   }
 
   @media ${({ theme }) => theme.mediaQuery.desktop} {
+    width: 70%;
+    /* max-width: ${({ theme }) => theme.layout.width.large}; */
+    margin: 0 auto;
+
     dt {
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
 
     dd {

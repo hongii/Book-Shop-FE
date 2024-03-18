@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import Title from "../common/Title";
+import Title from "@/components/common/Title";
 import { Link } from "react-router-dom";
 
 interface Props {
@@ -39,13 +39,11 @@ const EmptyStyle = styled.div`
   width: 100%;
   height: 100%;
   flex: 1;
-  /* padding: 120px 0; */
 
   .icon {
     svg {
       font-size: 4rem;
       color: ${({ theme }) => theme.color.secondary};
-      /* fill: ${({ theme }) => theme.color.secondary}; */
     }
   }
 
@@ -56,6 +54,17 @@ const EmptyStyle = styled.div`
 
     &:hover {
       opacity: 0.8;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    a {
+      font-size: 2rem;
+    }
+  }
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    a {
+      font-size: 1.7rem;
     }
   }
 `;

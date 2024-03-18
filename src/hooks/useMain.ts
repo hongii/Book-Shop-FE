@@ -16,7 +16,7 @@ export const useMain = () => {
       setReviews(reviews);
     });
 
-    fetchBooks({ new: true, page: 1, limit: 4 }).then(({ books }) => {
+    fetchBooks({ new: true, page: 1, limit: 10 }).then(({ books }) => {
       setNewBooks(books);
     });
 

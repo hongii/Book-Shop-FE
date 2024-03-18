@@ -1,5 +1,5 @@
-import { Category } from "../models/category.model";
-import { httpClient } from "./http";
+import { Category } from "@/models/category.model";
+import { httpClient } from "@/api/http";
 
 interface CategoryResponse {
   categories: Category[];

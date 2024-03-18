@@ -1,12 +1,13 @@
 import styled from "styled-components";
-import { Cart } from "../../models/cart.model";
-import { formatNumber } from "../../utils/format";
+import { Cart } from "@/models/cart.model";
+import { formatNumber } from "@/utils/format";
 import { IoCloseOutline } from "@react-icons/all-files/io5/IoCloseOutline";
-import CheckIconButton from "./CheckIconButton";
-import { useMemo } from "react";
-import { useAlert } from "../../hooks/useAlert";
-import { getImgSrc } from "../../utils/image";
+import CheckIconButton from "@/components/carts/CheckIconButton";
+import { useMemo, useState } from "react";
+import { useAlert } from "@/hooks/useAlert";
+import { getImgSrc } from "@/utils/image";
 import { useNavigate } from "react-router-dom";
+import ChangeQuantity from "@/components/carts/ChangeQuantity";
 
 interface CartsProps {
   cart: Cart;
@@ -18,6 +19,7 @@ interface CartsProps {
 const CartItem = ({ cart, selectedItems, onSelected, onDeleted }: CartsProps) => {
   const { showConfirm } = useAlert();
   const navigate = useNavigate();
+  const [quantity, setQuantity] = useState<number>(cart.quantity);
   const isSelected = useMemo(
     () => selectedItems.includes(cart.cartItemId),
     [selectedItems, cart.cartItemId],
@@ -37,6 +39,19 @@ const CartItem = ({ cart, selectedItems, onSelected, onDeleted }: CartsProps) =>
     });
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const inputValue = e.target.value;
+    setQuantity(inputValue === "" ? 1 : parseInt(inputValue));
+  };
+
+  const handleIncrease = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
+  const handleDecrease = () => {
+    setQuantity((prev) => (prev - 1 > 0 ? prev - 1 : 1));
+  };
+
   return (
     <CartItemStyle>
       <div className="check-content-container">
@@ -48,6 +63,13 @@ const CartItem = ({ cart, selectedItems, onSelected, onDeleted }: CartsProps) =>
           <h1 className="title">{cart.title}</h1>
           <p className="price">{`${formatNumber(cart.price)}원`}</p>
           <p className="quantity">{cart.quantity}권</p>
+          <ChangeQuantity
+            onDecrease={handleDecrease}
+            onIncrease={handleIncrease}
+            onChange={handleChange}
+            cartItemId={cart.cartItemId}
+            quantity={quantity}
+          />
         </div>
       </div>
       <button className="delete-btn" onClick={handleOnDelete}>
@@ -69,7 +91,7 @@ const CartItemStyle = styled.div`
   height: 100%;
 
   .title {
-    font-size: 1.8rem;
+    font-size: 1.7rem;
   }
 
   p {
@@ -101,6 +123,9 @@ const CartItemStyle = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    select {
+    }
   }
 
   .book-summary {
@@ -133,10 +158,10 @@ const CartItemStyle = styled.div`
     }
     .book-contents {
       .title {
-        font-size: 2.5rem;
+        font-size: 2.2rem;
       }
       p {
-        font-size: 2.2rem;
+        font-size: 2rem;
       }
     }
 

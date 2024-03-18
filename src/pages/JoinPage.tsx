@@ -123,7 +123,7 @@ export const JoinPageStyle = styled.div`
   margin: 100px auto;
 
   .container {
-    max-width: 400px;
+    max-width: 40%;
     width: 100%;
     padding-bottom: 3rem;
   }
@@ -143,6 +143,7 @@ export const JoinPageStyle = styled.div`
 
   .error-text {
     color: red;
+    font-size: 1.2rem;
   }
 
   .login-link,
@@ -168,15 +169,23 @@ export const JoinPageStyle = styled.div`
     .reset-link {
       font-size: 2rem;
     }
+
+    .error-text {
+      font-size: 1.75rem;
+    }
   }
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     .container {
-      max-width: ${({ theme }) => theme.layout.width.small};
+      max-width: 380px;
     }
     .login-link,
     .reset-link {
       font-size: 1.6rem;
+    }
+
+    .error-text {
+      font-size: 1.4rem;
     }
   }
 `;

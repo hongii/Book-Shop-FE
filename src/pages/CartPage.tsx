@@ -85,13 +85,15 @@ const CartPage = () => {
     <CartPageStyle>
       <Title size="large">장바구니</Title>
       {isEmpty ? (
-        <Empty
-          icon={<IoCartOutline />}
-          title={message as string}
-          linkIcon={<FaBook />}
-          link="/books"
-          linkMsg="전체 도서 보러가기"
-        />
+        <div className="empty">
+          <Empty
+            icon={<IoCartOutline />}
+            title={message as string}
+            linkIcon={<FaBook />}
+            link="/books"
+            linkMsg="전체 도서 보러가기"
+          />
+        </div>
       ) : (
         <section className="container">
           <div className="contents">
@@ -119,8 +121,16 @@ const CartPage = () => {
 
 export const CartPageStyle = styled.div`
   width: 100%;
+  height: 100%;
   margin: 0 auto;
   padding: 2rem;
+
+  .empty {
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   .container {
     display: flex;

@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { OrderDetail } from "../../models/order.model";
-import { getImgSrc } from "../../utils/image";
-import { formatNumber } from "../../utils/format";
+import { OrderDetail } from "@/models/order.model";
+import { getImgSrc } from "@/utils/image";
+import { formatNumber } from "@/utils/format";
 
 const orderItemInfoList = [
   { label: "도서명", key: "title" },

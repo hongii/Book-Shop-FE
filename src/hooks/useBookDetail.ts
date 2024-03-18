@@ -72,7 +72,6 @@ export const useBookDetail = (bookId: string | undefined) => {
         bookId,
       ]);
 
-      console.log(previousData);
       if (previousData) {
         const newData = [...previousData, reviewData];
         queryClient.setQueryData([queryKey.bookReview, bookId], newData);

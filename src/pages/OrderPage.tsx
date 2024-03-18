@@ -14,6 +14,7 @@ import { FaAngleDown } from "@react-icons/all-files/fa/FaAngleDown";
 import { FaAngleUp } from "@react-icons/all-files/fa/FaAngleUp";
 import { useState } from "react";
 import OrderDetailSummary from "@/components/order/OrderDetailSummary";
+import { useCartStore } from "@/store/cartStore";
 
 interface DeliveryProps extends Delivery {
   detailAddress: string;
@@ -25,6 +26,7 @@ const OrderPage = () => {
   const { totalPrice, totalQuantity, mainBookTitle } = orderDataFromCart;
   const { showAlert, showConfirm } = useAlert();
   const navigate = useNavigate();
+  const { cartItemsCount, updateCartItemsCount } = useCartStore();
   const [isClicked, setIsClicked] = useState<boolean>(false);
   const {
     register,
@@ -52,6 +54,7 @@ const OrderPage = () => {
     // 서버로 주문요청하면서 data 전달 => 주문할건지 확인한 후 서버로 주문 요청
     showConfirm("결제를 진행할까요?", async () => {
       const { message } = await requestOrder(orderData);
+      updateCartItemsCount(cartItemsCount - orderDataFromCart.items.length);
       showAlert(message);
       navigate("/orderlist");
     });
@@ -182,6 +185,9 @@ const OrderPageStyle = styled(CartPageStyle)`
         display: flex;
         gap: 0.5rem;
 
+        button {
+          height: 100%;
+        }
         input {
           width: 100%;
           font-size: 1.6rem;

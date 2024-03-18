@@ -54,6 +54,12 @@ const BooksListStyle = styled.section<BookListStyleProps>`
     grid-template-columns: ${({ view }) => (view === "grid" ? "repeat(4, 1fr)" : "repeat(1, 1fr)")};
     gap: 1.8rem;
   }
+
+  @media screen and (min-width: 1600px) {
+    /* "repeat(auto-fill,minmax(310px,auto))" */
+    grid-template-columns: ${({ view }) => (view === "grid" ? "repeat(6, 1fr)" : "repeat(1, 1fr)")};
+    gap: 1.8rem;
+  }
 `;
 
 export default BooksList;

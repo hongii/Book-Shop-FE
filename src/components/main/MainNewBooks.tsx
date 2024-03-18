@@ -1,6 +1,6 @@
 import { Book } from "@/models/book.model";
 import styled from "styled-components";
-import BookItem from "../books/BookItem";
+import BookItem from "@/components/books/BookItem";
 
 interface Props {
   books: Book[];
@@ -17,7 +17,7 @@ const MainNewBooks = ({ books }: Props) => {
 
 const MainNewBooksStyle = styled.div`
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 1rem;
 
   @media ${({ theme }) => theme.mediaQuery.mobile} {
