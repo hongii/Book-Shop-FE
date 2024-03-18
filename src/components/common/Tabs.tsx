@@ -47,7 +47,6 @@ const TabsStyle = styled.div`
       border: none;
       padding: 0.5rem 1.5rem;
       border-radius: 4px 4px 0 0;
-      font-size: 1.5rem;
       background-color: ${({ theme }) => theme.buttonScheme.normal.backgroundColor};
       color: ${({ theme }) => theme.color.primary};
 
@@ -59,6 +58,24 @@ const TabsStyle = styled.div`
   }
   .tab-content {
     padding: 1rem 0.5rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    button {
+      font-size: 2.5rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    button {
+      font-size: 2rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    button {
+      font-size: 1.5rem;
+    }
   }
 `;
 

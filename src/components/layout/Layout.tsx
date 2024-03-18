@@ -23,9 +23,20 @@ const WrapperStyle = styled.div`
 
 const LayoutStyle = styled.main`
   width: 100%;
-  max-width: 70%;
   flex: 1;
   margin: 0 auto;
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    padding: 1.8rem 1.5rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    padding: 1.8rem 1.5rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    max-width: 80vw;
+  }
 `;
 
 export default Layout;

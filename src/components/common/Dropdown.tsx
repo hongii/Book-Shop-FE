@@ -37,6 +37,9 @@ const DropdownStyle = styled.div`
   position: relative;
 
   .toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background: none;
     padding: 0;
     border: none;
@@ -76,6 +79,26 @@ const DropdownStyle = styled.div`
     border: 1px solid ${({ theme }) => theme.color.border};
     border-right: none;
     border-bottom: none;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .toggle {
+      font-size: 2rem;
+      width: 3.7rem;
+      height: 3.7rem;
+
+      svg,
+      path,
+      circle {
+        width: 3.7rem;
+        height: 3.7rem;
+        fill: ${({ theme }) => theme.color.authIconColor};
+      }
+    }
+    .panel {
+      top: 5rem;
+      right: 0rem;
+    }
   }
 `;
 

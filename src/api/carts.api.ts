@@ -15,7 +15,7 @@ export const requestAddToCart = async (params: addToCartParams) => {
   }
 };
 
-interface FetchAllCartResponse {
+export interface FetchAllCartResponse {
   items: Cart[];
   message: string | null;
 }

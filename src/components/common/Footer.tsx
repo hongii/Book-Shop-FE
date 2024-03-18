@@ -33,7 +33,7 @@ const FooterStyle = styled.footer`
 
   .logo {
     font-family: "McLaren", sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     padding-right: 30px;
     color: ${({ theme }) => theme.color.text};
 
@@ -45,8 +45,40 @@ const FooterStyle = styled.footer`
 
   .copyright {
     p {
-      font-size: 0.75rem;
+      font-size: 1rem;
       color: ${({ theme }) => theme.color.text};
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem;
+
+    .logo {
+      font-size: 3rem;
+      padding: 0;
+    }
+    .copyright {
+      p {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    flex-direction: column;
+    align-items: center;
+    padding: 5rem;
+
+    .logo {
+      font-size: 2.5rem;
+      padding: 0;
+    }
+    .copyright {
+      p {
+        font-size: 1.8rem;
+      }
     }
   }
 `;

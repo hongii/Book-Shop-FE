@@ -76,7 +76,9 @@ const CartPage = () => {
       totalQuantity,
     };
 
-    navigate("/orders", { state: orderData });
+    const orderTotalData = carts.filter((item) => selectedItems.includes(item.cartItemId));
+    console.log(orderTotalData);
+    navigate("/orders", { state: { orderData, orderTotalData } });
   };
 
   return (
@@ -118,29 +120,34 @@ const CartPage = () => {
 export const CartPageStyle = styled.div`
   width: 100%;
   margin: 0 auto;
-  max-width: ${({ theme }) => theme.layout.width.large};
   padding: 2rem;
 
   .container {
     display: flex;
     justify-content: space-between;
     gap: 2rem;
-    flex-wrap: wrap;
   }
 
   .contents {
-    flex: 3;
+    flex: 3 1 auto;
     display: flex;
     flex-direction: column;
     gap: 1rem;
     margin: 0;
-    min-width: 300px;
+    min-width: 250px;
+    width: 70%;
   }
 
   .summary {
     display: flex;
     flex-direction: column;
-    flex: 1;
+    flex: 1 1 30%;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .container {
+      flex-wrap: wrap;
+    }
   }
 `;
 

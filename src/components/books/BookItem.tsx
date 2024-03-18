@@ -5,35 +5,46 @@ import { formatNumber } from "../../utils/format";
 import { GoHeart } from "@react-icons/all-files/go/GoHeart";
 import { ViewMode } from "./BooksViewSwitcher";
 import { Link } from "react-router-dom";
+import Button from "../common/Button";
 
 interface Props {
   book: Book;
-  view: ViewMode;
+  isFake?: boolean;
+  view?: ViewMode;
 }
 
-const BookItem = ({ book, view }: Props) => {
+const BookItem = ({ book, view, isFake = false }: Props) => {
   return (
     <BookItemStyle view={view}>
-      <Link to={`/books/${book.id}`}>
+      {isFake ? (
         <div className="book-img">
           <img src={getImgSrc(Number(book.imgUrl))} alt={book.title} />
         </div>
-      </Link>
+      ) : (
+        <Link to={`/books/${book.id}`}>
+          <div className="book-img">
+            <img src={getImgSrc(Number(book.imgUrl))} alt={book.title} />
+          </div>
+        </Link>
+      )}
+
       <div className="contents">
         <h2 className="title">{book.title}</h2>
         <p className="summary"> {book.summary}</p>
         <p className="author"> {book.author}</p>
-        <p className="price"> {formatNumber(book.price)}원</p>
-        <button className="likes">
-          <GoHeart />
-          <span>{book.likes}</span>
-        </button>
+        <div className="sub-contents">
+          <p className="price"> {formatNumber(book.price)}원</p>
+          <Button size="medium" scheme="primary">
+            <GoHeart />
+            {book.likes}
+          </Button>
+        </div>
       </div>
     </BookItemStyle>
   );
 };
 
-const BookItemStyle = styled.section<Pick<Props, "view">>`
+export const BookItemStyle = styled.section<Pick<Props, "view">>`
   display: flex;
   flex-direction: ${({ view }) => (view === "grid" ? "column" : "row")};
   box-shadow: ${({ theme }) => theme.borderShadow.itemShadow};
@@ -42,35 +53,36 @@ const BookItemStyle = styled.section<Pick<Props, "view">>`
   .book-img {
     border-radius: ${({ theme }) => theme.borderRadius.default};
     overflow: hidden;
-    max-width: ${({ view }) => (view === "grid" ? "auto" : "180px")};
+    height: 100%;
 
     img {
-      max-width: 100%;
-      object-fit: fill;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
   }
 
   .contents {
-    padding: 16px;
-    position: relative;
+    padding: 1.2rem;
     flex: ${({ view }) => (view === "grid" ? "0" : "1")};
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
 
     .title {
-      font-size: 1.5rem;
       font-weight: 700;
-      margin: 0 0 12px 0;
+      /* margin: 0 0 12px 0; */
     }
 
     p {
-      font-size: 1rem;
       color: ${({ theme }) => theme.color.secondary};
-      margin: 0 0 4px 0;
+      /* margin: 0 0 4px 0; */
+      margin: 0;
     }
 
     .summary {
       line-height: 1.2;
-      height: calc(2 * 1.2 * 1.15rem); /* 2줄 * 상속받은 line-height(=1.5) * font-size(=0.75rem) */
-      font-size: 1.15rem;
 
       overflow: hidden;
       text-overflow: ellipsis;
@@ -78,31 +90,69 @@ const BookItemStyle = styled.section<Pick<Props, "view">>`
       -webkit-line-clamp: 2; /* 보여질 줄의 갯수  */
       -webkit-box-orient: vertical;
     }
+  }
+
+  .sub-contents {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
 
     .price {
       font-weight: 700;
+      margin: 0;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .title {
+      font-size: 2.5rem;
+    }
+    p {
+      font-size: 2.3rem;
+    }
+    .summary {
+      height: calc(2 * 1.2 * 2.3rem);
+      font-size: 2.3rem;
     }
 
-    .likes {
-      font-size: 1rem;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      gap: 3px;
-      color: ${({ theme }) => theme.color.primary};
-      background-color: ${({ theme }) => theme.color.background};
-      border-radius: ${({ theme }) => theme.borderRadius.default};
-      border: 1px solid ${({ theme }) => theme.color.border};
-      padding: 4px 8px;
-      position: absolute;
-      bottom: 20px; // .contents의 padding-bottom과 동일한 값을 준다 => 가장 하단 요소인 .price의 높이와 동일하게 우측으로 배치하기 위해
-      right: 16px;
+    .book-img {
+      overflow: hidden;
+      max-width: ${({ view }) => (view === "grid" ? "auto" : "160px")};
     }
+  }
 
-    span {
-      font-size: 1rem;
-      font-weight: 700;
-      color: ${({ theme }) => theme.color.primary};
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .title {
+      font-size: 2.3rem;
+    }
+    p {
+      font-size: 2rem;
+    }
+    .summary {
+      height: calc(2 * 1.2 * 2rem);
+      font-size: 2rem;
+    }
+    .book-img {
+      overflow: hidden;
+      max-width: ${({ view }) => (view === "grid" ? "auto" : "200px")};
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    .title {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 1.6rem;
+    }
+    .summary {
+      height: calc(2 * 1.2 * 1.6rem);
+      font-size: 1.6rem;
+    }
+    .book-img {
+      overflow: hidden;
+      max-width: ${({ view }) => (view === "grid" ? "auto" : "220px")};
     }
   }
 `;

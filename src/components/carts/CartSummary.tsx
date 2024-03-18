@@ -30,17 +30,38 @@ const CartSummaryStyle = styled.div`
 
   .title {
     margin-bottom: 1.5rem;
+    font-size: 2rem;
   }
 
   dl {
     display: flex;
     justify-content: space-between;
     margin-bottom: 0.8rem;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 
     dd {
       font-weight: 700;
       color: ${({ theme }) => theme.color.primary};
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .title {
+      font-size: 2.5rem;
+    }
+    dd,
+    dt {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .title {
+      font-size: 2.3rem;
+    }
+    dd,
+    dt {
+      font-size: 2rem;
     }
   }
 `;

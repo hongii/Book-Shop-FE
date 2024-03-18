@@ -3,7 +3,7 @@ import { HttpResponse, http } from "msw";
 import { fakerKO as faker } from "@faker-js/faker";
 
 // faker api 사용
-const mockReviewData: BookReviewItem[] = Array.from({ length: 8 }, (_, i) => ({
+const mockReviewData: BookReviewItem[] = Array.from({ length: 10 }, (_, i) => ({
   id: i,
   userName: `${faker.person.lastName()}${faker.person.firstName()}`,
   review: faker.lorem.paragraph(),
@@ -23,3 +23,7 @@ export const addReview = http.post(
     return HttpResponse.json({ message: "리뷰가 등록되었습니다.", reviewData }, { status: 200 });
   },
 );
+
+export const reviewForMain = http.get(`${process.env.REACT_APP_BASE_URL}/reviews`, () => {
+  return HttpResponse.json(mockReviewData, { status: 200 });
+});

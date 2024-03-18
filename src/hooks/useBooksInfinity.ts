@@ -45,7 +45,7 @@ export const useBooksInfinity = () => {
     isEmpty,
     message,
     isBooksFetching: isFetching,
-    isBookLoading: isLoading,
+    isBooksLoading: isLoading,
     fetchNextPage,
     hasNextPage,
   };

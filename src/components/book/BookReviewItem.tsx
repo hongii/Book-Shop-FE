@@ -43,6 +43,7 @@ const BookReviewItemStyle = styled.div`
   flex-direction: column;
   gap: 1.2rem;
   padding: 1rem;
+  justify-content: space-between;
   box-shadow: ${({ theme }) => theme.borderShadow.itemShadow};
   border-radius: ${({ theme }) => theme.borderRadius.default};
 
@@ -50,11 +51,11 @@ const BookReviewItemStyle = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.1rem;
     padding: 0;
 
     .name-score-container {
       display: flex;
+      flex-wrap: wrap;
       gap: 1rem;
     }
 
@@ -63,12 +64,44 @@ const BookReviewItemStyle = styled.div`
         fill: #ff7b00;
       }
     }
+
+    .date {
+      word-break: keep-all;
+    }
   }
 
   .content {
     padding: 0;
+
     p {
       margin: 0;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .header {
+      font-size: 2.3rem;
+    }
+    p {
+      font-size: 2rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .header {
+      font-size: 1.8rem;
+    }
+    p {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    .header {
+      font-size: 1.6rem;
+    }
+    p {
+      font-size: 1.4rem;
     }
   }
 `;

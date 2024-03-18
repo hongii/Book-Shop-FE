@@ -19,8 +19,6 @@ const Button = ({ children, size, scheme, isLoading, ...props }: Props) => {
 
 const ButtonStyle = styled.button<Omit<Props, "children">>`
   white-space: nowrap;
-  font-size: ${({ theme, size }) => theme.buttonSize[size].fontSize};
-  padding: ${({ theme, size }) => theme.buttonSize[size].padding};
   color: ${({ theme, scheme }) => theme.buttonScheme[scheme].color};
   background-color: ${({ theme, scheme }) => theme.buttonScheme[scheme].backgroundColor};
   border-radius: ${({ theme }) => theme.borderRadius.default};
@@ -28,6 +26,21 @@ const ButtonStyle = styled.button<Omit<Props, "children">>`
   opacity: ${({ disabled }) => (disabled ? 0.5 : 1)};
   pointer-events: ${({ disabled }) => (disabled ? "none" : "auto")};
   cursor: ${({ disabled }) => (disabled ? "none" : "pointer")};
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    font-size: ${({ theme, size }) => theme.buttonSize.mobile[size].fontSize};
+    padding: ${({ theme, size }) => theme.buttonSize.mobile[size].padding};
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    font-size: ${({ theme, size }) => theme.buttonSize.tablet[size].fontSize};
+    padding: ${({ theme, size }) => theme.buttonSize.tablet[size].padding};
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    font-size: ${({ theme, size }) => theme.buttonSize.desktop[size].fontSize};
+    padding: ${({ theme, size }) => theme.buttonSize.desktop[size].padding};
+  }
 `;
 
 export default Button;

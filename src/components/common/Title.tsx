@@ -17,8 +17,19 @@ const Title = ({ children, size, color }: Props) => {
 };
 
 const TitleStyle = styled.h1<Omit<Props, "children">>`
-  font-size: ${({ theme, size }) => theme.heading[size].fontSize};
   color: ${({ theme, color }) => (color ? theme.color[color] : theme.color.primary)};
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    font-size: ${({ theme, size }) => theme.heading.mobile[size].fontSize};
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    font-size: ${({ theme, size }) => theme.heading.tablet[size].fontSize};
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    font-size: ${({ theme, size }) => theme.heading.desktop[size].fontSize};
+  }
 `;
 
 export default Title;
