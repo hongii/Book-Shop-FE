@@ -55,10 +55,26 @@ const BestBookItemStyle = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.25rem;
+    font-size: 2rem;
     color: #fff;
     font-weight: 700;
     font-style: italic;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .rank {
+      font-size: 3rem;
+      width: 5rem;
+      height: 5rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .rank {
+      font-size: 2.5rem;
+      width: 4rem;
+      height: 4rem;
+    }
   }
 `;
 

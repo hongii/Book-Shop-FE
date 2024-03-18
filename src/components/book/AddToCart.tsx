@@ -76,20 +76,24 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
   .count {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     flex-wrap: nowrap;
     gap: 0.1rem;
+    height: 100%;
 
     input {
       text-align: center;
       outline: none;
-      padding: 0.5rem 1.5rem;
     }
+  }
+
+  button {
+    height: 100%;
   }
 
   .add-message {
     position: absolute;
-    top: 40%;
+    top: 50vmin;
     left: 50%;
     background-color: ${({ theme }) => theme.color.background};
     border-radius: ${({ theme }) => theme.borderRadius.default};
@@ -105,9 +109,26 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
     }
 
     a {
-      font-weight: 600;
-      font-size: 1.3rem;
+      font-weight: 700;
       color: ${({ theme }) => theme.color.third};
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    a {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    a {
+      font-size: 1.8rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    a {
+      font-size: 1.6rem;
     }
   }
 `;

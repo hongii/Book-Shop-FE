@@ -39,9 +39,21 @@ interface BookListStyleProps {
 
 const BooksListStyle = styled.section<BookListStyleProps>`
   display: grid;
-  grid-template-columns: ${({ view }) =>
-    view === "grid" ? "repeat(auto-fill, minmax(180px, auto))" : "repeat(1, 1fr)"};
-  gap: 24px;
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    grid-template-columns: ${({ view }) => (view === "grid" ? "repeat(2, 1fr)" : "repeat(1, 1fr)")};
+    gap: 2.5rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    grid-template-columns: ${({ view }) => (view === "grid" ? "repeat(3, 1fr)" : "repeat(1, 1fr)")};
+    gap: 1.5rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    grid-template-columns: ${({ view }) => (view === "grid" ? "repeat(4, 1fr)" : "repeat(1, 1fr)")};
+    gap: 1.8rem;
+  }
 `;
 
 export default BooksList;

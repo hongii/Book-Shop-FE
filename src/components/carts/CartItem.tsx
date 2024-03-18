@@ -46,7 +46,6 @@ const CartItem = ({ cart, selectedItems, onSelected, onDeleted }: CartsProps) =>
         </div>
         <div className="book-contents">
           <h1 className="title">{cart.title}</h1>
-          <p className="book-summary">{cart.summary}</p>
           <p className="price">{`${formatNumber(cart.price)}원`}</p>
           <p className="quantity">{cart.quantity}권</p>
         </div>
@@ -67,9 +66,15 @@ const CartItemStyle = styled.div`
   border: 1px solid ${({ theme }) => theme.color.border};
   border-radius: ${({ theme }) => theme.borderRadius.default};
   width: 100%;
+  height: 100%;
+
+  .title {
+    font-size: 1.8rem;
+  }
 
   p {
     margin: 0;
+    font-size: 1.5rem;
   }
 
   .book-img {
@@ -79,16 +84,11 @@ const CartItemStyle = styled.div`
       max-width: 130px;
       object-fit: fill;
     }
-
-    @media screen and (max-width: 600px) {
-      img {
-        max-width: 100px;
-      }
-    }
   }
 
   .check-content-container {
     width: 100%;
+    height: 100%;
     display: flex;
     align-items: flex-start;
     gap: 0.5rem;
@@ -96,11 +96,11 @@ const CartItemStyle = styled.div`
 
   .book-contents {
     width: 100%;
+    height: 100%;
     padding: 0 1rem;
-    /* flex-grow: 1; */
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    justify-content: space-between;
   }
 
   .book-summary {
@@ -122,6 +122,50 @@ const CartItemStyle = styled.div`
     svg {
       color: ${({ theme }) => theme.buttonScheme.normal.color};
       cursor: pointer;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .book-img {
+      img {
+        max-width: 100px;
+      }
+    }
+    .book-contents {
+      .title {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 2.2rem;
+      }
+    }
+
+    .delete-btn {
+      width: 3rem;
+      height: 3rem;
+      svg {
+        width: 3rem;
+        height: 3rem;
+      }
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .book-contents {
+      .title {
+        font-size: 2rem;
+      }
+      p {
+        font-size: 1.7rem;
+      }
+    }
+    .delete-btn {
+      width: 2.7rem;
+      height: 2.7rem;
+      svg {
+        width: 2.7rem;
+        height: 2.7rem;
+      }
     }
   }
 `;

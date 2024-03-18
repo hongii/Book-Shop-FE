@@ -16,19 +16,24 @@ export type HeadingSize = "large" | "medium" | "small";
 export type ButtonSize = "large" | "medium" | "small";
 export type ButtonScheme = "primary" | "normal";
 export type LayoutWidth = "large" | "medium" | "small";
+export type MediaQuery = "mobile" | "tablet" | "desktop";
 
 interface Theme {
   name: ThemeName;
   color: Record<ColorKey, string>;
   heading: {
-    [key in HeadingSize]: {
-      fontSize: string;
+    [key in MediaQuery]: {
+      [key in HeadingSize]: {
+        fontSize: string;
+      };
     };
   };
   buttonSize: {
-    [key in ButtonSize]: {
-      fontSize: string;
-      padding: string;
+    [key in MediaQuery]: {
+      [key in HeadingSize]: {
+        fontSize: string;
+        padding: string;
+      };
     };
   };
   buttonScheme: {
@@ -49,6 +54,9 @@ interface Theme {
       [key in LayoutWidth]: string;
     };
   };
+  mediaQuery: {
+    [key in MediaQuery]: string;
+  };
 }
 
 export const light: Theme = {
@@ -68,14 +76,38 @@ export const light: Theme = {
     arrowBackgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   heading: {
-    large: { fontSize: "2.5rem" },
-    medium: { fontSize: "1.75rem" },
-    small: { fontSize: "1.5rem" },
+    mobile: {
+      large: { fontSize: "3.8rem" },
+      medium: { fontSize: "3rem" },
+      small: { fontSize: "2rem" },
+    },
+    tablet: {
+      large: { fontSize: "3rem" },
+      medium: { fontSize: "2rem" },
+      small: { fontSize: "1.5rem" },
+    },
+    desktop: {
+      large: { fontSize: "2.5rem" },
+      medium: { fontSize: "1.75rem" },
+      small: { fontSize: "1.5rem" },
+    },
   },
   buttonSize: {
-    large: { fontSize: "1.5rem", padding: "1rem 2rem" },
-    medium: { fontSize: "1.25rem", padding: "0.5rem 1.5rem" },
-    small: { fontSize: "1rem", padding: "0.25rem 0.5rem" },
+    mobile: {
+      large: { fontSize: "2.5rem", padding: "1rem 2rem" },
+      medium: { fontSize: "2.3rem", padding: "0.5rem 1.5rem" },
+      small: { fontSize: "2.1rem", padding: "0.25rem 0.5rem" },
+    },
+    tablet: {
+      large: { fontSize: "2rem", padding: "1rem 2rem" },
+      medium: { fontSize: "1.8rem", padding: "0.5rem 1.5rem" },
+      small: { fontSize: "1.6rem", padding: "0.25rem 0.5rem" },
+    },
+    desktop: {
+      large: { fontSize: "1.5rem", padding: "1rem 2rem" },
+      medium: { fontSize: "1.25rem", padding: "0.5rem 1.5rem" },
+      small: { fontSize: "1rem", padding: "0.25rem 0.5rem" },
+    },
   },
   buttonScheme: {
     primary: { color: "#231F20", backgroundColor: "#F4C6C6" },
@@ -94,6 +126,11 @@ export const light: Theme = {
       medium: "760px",
       small: "320px",
     },
+  },
+  mediaQuery: {
+    mobile: "(min-width: 0) and (max-width: 767px)", // 767px 이하
+    tablet: "(min-width: 768px) and (max-width: 1023px)", // 1023px 이하
+    desktop: "(min-width: 1024px)", // 1024px 이상
   },
 };
 

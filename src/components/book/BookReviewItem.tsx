@@ -51,7 +51,6 @@ const BookReviewItemStyle = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 1.1rem;
     padding: 0;
 
     .name-score-container {
@@ -76,6 +75,33 @@ const BookReviewItemStyle = styled.div`
 
     p {
       margin: 0;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .header {
+      font-size: 2.3rem;
+    }
+    p {
+      font-size: 2rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .header {
+      font-size: 1.8rem;
+    }
+    p {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    .header {
+      font-size: 1.6rem;
+    }
+    p {
+      font-size: 1.4rem;
     }
   }
 `;

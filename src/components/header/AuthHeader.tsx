@@ -78,14 +78,14 @@ const AuthHeaderStyle = styled.nav`
       padding: 0;
     }
     svg {
-      width: 2.4rem;
-      height: 2.4rem;
+      width: 2.5rem;
+      height: 2.5rem;
     }
 
     .cart-icon-count {
       position: absolute;
       text-align: center;
-      top: -7px;
+      top: -5px;
       right: -3px;
       border-radius: 50%;
       width: 1.6rem;
@@ -131,6 +131,60 @@ const AuthHeaderStyle = styled.nav`
       border-radius: 8px;
       border: none;
       background-color: transparent;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .auth-cart {
+      font-size: 2rem;
+      width: 3.7rem;
+      height: 3.7rem;
+
+      svg,
+      path,
+      circle {
+        width: 3.7rem;
+        height: 3.7rem;
+      }
+
+      .cart-icon-count {
+        width: 2.3rem;
+        height: 2.3rem;
+        font-size: 1.8rem;
+      }
+    }
+    a {
+      font-size: 2.2rem;
+    }
+    .logout-btn {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .auth-cart {
+      font-size: 2rem;
+      width: 3rem;
+      height: 3rem;
+
+      svg,
+      path,
+      circle {
+        width: 3rem;
+        height: 3rem;
+      }
+
+      .cart-icon-count {
+        width: 2rem;
+        height: 2rem;
+        font-size: 1.6rem;
+      }
+    }
+    a {
+      font-size: 1.6rem;
+    }
+    .logout-btn {
+      font-size: 1.6rem;
     }
   }
 `;

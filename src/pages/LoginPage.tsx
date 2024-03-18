@@ -35,6 +35,7 @@ const LoginPage = () => {
             <InputText
               placeholder="이메일을 입력해주세요."
               type="email"
+              inputMode="email"
               $isError={!errorMsg && errors.email ? true : false}
               {...register("email", emailOptions)}
             />
@@ -46,6 +47,7 @@ const LoginPage = () => {
             <InputText
               placeholder="비밀번호를 입력해주세요."
               type="password"
+              inputMode="text"
               $isError={!errorMsg && errors.password ? true : false}
               {...register("password", passwordOptions)}
             />
@@ -65,14 +67,14 @@ const LoginPage = () => {
               아직 회원이 아니신가요?&nbsp;&nbsp;&nbsp;
               <Link to="/join">
                 <FaRegUser />
-                &nbsp;회원가입 하기
+                회원가입 하기
               </Link>
             </div>
             <div className="reset-link">
               비밀번호를 변경하실 건가요?&nbsp;&nbsp;&nbsp;
               <Link to="/reset">
                 <FaWhmcs />
-                &nbsp;비밀번호 초기화
+                비밀번호 초기화
               </Link>
             </div>
           </fieldset>

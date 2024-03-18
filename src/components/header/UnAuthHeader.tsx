@@ -11,12 +11,13 @@ const UnAuthHeader = () => {
           <li>
             <Link to="/login">
               <FaSignInAlt />
-              &nbsp;로그인
+              로그인
             </Link>
           </li>
           <li>
             <Link to="/join">
-              <FaRegUser /> &nbsp;회원가입
+              <FaRegUser />
+              회원가입
             </Link>
           </li>
         </ul>
@@ -39,12 +40,28 @@ const UnAuthHeaderStyle = styled.div`
       color: ${({ theme }) => theme.color.text};
       text-align: center;
       white-space: nowrap;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       font-weight: 600;
       color: ${({ theme }) => theme.color.text};
 
       &:hover {
         opacity: 0.8;
+      }
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .no-auth {
+      li {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .no-auth {
+      li {
+        font-size: 1.6rem;
       }
     }
   }

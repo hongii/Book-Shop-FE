@@ -36,6 +36,20 @@ const CheckIconButtonStyle = styled.button<CheckIconButtonStyleProps>`
       color: inherit;
     }
   }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    svg {
+      width: 3rem;
+      height: 3rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    svg {
+      width: 2.7rem;
+      height: 2.7rem;
+    }
+  }
 `;
 
 export default CheckIconButton;

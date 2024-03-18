@@ -10,6 +10,10 @@ import { Delivery, Order } from "@/models/order.model";
 import { useAlert } from "@/hooks/useAlert";
 import FindAddressButton from "@/components/order/FindAddressButton";
 import { requestOrder } from "@/api/order.api";
+import { FaAngleDown } from "@react-icons/all-files/fa/FaAngleDown";
+import { FaAngleUp } from "@react-icons/all-files/fa/FaAngleUp";
+import { useState } from "react";
+import OrderDetailSummary from "@/components/order/OrderDetailSummary";
 
 interface DeliveryProps extends Delivery {
   detailAddress: string;
@@ -17,10 +21,11 @@ interface DeliveryProps extends Delivery {
 
 const OrderPage = () => {
   const location = useLocation();
-  const orderDataFromCart = location.state;
+  const { orderData: orderDataFromCart, orderTotalData } = location.state;
   const { totalPrice, totalQuantity, mainBookTitle } = orderDataFromCart;
   const { showAlert, showConfirm } = useAlert();
   const navigate = useNavigate();
+  const [isClicked, setIsClicked] = useState<boolean>(false);
   const {
     register,
     handleSubmit,
@@ -66,6 +71,10 @@ const OrderPage = () => {
                 ? `${mainBookTitle} 외 총 ${totalQuantity}권`
                 : `${mainBookTitle} 총 ${totalQuantity}권`}
             </strong>
+            <button className="order-detail-btn" onClick={() => setIsClicked((prev) => !prev)}>
+              {isClicked ? <FaAngleUp /> : <FaAngleDown />}
+            </button>
+            {isClicked && <OrderDetailSummary orderItems={orderTotalData} />}
           </div>
           <section className="order-info">
             <Title size="medium" color="text">
@@ -75,19 +84,31 @@ const OrderPage = () => {
               <fieldset>
                 <label>받는 분</label>
                 <div className="input">
-                  <InputText type="text" {...register("receiver", { required: true })} />
+                  <InputText
+                    type="text"
+                    inputMode="text"
+                    {...register("receiver", { required: true })}
+                  />
                 </div>
               </fieldset>
               <fieldset>
                 <label>연락처</label>
                 <div className="input">
-                  <InputText type="text" {...register("contact", { required: true })} />
+                  <InputText
+                    type="tel"
+                    inputMode="tel"
+                    {...register("contact", { required: true })}
+                  />
                 </div>
               </fieldset>
               <fieldset>
                 <label>주소</label>
                 <div className="input">
-                  <InputText type="text" {...register("address", { required: true })} />
+                  <InputText
+                    type="text"
+                    inputMode="text"
+                    {...register("address", { required: true })}
+                  />
                   <FindAddressButton
                     onCompleted={(address) => {
                       setValue("address", address);
@@ -98,7 +119,11 @@ const OrderPage = () => {
               <fieldset>
                 <label>상세 주소</label>
                 <div className="input">
-                  <InputText type="text" {...register("detailAddress", { required: true })} />
+                  <InputText
+                    type="text"
+                    inputMode="text"
+                    {...register("detailAddress", { required: true })}
+                  />
                 </div>
               </fieldset>
             </form>
@@ -116,14 +141,21 @@ const OrderPage = () => {
 };
 
 const OrderPageStyle = styled(CartPageStyle)`
+  .container {
+    width: 100%;
+    margin-top: 1rem;
+  }
+
   .order-info {
     h1 {
       padding: 0 0 1.3rem 0;
     }
 
     strong {
-      font-size: 1.2rem;
+      font-size: 1.6rem;
+      color: ${({ theme }) => theme.color.primary};
     }
+
     padding: 1rem;
     border: 1px solid ${({ theme }) => theme.color.border};
     border-radius: ${({ theme }) => theme.borderRadius.default};
@@ -138,23 +170,61 @@ const OrderPageStyle = styled(CartPageStyle)`
       display: flex;
       justify-content: flex-start;
       gap: 0.5rem;
-      font-size: 1.2rem;
+      font-size: 1.5rem;
 
       label {
-        width: 80px;
+        white-space: nowrap;
+        width: 60px;
       }
 
       .input {
         flex: 1;
         display: flex;
-
         gap: 0.5rem;
 
         input {
           width: 100%;
-          font-size: 1.2rem;
+          font-size: 1.6rem;
         }
       }
+    }
+  }
+
+  .order-detail-btn {
+    border: none;
+    background: none;
+    padding: 0;
+    width: 2.4rem;
+    height: 2.4rem;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    label,
+    .order-info strong {
+      font-size: 2.2rem;
+    }
+    .delivery fieldset .input input {
+      font-size: 2rem;
+    }
+    .order-detail-btn {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    label,
+    .order-info strong {
+      font-size: 1.8rem;
+    }
+
+    .delivery fieldset .input input {
+      font-size: 1.6rem;
+    }
+
+    .order-detail-btn {
+      font-size: 1.8rem;
     }
   }
 `;

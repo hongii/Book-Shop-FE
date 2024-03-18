@@ -5,7 +5,7 @@ import { fakerKO as faker } from "@faker-js/faker";
 // faker api 사용
 const mockBestBooksData: Book[] = Array.from({ length: 10 }, (_, i) => ({
   id: i,
-  title: faker.lorem.sentence(),
+  title: faker.lorem.sentence().slice(0, 10),
   imgUrl: faker.helpers.rangeToNumber({ min: 0, max: 50 }),
   categoryId: faker.helpers.rangeToNumber({ min: 1, max: 5 }),
   form: "종이책",

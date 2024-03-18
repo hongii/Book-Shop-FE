@@ -71,6 +71,27 @@ const CategoryStyle = styled.div`
       }
     }
   }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .category-list {
+      h2 {
+        font-size: 3rem;
+      }
+      a {
+        font-size: 2.2rem;
+      }
+    }
+  }
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .category-list {
+      h2 {
+        font-size: 2.3rem;
+      }
+      a {
+        font-size: 1.6rem;
+      }
+    }
+  }
 `;
 
 export default Category;

@@ -86,7 +86,7 @@ const BooksPage = () => {
 const BooksStyle = styled.div`
   width: 100%;
   margin: 0 auto;
-  max-width: ${({ theme }) => theme.layout.width.large};
+  /* max-width: ${({ theme }) => theme.layout.width.large}; */
   height: 100%;
   padding: 2rem;
 

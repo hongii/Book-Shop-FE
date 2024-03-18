@@ -73,7 +73,7 @@ const Banner = ({ banners }: Props) => {
       setCurrentIdx((prev) => (prev + 1) % sliderSize);
       setIndicatorIdx((prev) => (prev + 1) % bannerDataSize);
       setIsTransition(true);
-    }, 3000);
+    }, 5000);
 
     return () => clearInterval(intervalId);
   }, [sliderSize, bannerDataSize]);
@@ -112,6 +112,7 @@ interface BannerContainerStyleProps {
   $transformValue: number;
   $isTransition: boolean;
 }
+
 const BannerStyle = styled.div`
   overflow: hidden;
   position: relative;

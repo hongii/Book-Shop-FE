@@ -22,14 +22,23 @@ const LikeButton = ({ book, onClick }: Props) => {
 };
 
 const LikeButtonStyle = styled(Button)<Props>`
-  /* display: flex;
-  align-items: center;
-  gap: 6px; */
   color: ${({ book }) => (book.isLiked ? "red" : "inherit")};
   font-size: 1.5rem;
 
   svg {
     color: ${({ book }) => (book.isLiked ? "red" : "inherit")};
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    font-size: 2.2rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    font-size: 1.8rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    font-size: 1.6rem;
   }
 `;
 

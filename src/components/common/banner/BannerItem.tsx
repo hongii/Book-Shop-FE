@@ -20,9 +20,6 @@ const BannerItem = ({ banner }: Props) => {
 
 const BannerItemStyle = styled.div`
   flex: 0 0 100%;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
   text-align: center;
 
   position: relative;
@@ -57,8 +54,30 @@ const BannerItemStyle = styled.div`
 
     p {
       color: #2b2b2b;
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       margin: 0;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .content {
+      h2 {
+        font-size: 2.8rem;
+      }
+      p {
+        font-size: 2rem;
+      }
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .content {
+      h2 {
+        font-size: 2.5rem;
+      }
+      p {
+        font-size: 1.7rem;
+      }
     }
   }
 `;

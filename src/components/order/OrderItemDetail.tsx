@@ -57,20 +57,12 @@ const OrderItemDetailStyle = styled.div`
   .book-img {
     border-radius: ${({ theme }) => theme.borderRadius.default};
     overflow: hidden;
-    /* flex: 1; */
     max-width: 100px;
 
     img {
       width: 100%;
-      /* max-width: 80px; */
-      /* height: auto; */
+      height: 100%;
       object-fit: cover;
-    }
-
-    @media screen and (max-width: 500px) {
-      img {
-        max-width: 60px;
-      }
     }
   }
 
@@ -95,8 +87,42 @@ const OrderItemDetailStyle = styled.div`
     }
 
     dd {
-      font-size: 1.1rem;
+      font-size: 1.3rem;
       margin: 0;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    .book-img {
+      img {
+        max-width: 50px;
+      }
+    }
+    .contents {
+      dt {
+        font-size: 1.8rem;
+      }
+
+      dd {
+        font-size: 1.8rem;
+      }
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .book-img {
+      img {
+        max-width: 60px;
+      }
+    }
+    .contents {
+      dt {
+        font-size: 1.6rem;
+      }
+
+      dd {
+        font-size: 1.6rem;
+      }
     }
   }
 `;

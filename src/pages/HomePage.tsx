@@ -4,10 +4,13 @@ import MainBest from "@/components/main/MainBest";
 import MainNewBooks from "@/components/main/MainNewBooks";
 import MainReview from "@/components/main/MainReview";
 import { useMain } from "@/hooks/useMain";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 import styled from "styled-components";
 
 const HomePage = () => {
   const { reviews, newBooks, bestBooks, banners } = useMain();
+  const { isMobile } = useMediaQuery();
+  console.log(isMobile);
 
   return (
     <HomePageStyle>
@@ -29,7 +32,7 @@ const HomePage = () => {
 };
 
 const HomePageStyle = styled.div`
-  margin: 1rem 0;
+  margin: 2rem 0;
   display: flex;
   flex-direction: column;
   gap: 2rem;

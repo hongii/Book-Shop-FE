@@ -45,80 +45,39 @@ export const GlobalStyle = createGlobalStyle<Props>`
 
 
 
-  @media (min-width: 0) and (max-width: 600px){
+  @media (min-width: 0) and (max-width: 425px){
     html {
       font-size: 1.5vw;
     }
   }
 
-  @media (min-width: 600px) and (max-width: 900px){
+  @media (min-width: 426px) and (max-width: 639px){
     html {
-      font-size: 1.2vw;
+      font-size: 1.25vw;
     }
   }
 
-  /* @media (min-width: 900px) and (max-width: 1080px){
+  @media (min-width: 640px) and (max-width: 1023px){
     html {
-      font-size: 1.2vw;
-    }
-  } */
-
-  @media (min-width: 900px) and (max-width: 1300px){
-    html {
-      font-size: 1vw;
+      font-size: 1.1vw;
     }
   }
 
-  @media (min-width: 1300px)and (max-width: 1600px) {
+  @media (min-width: 1024px) and (max-width: 1300px){
     html {
-      font-size: 0.85vw;
+      font-size: 0.9vw;
     }
   }
 
-  @media (min-width: 1600px) {
+  @media (min-width: 1301px)and (max-width: 1600px) {
     html {
       font-size: 0.75vw;
     }
   }
 
-  /* @media screen and (min-width: 0) and (max-width: 480px) and (max-aspect-ratio: 4 / 3){
-    body, html {
-      font-size: 1.5vw;
+  @media (min-width: 1601px) {
+    html {
+      font-size: 0.65vw;
     }
   }
-
-  @media screen and (min-width: 481px) and (max-width: 840px) and (max-aspect-ratio: 4 / 3) {
-    body, html {
-      font-size: 1vw;
-    }
-  }
-  
-  @media screen and (min-width: 841px) and (max-width: 1280px) and (orientation: landscape){
-    body, html {
-      font-size: .85vw;
-    }
-  }
-  @media screen and (min-width: 841px) and (max-width: 1280px) and (max-aspect-ratio: 4 / 3){
-    body, html {
-      font-size: .75vw;
-    }
-  }
-
-  @media screen and (min-width: 1281px) and (max-width: 1600px) and (orientation: landscape){
-    body, html {
-      font-size: .75vw;
-    }
-  }
-
-  @media screen and (min-width: 1601px) and (max-width: 1920px) and (orientation: landscape){
-    body, html {
-      font-size: .75vw;
-    }
-  }
-
-  @media screen and (min-width: 1921px) and (orientation: landscape){
-    body, html {
-      font-size: 14px;
-    } 
-  } */
 `;

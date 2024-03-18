@@ -139,21 +139,18 @@ const ModalBookImg = styled.div`
 
 const BookDetailPageStyle = styled.section`
   width: 100%;
-  margin: 0 auto;
-  max-width: ${({ theme }) => theme.layout.width.large};
   padding: 2rem;
   position: relative;
 
   header {
     display: flex;
-    flex-wrap: wrap;
     gap: 3rem;
-    padding: 0 0 24px 0;
+    padding: 0 0 1.8rem 0;
   }
 
   .img {
     flex: 1;
-    min-width: 40%;
+    min-width: 45%;
 
     img {
       cursor: pointer;
@@ -184,12 +181,7 @@ const BookDetailPageStyle = styled.section`
     }
 
     dt {
-      font-size: 1.6rem;
       color: ${({ theme }) => theme.color.secondary};
-    }
-
-    dd {
-      font-size: 1.3rem;
     }
 
     a {
@@ -206,7 +198,6 @@ const BookDetailPageStyle = styled.section`
   }
 
   p {
-    font-size: 1.3rem;
     margin: 1.2rem 0;
   }
 
@@ -214,6 +205,52 @@ const BookDetailPageStyle = styled.section`
     display: flex;
     flex-direction: column;
     gap: 1.7rem;
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.mobile} {
+    header {
+      flex-wrap: wrap;
+    }
+
+    dt {
+      font-size: 2.4rem;
+    }
+
+    dd {
+      font-size: 2.2rem;
+    }
+
+    p {
+      font-size: 2.2rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    dt {
+      font-size: 2.2rem;
+    }
+
+    dd {
+      font-size: 1.8rem;
+    }
+
+    p {
+      font-size: 1.8rem;
+    }
+  }
+
+  @media ${({ theme }) => theme.mediaQuery.desktop} {
+    dt {
+      font-size: 2rem;
+    }
+
+    dd {
+      font-size: 1.6rem;
+    }
+
+    p {
+      font-size: 1.6rem;
+    }
   }
 `;
 
