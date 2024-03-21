@@ -44,12 +44,14 @@ const AuthHeader = () => {
         <ul>
           <li className="auth-link">
             <Link to="/orderlist">
-              <FaRegUser /> &nbsp;주문내역
+              <FaRegUser />
+              주문내역
             </Link>
           </li>
           <li className="auth-link">
             <button className="logout-btn" onClick={handleLogout}>
-              <FaSignOutAlt /> &nbsp;로그아웃
+              <FaSignOutAlt />
+              로그아웃
             </button>
           </li>
         </ul>
@@ -96,15 +98,14 @@ const AuthHeaderStyle = styled.nav`
     }
   }
 
-  .auth-link,
-  .logout-btn {
+  .auth-link {
     width: 100%;
     font-size: 1.3rem;
     font-weight: 600;
     color: ${({ theme }) => theme.color.text};
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     background-color: transparent;
     height: 100%;
     cursor: pointer;
@@ -126,11 +127,15 @@ const AuthHeaderStyle = styled.nav`
       }
     }
 
-    .logout-btn {
+    .logout-btn,
+    .sync-btn {
       padding: 0.8rem;
       border-radius: 8px;
       border: none;
       background-color: transparent;
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: ${({ theme }) => theme.color.text};
     }
   }
 
@@ -153,11 +158,15 @@ const AuthHeaderStyle = styled.nav`
         font-size: 1.8rem;
       }
     }
-    a {
-      font-size: 2.2rem;
-    }
-    .logout-btn {
-      font-size: 2.2rem;
+    .auth-link {
+      a {
+        font-size: 2.2rem;
+      }
+
+      .logout-btn,
+      .sync-btn {
+        font-size: 2.2rem;
+      }
     }
   }
 
@@ -180,11 +189,14 @@ const AuthHeaderStyle = styled.nav`
         font-size: 1.6rem;
       }
     }
-    a {
-      font-size: 1.6rem;
-    }
-    .logout-btn {
-      font-size: 1.6rem;
+    .auth-link {
+      a {
+        font-size: 1.6rem;
+      }
+      .logout-btn,
+      .sync-btn {
+        font-size: 1.6rem;
+      }
     }
   }
 `;

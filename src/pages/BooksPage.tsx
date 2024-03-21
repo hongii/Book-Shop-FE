@@ -2,28 +2,24 @@ import Title from "@/components/common/Title";
 import styled from "styled-components";
 import BooksFilter from "@/components/books/BooksFilter";
 import BooksList from "@/components/books/BooksList";
-// import Page from "@/components/books/Page";
 import BooksViewSwitcher from "@/components/books/BooksViewSwitcher";
-// import { useBooks } from "@/hooks/useBooks";
 import Empty from "@/components/common/Empty";
 import { FaRegGrinBeamSweat } from "@react-icons/all-files/fa/FaRegGrinBeamSweat";
 import { HiCursorClick } from "@react-icons/all-files/hi/HiCursorClick";
 import Loading from "@/components/common/Loading";
-import { useBooksInfinity } from "@/hooks/useBooksInfinity";
 import Button from "@/components/common/Button";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useAladinBooks } from "@/hooks/useAladinBooks";
 
 const BooksPage = () => {
   const {
-    books,
-    pagination,
-    isEmpty,
-    message,
-    isBooksFetching,
-    isBooksLoading,
+    aladinBooks,
+    isFetching: isBooksFetching,
+    isLoading: isBooksLoading,
     fetchNextPage,
     hasNextPage,
-  } = useBooksInfinity();
+    isEmpty,
+  } = useAladinBooks();
 
   const moreRef = useIntersectionObserver(
     ([entry]) => {
@@ -39,7 +35,7 @@ const BooksPage = () => {
     fetchNextPage();
   };
 
-  if (!books || isBooksLoading) {
+  if (!aladinBooks || isBooksLoading) {
     return <Loading />;
   }
 
@@ -56,12 +52,12 @@ const BooksPage = () => {
             <Empty
               icon={<FaRegGrinBeamSweat />}
               linkIcon={<HiCursorClick />}
-              title={message as string}
+              title="조회 가능한 도서가 없습니다."
               link="/"
               linkMsg="메인 화면으로 가기"
             />
           )}
-          {!isEmpty && <BooksList books={books} />}
+          {!isEmpty && <BooksList books={aladinBooks} />}
         </div>
       </div>
 
@@ -77,8 +73,6 @@ const BooksPage = () => {
           </Button>
         )}
       </div>
-
-      {/* {!isEmpty && <Page pagination={pagination} />} */}
     </BooksStyle>
   );
 };
@@ -86,7 +80,6 @@ const BooksPage = () => {
 const BooksStyle = styled.div`
   width: 100%;
   margin: 0 auto;
-  /* max-width: ${({ theme }) => theme.layout.width.large}; */
   height: 100%;
   padding: 2rem;
 

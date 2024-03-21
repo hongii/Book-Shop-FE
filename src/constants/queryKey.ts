@@ -5,4 +5,5 @@ export const queryKey = {
   bookDetail: "bookDetail",
   bookReview: "bookReview",
   orderList: "orderList",
+  aladinBooks: "aladinBooks",
 };
