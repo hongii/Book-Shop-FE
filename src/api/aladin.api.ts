@@ -1,6 +1,6 @@
-import { aladinHttpClient } from "./aladinHttp";
 import { convertParamsToQueryString } from "@/utils/convert";
-import { AladinBook } from "@/models/aladinBook.model";
+import { AladinBook, AladinBookDetail } from "@/models/aladinBook.model";
+import { httpClient } from "./http";
 
 type ListQueryType =
   | "ItemNewAll"
@@ -12,9 +12,10 @@ type ListSearchTarget = "Book" | "Foreign" | "Music" | "DVD" | "Used" | "eBook" 
 type ListSubSearchTarget = "Book" | "Music" | "DVD";
 type Cover = "Big" | "MidBig" | "Mid" | "Small" | "Mini" | "None";
 type Output = "XML" | "JS";
-type OptResult = ("ebookList" | "usedList" | "reviewList")[];
+// type OptResult = ("ebookList" | "usedList" | "reviewList" | "ratingInfo" | "bestSellerRank")[];
+type ItemIdType = "ISBN" | "ISBN13" | "ItemId";
 
-export interface SearchBooksParams {
+export interface BookListParams {
   QueryType: ListQueryType; // 리스트 종류
   SearchTarget?: ListSearchTarget; // 조회 대상 Mall
   SubSearchTarget?: ListSubSearchTarget; // SearchTarget이 중고(Used)인 경우, 서브 Mall 지정
@@ -27,8 +28,17 @@ export interface SearchBooksParams {
   Year?: string; // 출간일(년단위) 제한 필터링
   Month?: string; // 출간일(월단위) 제한 필터링
   Week?: string; // 출간일(주단위) 제한 필터링
-  OptResult?: OptResult; // 부가 정보
+  OptResult?: string; // 부가 정보
   Version?: string; // 버전 정보(최신 버전: 20131101)
+}
+
+export interface BookDetailParmas {
+  ItemIdType: ItemIdType;
+  ItemId: string;
+  Cover?: Cover;
+  Output?: Output;
+  Version?: string;
+  OptResult?: string;
 }
 
 const fetchBookListByCategory = async (
@@ -37,7 +47,7 @@ const fetchBookListByCategory = async (
   start: number,
   limit = "20",
 ) => {
-  const params: SearchBooksParams = {
+  const params: BookListParams = {
     QueryType: queryType,
     SearchTarget: "Book",
     MaxResults: limit,
@@ -47,10 +57,9 @@ const fetchBookListByCategory = async (
     Start: start,
     ...(categoryId ? { CategoryId: categoryId } : {}),
   };
-  console.log(categoryId, params);
 
   const queryString = convertParamsToQueryString(params);
-  const data = await aladinHttpClient.get(`/aladin?${queryString}`);
+  const data = await httpClient.get(`/aladin/list?${queryString}`);
   return data;
 };
 
@@ -79,7 +88,54 @@ export const fetchBookList = async (
         publisher: item.publisher,
       };
     });
+    // console.log(booksData);
     return booksData;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const fetchBookItemLookUp = async (itemId: string) => {
+  const params: BookDetailParmas = {
+    ItemIdType: "ItemId",
+    ItemId: itemId,
+    Cover: "Big",
+    Output: "JS",
+    Version: "20131101",
+    OptResult: ["ratingInfo", "bestSellerRank"].join(","),
+  };
+
+  const queryString = convertParamsToQueryString(params);
+  const data = await httpClient.get(`/aladin/item?${queryString}`);
+  return data;
+};
+
+export const fetchBookDetail = async (itemId: string) => {
+  try {
+    const { data } = await fetchBookItemLookUp(itemId);
+    const bookDetailData: AladinBookDetail = {
+      itemId: data[0].itemId,
+      title: data[0].title,
+      categoryId: data[0].categoryId,
+      categoryName: data[0].categoryName,
+      description: data[0].description,
+      author: data[0].author,
+      priceStandard: data[0].priceStandard,
+      pubDate: data[0].pubDate,
+      cover: data[0].cover,
+      form: "종이책",
+      isbn13: data[0].isbn13,
+      publisher: data[0].publisher,
+      itemPage: data[0].subInfo.itemPage,
+      ratingScore: data[0].subInfo.ratingInfo.ratingScore,
+      ratingCount: data[0].subInfo.ratingInfo.ratingCount,
+      myReviewCount: data[0].subInfo.ratingInfo.myReviewCount,
+      bestSellerRank: data[0].subInfo.bestSellerRank,
+      likes: data.likes,
+      isLiked: data.isLiked,
+    };
+    // console.log(bookDetailData);
+    return bookDetailData;
   } catch (err) {
     throw err;
   }

@@ -1,9 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { useBookDetail } from "@/hooks/useBookDetail";
-import { getImgSrc } from "@/utils/image";
 import Title from "@/components/common/Title";
-import { BookDetail } from "@/models/book.model";
 import { formatDate, formatNumber } from "@/utils/format";
 import { Link } from "react-router-dom";
 import EllipsisBox from "@/components/common/EllipsisBox";
@@ -17,24 +14,34 @@ import BookReview from "@/components/book/BookReview";
 import { Tab, Tabs } from "@/components/common/Tabs";
 import Modal from "@/components/common/Modal";
 import { useState } from "react";
+import { AladinBookDetail } from "@/models/aladinBook.model";
+import { useAladinBookDetail } from "@/hooks/useAladinBookDetail";
 
 const bookInfoList = [
   {
     label: "카테고리",
     key: "categoryName",
-    filter: (book: BookDetail) => (
+    filter: (book: AladinBookDetail) => (
       <Link to={`/books?page=1&category_id=${book.categoryId}`}>{book.categoryName}</Link>
     ),
   },
+  {
+    label: "가격",
+    key: "priceStandard",
+    filter: (book: AladinBookDetail) => `${formatNumber(book.priceStandard)}원`,
+  },
   { label: "포맷", key: "form" },
-  { label: "페이지", key: "pages" },
-  { label: "ISBN", key: "isbn" },
+  { label: "페이지", key: "itemPage" },
+  { label: "ISBN13", key: "isbn13" },
   {
     label: "출간일",
-    key: "publishedDate",
-    filter: (book: BookDetail) => formatDate(book.publishedDate, ""),
+    key: "pubDate",
+    filter: (book: AladinBookDetail) => formatDate(book.pubDate, ""),
   },
-  { label: "가격", key: "price", filter: (book: BookDetail) => `${formatNumber(book.price)}원` },
+  { label: "출판사", key: "publisher" },
+  // { label: "상품의 별 평점", key: "ratingScore" },
+  // { label: "상품에 별을 남긴 개수", key: "ratingCount" },
+  // { label: "마이리뷰 남긴 개수", key: "myReviewCount" },
 ];
 
 const BookDetailPage = () => {
@@ -43,7 +50,8 @@ const BookDetailPage = () => {
   const { showConfirm } = useAlert();
   const navigate = useNavigate();
   const { bookDetail, toggleLike, isBookDetailLoading, bookReview, isBookReviewLoading } =
-    useBookDetail(bookId);
+    useAladinBookDetail(bookId);
+
   const [isImgOpen, setIsImgOpen] = useState<boolean>(false);
 
   if (!bookId) return <Error />;
@@ -56,23 +64,19 @@ const BookDetailPage = () => {
       return;
     }
 
-    toggleLike(+bookId);
+    toggleLike({ bookId: +bookId, info: bookDetail });
   };
 
   return (
     <BookDetailPageStyle>
-      <header>
+      <header className="header">
         <div className="img">
-          <img
-            onClick={() => setIsImgOpen(true)}
-            src={getImgSrc(+bookDetail.imgUrl)}
-            alt={bookDetail.title}
-          />
+          <img onClick={() => setIsImgOpen(true)} src={bookDetail.cover} alt={bookDetail.title} />
         </div>
         {isImgOpen && (
           <Modal onClosed={() => setIsImgOpen(false)}>
             <ModalBookImg>
-              <img src={getImgSrc(+bookDetail.imgUrl)} alt={bookDetail.title} />
+              <img src={bookDetail.cover} alt={bookDetail.title} />
             </ModalBookImg>
           </Modal>
         )}
@@ -88,13 +92,13 @@ const BookDetailPage = () => {
                   <dd>
                     {item.filter
                       ? item.filter(bookDetail)
-                      : bookDetail[item.key as keyof BookDetail]}
+                      : bookDetail[item.key as keyof AladinBookDetail]}
                   </dd>
                 </dl>
               );
             })}
             {/* <p className="summary">{bookDetail.summary}</p> */}
-            <EllipsisBox line={4}>{bookDetail.summary}</EllipsisBox>
+            {/* <EllipsisBox line={4}>{bookDetail.summary}</EllipsisBox> */}
           </div>
           <div className="sub-info">
             <LikeButton book={bookDetail} onClick={handleClickLike} />
@@ -107,15 +111,15 @@ const BookDetailPage = () => {
           <Tab title="상세 설명">
             <div>
               <Title size="medium">상세 설명</Title>
-              <p className="detail">{bookDetail.detail}</p>
+              <p className="detail">{bookDetail.description}</p>
             </div>
           </Tab>
-          <Tab title="목차">
+          {/* <Tab title="목차">
             <div>
               <Title size="medium">목차</Title>
-              <p className="index">{bookDetail.contents}</p>
+              <p className="index">{bookDetail.description}</p>
             </div>
-          </Tab>
+          </Tab> */}
           <Tab title="리뷰">
             <div>
               <Title size="medium">{`리뷰(${bookReview.length})`}</Title>
@@ -142,7 +146,7 @@ const BookDetailPageStyle = styled.section`
   padding: 2rem;
   position: relative;
 
-  header {
+  .header {
     display: flex;
     gap: 3rem;
     padding: 0 0 1.8rem 0;
@@ -205,10 +209,22 @@ const BookDetailPageStyle = styled.section`
   }
 
   @media ${({ theme }) => theme.mediaQuery.mobile} {
-    header {
-      flex-wrap: wrap;
+    .header {
+      flex-direction: column;
     }
 
+    .img {
+      /* margin: 0 auto; */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        cursor: pointer;
+        width: inherit;
+        max-width: 70%;
+        object-fit: contain;
+      }
+    }
     dt {
       font-size: 2.2rem;
     }

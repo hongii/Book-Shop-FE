@@ -57,7 +57,7 @@ const BooksListStyle = styled.section<BookListStyleProps>`
 
   @media screen and (min-width: 1600px) {
     /* "repeat(auto-fill,minmax(310px,auto))" */
-    grid-template-columns: ${({ view }) => (view === "grid" ? "repeat(6, 1fr)" : "repeat(1, 1fr)")};
+    grid-template-columns: ${({ view }) => (view === "grid" ? "repeat(5, 1fr)" : "repeat(1, 1fr)")};
     gap: 1.8rem;
   }
 `;

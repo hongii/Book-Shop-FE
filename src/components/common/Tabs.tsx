@@ -37,6 +37,7 @@ const Tabs = ({ children, active = 0 }: TabsProps) => {
 };
 
 const TabsStyle = styled.div`
+  width: 100%;
   .tab-header {
     display: flex;
     gap: 0.2rem;

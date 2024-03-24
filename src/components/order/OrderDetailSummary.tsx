@@ -1,6 +1,5 @@
 import { Cart } from "@/models/cart.model";
 import { formatNumber } from "@/utils/format";
-import { getImgSrc } from "@/utils/image";
 import styled from "styled-components";
 
 interface Props {
@@ -13,15 +12,17 @@ const OrderDetailSummary = ({ orderItems }: Props) => {
       {orderItems.map((item) => {
         return (
           <div key={item.bookId} className="order-data">
-            <ImgBackground url={getImgSrc(Number(item.imgUrl))}></ImgBackground>
+            <ImgBackground url={item.cover}></ImgBackground>
 
             <div className="order-contents">
               <p>{item.title}</p>
               <p className="sub-contents">
-                <span>{formatNumber(item.price)}원</span>
+                <span>{formatNumber(item.priceStandard)}원</span>
                 <span>{item.quantity}권</span>
               </p>
-              <p className="total-price">총 금액 {formatNumber(item.price * item.quantity)}원</p>
+              <p className="total-price">
+                총 금액 {formatNumber(item.priceStandard * item.quantity)}원
+              </p>
             </div>
           </div>
         );

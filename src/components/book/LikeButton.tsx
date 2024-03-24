@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { BookDetail } from "@/models/book.model";
 import Button from "@/components/common/Button";
 import { GoHeart } from "@react-icons/all-files/go/GoHeart";
+import { AladinBookDetail } from "@/models/aladinBook.model";
 
 interface Props {
-  book: BookDetail;
+  book: AladinBookDetail;
   onClick: () => void;
 }
 

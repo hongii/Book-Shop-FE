@@ -22,7 +22,7 @@ const Star = ({ score }: Pick<IBookReviewItem, "score">) => {
 const BookReviewItem = ({ review }: Props) => {
   return (
     <BookReviewItemStyle>
-      <header className="header">
+      <header className="review-header">
         <div className="name-score-container">
           <span className="name">{review.userName}</span>
           <Star score={review.score} />
@@ -47,7 +47,7 @@ const BookReviewItemStyle = styled.div`
   box-shadow: ${({ theme }) => theme.borderShadow.itemShadow};
   border-radius: ${({ theme }) => theme.borderRadius.default};
 
-  .header {
+  .review-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -79,7 +79,7 @@ const BookReviewItemStyle = styled.div`
   }
 
   @media ${({ theme }) => theme.mediaQuery.mobile} {
-    .header {
+    .review-header {
       font-size: 2.3rem;
     }
     p {
@@ -88,7 +88,7 @@ const BookReviewItemStyle = styled.div`
   }
 
   @media ${({ theme }) => theme.mediaQuery.tablet} {
-    .header {
+    .review-header {
       font-size: 1.8rem;
     }
     p {
@@ -97,7 +97,7 @@ const BookReviewItemStyle = styled.div`
   }
 
   @media ${({ theme }) => theme.mediaQuery.desktop} {
-    .header {
+    .review-header {
       font-size: 1.6rem;
     }
     p {

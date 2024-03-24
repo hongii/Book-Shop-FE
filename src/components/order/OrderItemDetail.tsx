@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { OrderDetail } from "@/models/order.model";
-import { getImgSrc } from "@/utils/image";
 import { formatNumber } from "@/utils/format";
 
 const orderItemInfoList = [
@@ -14,8 +13,9 @@ const orderItemInfoList = [
   },
   {
     label: "가격",
-    key: "price",
-    filter: (orderItem: OrderDetail) => `${formatNumber(orderItem.price * orderItem.quantity)}원`,
+    key: "priceStandard",
+    filter: (orderItem: OrderDetail) =>
+      `${formatNumber(orderItem.priceStandard * orderItem.quantity)}원`,
   },
 ];
 
@@ -28,7 +28,7 @@ const OrderItemDetail = ({ orderItem }: Props) => {
     <OrderItemDetailStyle>
       <div className="book-img">
         <Link to={`/books/${orderItem.bookId}`}>
-          <img src={getImgSrc(Number(orderItem.imgUrl))} alt={orderItem.title} />
+          <img src={orderItem.cover} alt={orderItem.title} />
         </Link>
       </div>
 

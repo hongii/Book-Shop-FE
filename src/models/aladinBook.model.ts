@@ -16,8 +16,9 @@ export interface AladinBook {
 export interface AladinBookDetail extends AladinBook {
   itemPage: number;
   ratingScore: number;
+  ratingCount: number;
   myReviewCount: number;
-  bestSellerRank: string;
+  bestSellerRank?: string;
   isLiked?: boolean;
   likes?: number;
 }

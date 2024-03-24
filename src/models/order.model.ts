@@ -27,9 +27,9 @@ export interface OrderDetail {
   bookId: number;
   title: string;
   author: string;
-  price: number;
+  priceStandard: number;
   quantity: number;
-  imgUrl: string;
+  cover: string;
   form: string;
 }
 
