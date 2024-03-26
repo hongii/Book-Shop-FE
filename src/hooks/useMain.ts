@@ -1,14 +1,15 @@
+import { fetchBookList } from "@/api/aladin.api";
 import { fetchBanners } from "@/api/banner.api";
-import { fetchBestBooks, fetchBooks } from "@/api/books.api";
 import { fetchReviewsAll } from "@/api/review.api";
+import { AladinBook } from "@/models/aladinBook.model";
 import { Banner } from "@/models/banner.model";
-import { Book, BookReviewItem } from "@/models/book.model";
+import { BookReviewItem } from "@/models/book.model";
 import { useEffect, useState } from "react";
 
 export const useMain = () => {
   const [reviews, setReviews] = useState<BookReviewItem[]>([]);
-  const [newBooks, setNewBooks] = useState<Book[]>([]);
-  const [bestBooks, setBestBooks] = useState<Book[]>([]);
+  const [newBooks, setNewBooks] = useState<AladinBook[]>([]);
+  const [bestBooks, setBestBooks] = useState<AladinBook[]>([]);
   const [banners, setBanners] = useState<Banner[]>([]);
 
   useEffect(() => {
@@ -16,12 +17,12 @@ export const useMain = () => {
       setReviews(reviews);
     });
 
-    fetchBooks({ new: true, page: 1, limit: 10 }).then(({ books }) => {
-      setNewBooks(books);
+    fetchBookList("ItemNewSpecial", null, 1, "10").then((booksData) => {
+      setNewBooks(booksData);
     });
 
-    fetchBestBooks().then((books) => {
-      setBestBooks(books);
+    fetchBookList("Bestseller", null, 1, "10").then((booksData) => {
+      setBestBooks(booksData);
     });
 
     fetchBanners().then((banners) => {

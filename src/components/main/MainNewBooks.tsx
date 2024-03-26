@@ -1,28 +1,21 @@
-import { Book } from "@/models/book.model";
 import styled from "styled-components";
 import BookItem from "@/components/books/BookItem";
+import { AladinBook } from "@/models/aladinBook.model";
+import { MainBestStyle } from "./MainBest";
 
 interface Props {
-  books: Book[];
+  books: AladinBook[];
 }
 const MainNewBooks = ({ books }: Props) => {
   return (
     <MainNewBooksStyle>
       {books.map((book) => (
-        <BookItem key={book.id} book={book} view="grid" />
+        <BookItem key={book.itemId} book={book} view="grid" />
       ))}
     </MainNewBooksStyle>
   );
 };
 
-const MainNewBooksStyle = styled.div`
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 1rem;
-
-  @media ${({ theme }) => theme.mediaQuery.mobile} {
-    grid-template-columns: repeat(2, 1fr);
-  }
-`;
+const MainNewBooksStyle = styled(MainBestStyle)``;
 
 export default MainNewBooks;

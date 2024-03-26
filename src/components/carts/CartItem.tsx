@@ -5,7 +5,6 @@ import { IoCloseOutline } from "@react-icons/all-files/io5/IoCloseOutline";
 import CheckIconButton from "@/components/carts/CheckIconButton";
 import { useMemo, useState } from "react";
 import { useAlert } from "@/hooks/useAlert";
-import { getImgSrc } from "@/utils/image";
 import { useNavigate } from "react-router-dom";
 import ChangeQuantity from "@/components/carts/ChangeQuantity";
 
@@ -57,11 +56,11 @@ const CartItem = ({ cart, selectedItems, onSelected, onDeleted }: CartsProps) =>
       <div className="check-content-container">
         <CheckIconButton isSelected={isSelected} onClick={handleOnClick} />
         <div className="book-img" onClick={() => navigate(`/books/${cart.bookId}`)}>
-          <img src={getImgSrc(+cart.imgUrl)} alt="book-img" />
+          <img src={cart.cover} alt="book-img" />
         </div>
         <div className="book-contents">
           <h1 className="title">{cart.title}</h1>
-          <p className="price">{`${formatNumber(cart.price)}원`}</p>
+          <p className="price">{`${formatNumber(cart.priceStandard)}원`}</p>
           <p className="quantity">{cart.quantity}권</p>
           <ChangeQuantity
             onDecrease={handleDecrease}

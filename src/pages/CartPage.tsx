@@ -32,7 +32,7 @@ const CartPage = () => {
 
   const totalPrice = carts?.reduce((acc, item) => {
     if (selectedItems.includes(item.cartItemId)) {
-      return acc + item.price * item.quantity;
+      return acc + item.priceStandard * item.quantity;
     }
     return acc;
   }, 0);

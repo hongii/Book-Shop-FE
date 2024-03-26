@@ -1,6 +1,7 @@
 import { Pagination } from "@/models/pagination.model";
 import { Book, BookDetail } from "@/models/book.model";
 import { httpClient } from "@/api/http";
+import { AladinBookDetail } from "@/models/aladinBook.model";
 
 export interface FetchBooksParams {
   category_id?: number;
@@ -46,9 +47,9 @@ export const fetchDetailBooks = async (bookId: string) => {
   }
 };
 
-export const toggleLikeBook = async (bookId: number) => {
+export const toggleLikeBook = async (bookId: number, info: AladinBookDetail) => {
   try {
-    const res = await httpClient.post<FetchToggleBookLike>(`/likes/${bookId}`);
+    const res = await httpClient.post<FetchToggleBookLike>(`/likes/${bookId}`, info);
     return res.data;
   } catch (err: any) {
     throw err;

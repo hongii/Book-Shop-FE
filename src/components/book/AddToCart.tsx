@@ -2,22 +2,27 @@ import styled from "styled-components";
 import InputText from "@/components/common/InputText";
 import Button from "@/components/common/Button";
 import { useState } from "react";
-import { BookDetail } from "@/models/book.model";
 import { Link, useNavigate } from "react-router-dom";
-import { useBookDetail } from "@/hooks/useBookDetail";
 import { useAlert } from "@/hooks/useAlert";
 import { useAuthStore } from "@/store/authStore";
+import { AladinBookDetail } from "@/models/aladinBook.model";
+import { useAladinBookDetail } from "@/hooks/useAladinBookDetail";
+import Loading from "../common/Loading";
 
 interface Props {
-  book: BookDetail;
+  book: AladinBookDetail;
 }
 
 const AddToCart = ({ book }: Props) => {
   const [quantity, setQuantity] = useState<number>(1);
-  const { addToCart, isAddToCart, message } = useBookDetail(book.id.toString());
+  const { addToCart, isAddToCart, message, bookDetail } = useAladinBookDetail(
+    book.itemId.toString(),
+  );
   const { isLoggedIn } = useAuthStore();
   const { showConfirm } = useAlert();
   const navigate = useNavigate();
+
+  if (!bookDetail) return <Loading />;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const inputValue = e.target.value;
@@ -30,7 +35,7 @@ const AddToCart = ({ book }: Props) => {
       return;
     }
 
-    addToCart({ bookId: book.id, quantity });
+    addToCart({ bookId: book.itemId, quantity, info: bookDetail });
   };
 
   const handleIncrease = () => {
@@ -71,7 +76,7 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  flex-wrap: nowrap;
+  flex-wrap: wrap;
   gap: 1rem;
 
   .count {
@@ -79,12 +84,13 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
     align-items: center;
     justify-content: flex-start;
     flex-wrap: nowrap;
-    gap: 0.1rem;
-    height: 100%;
+    gap: 0.15rem;
+    /* height: 100%; */
 
     input {
       text-align: center;
       outline: none;
+      height: 100%;
     }
     input[type="number"]::-webkit-inner-spin-button,
     input[type="number"]::-webkit-outer-spin-button {
@@ -93,9 +99,9 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
     }
   }
 
-  button {
+  /* button {
     height: 100%;
-  }
+  } */
 
   .add-message {
     position: fixed;

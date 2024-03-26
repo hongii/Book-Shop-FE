@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { BookReviewItem, BookReviewItemWrite } from "@/models/book.model";
 import React, { useRef } from "react";
 import { getUserName } from "@/store/authStore";
+import { useAladinBookDetail } from "@/hooks/useAladinBookDetail";
 
 interface Props {
   bookId: string;
@@ -15,7 +16,7 @@ interface Props {
 const AddBookReview = ({ children, toggleReviewButton, bookId }: Props) => {
   const refId = useRef(8);
 
-  const { addReview } = useBookDetail(bookId);
+  const { addReview } = useAladinBookDetail(bookId);
   const {
     register,
     handleSubmit,

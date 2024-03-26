@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Book } from "@/models/book.model";
 import BookItem from "@/components/books/BookItem";
 import { useLocation } from "react-router-dom";
 import { QUERYSTRING } from "@/constants/querystring";
 import { ViewMode } from "@/components/books/BooksViewSwitcher";
+import { AladinBook } from "@/models/aladinBook.model";
 
 interface Props {
-  books: Book[];
+  books: AladinBook[];
 }
 
 const BooksList = ({ books }: Props) => {
@@ -26,8 +26,8 @@ const BooksList = ({ books }: Props) => {
 
   return (
     <BooksListStyle view={view}>
-      {books?.map((book: Book) => (
-        <BookItem book={book} view={view} key={book.id} />
+      {books?.map((book: AladinBook) => (
+        <BookItem book={book} view={view} key={book.itemId} />
       ))}
     </BooksListStyle>
   );
@@ -57,7 +57,7 @@ const BooksListStyle = styled.section<BookListStyleProps>`
 
   @media screen and (min-width: 1600px) {
     /* "repeat(auto-fill,minmax(310px,auto))" */
-    grid-template-columns: ${({ view }) => (view === "grid" ? "repeat(6, 1fr)" : "repeat(1, 1fr)")};
+    grid-template-columns: ${({ view }) => (view === "grid" ? "repeat(5, 1fr)" : "repeat(1, 1fr)")};
     gap: 1.8rem;
   }
 `;

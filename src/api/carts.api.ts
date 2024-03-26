@@ -1,9 +1,11 @@
 import { Cart } from "@/models/cart.model";
 import { httpClient } from "@/api/http";
+import { AladinBookDetail } from "@/models/aladinBook.model";
 
 export interface addToCartParams {
   bookId: number;
   quantity: number;
+  info: AladinBookDetail;
 }
 
 export const requestAddToCart = async (params: addToCartParams) => {

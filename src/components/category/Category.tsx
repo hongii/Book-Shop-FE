@@ -39,7 +39,6 @@ const CategoryStyle = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    /* gap: 0.5rem; */
     white-space: nowrap;
 
     h2 {
@@ -75,7 +74,7 @@ const CategoryStyle = styled.div`
   @media ${({ theme }) => theme.mediaQuery.mobile} {
     .category-list {
       h2 {
-        font-size: 3rem;
+        font-size: 2.5rem;
       }
       a {
         font-size: 2.2rem;
@@ -85,7 +84,7 @@ const CategoryStyle = styled.div`
   @media ${({ theme }) => theme.mediaQuery.tablet} {
     .category-list {
       h2 {
-        font-size: 2.3rem;
+        font-size: 2rem;
       }
       a {
         font-size: 1.6rem;

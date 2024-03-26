@@ -1,9 +1,9 @@
-import { Book } from "@/models/book.model";
 import styled from "styled-components";
 import BookItem, { BookItemStyle } from "./BookItem";
+import { AladinBook } from "@/models/aladinBook.model";
 
 interface Props {
-  book: Book;
+  book: AladinBook;
   itemIdx: number;
 }
 const BestBookItem = ({ book, itemIdx }: Props) => {
@@ -18,6 +18,7 @@ const BestBookItem = ({ book, itemIdx }: Props) => {
 const BestBookItemStyle = styled.div`
   ${BookItemStyle} {
     height: 100%;
+    flex: 1;
 
     .summary,
     .price,

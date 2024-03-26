@@ -66,12 +66,12 @@ const BooksFilter = () => {
 
 const BooksFilterStyle = styled.div`
   display: flex;
-  /* flex-direction: column; */
   gap: 2rem;
   margin-bottom: 10px;
 
   .category {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
   }
 `;

@@ -1,14 +1,13 @@
-import { Book } from "../../models/book.model";
 import styled from "styled-components";
-import { getImgSrc } from "../../utils/image";
 import { formatNumber } from "../../utils/format";
 import { GoHeart } from "@react-icons/all-files/go/GoHeart";
 import { ViewMode } from "./BooksViewSwitcher";
 import { Link } from "react-router-dom";
-import Button from "../common/Button";
+import Button from "@/components/common/Button";
+import { AladinBook } from "@/models/aladinBook.model";
 
 interface Props {
-  book: Book;
+  book: AladinBook;
   isFake?: boolean;
   view?: ViewMode;
 }
@@ -18,26 +17,25 @@ const BookItem = ({ book, view, isFake = false }: Props) => {
     <BookItemStyle view={view}>
       {isFake ? (
         <div className="book-img">
-          <img src={getImgSrc(Number(book.imgUrl))} alt={book.title} />
+          <img src={book.cover} alt={book.title} />
         </div>
       ) : (
-        <Link to={`/books/${book.id}`}>
+        <Link to={`/books/${book.itemId}`}>
           <div className="book-img">
-            <img src={getImgSrc(Number(book.imgUrl))} alt={book.title} />
+            <img src={book.cover} alt={book.title} />
           </div>
         </Link>
       )}
 
       <div className="contents">
         <h2 className="title">{book.title}</h2>
-        <p className="summary"> {book.summary}</p>
         <p className="author"> {book.author}</p>
         <div className="sub-contents">
-          <p className="price"> {formatNumber(book.price)}원</p>
-          <Button size="medium" scheme="primary">
+          <p className="price"> {formatNumber(book.priceStandard)}원</p>
+          {/* <Button size="medium" scheme="primary">
             <GoHeart />
             {book.likes}
-          </Button>
+          </Button> */}
         </div>
       </div>
     </BookItemStyle>
