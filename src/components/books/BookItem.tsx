@@ -1,41 +1,28 @@
 import styled from "styled-components";
 import { formatNumber } from "../../utils/format";
-import { GoHeart } from "@react-icons/all-files/go/GoHeart";
 import { ViewMode } from "./BooksViewSwitcher";
 import { Link } from "react-router-dom";
-import Button from "@/components/common/Button";
 import { AladinBook } from "@/models/aladinBook.model";
 
 interface Props {
   book: AladinBook;
-  isFake?: boolean;
   view?: ViewMode;
 }
 
-const BookItem = ({ book, view, isFake = false }: Props) => {
+const BookItem = ({ book, view }: Props) => {
   return (
     <BookItemStyle view={view}>
-      {isFake ? (
+      <Link to={`/books/${book.itemId}`}>
         <div className="book-img">
           <img src={book.cover} alt={book.title} />
         </div>
-      ) : (
-        <Link to={`/books/${book.itemId}`}>
-          <div className="book-img">
-            <img src={book.cover} alt={book.title} />
-          </div>
-        </Link>
-      )}
+      </Link>
 
       <div className="contents">
         <h2 className="title">{book.title}</h2>
         <p className="author"> {book.author}</p>
         <div className="sub-contents">
           <p className="price"> {formatNumber(book.priceStandard)}원</p>
-          {/* <Button size="medium" scheme="primary">
-            <GoHeart />
-            {book.likes}
-          </Button> */}
         </div>
       </div>
     </BookItemStyle>
@@ -47,36 +34,46 @@ export const BookItemStyle = styled.section<Pick<Props, "view">>`
   flex-direction: ${({ view }) => (view === "grid" ? "column" : "row")};
   box-shadow: ${({ theme }) => theme.borderShadow.itemShadow};
   border-radius: ${({ theme }) => theme.borderRadius.default};
+  height: 100%;
 
   .book-img {
     border-radius: ${({ theme }) => theme.borderRadius.default};
     overflow: hidden;
-    height: 100%;
 
     img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
+      height: auto;
+      max-height: ${({ view }) => (view === "grid" ? "300px" : "auto")};
+      object-fit: contain;
     }
   }
 
   .contents {
     padding: 1.2rem;
-    flex: ${({ view }) => (view === "grid" ? "0" : "1")};
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     gap: 1rem;
+    height: 100%;
 
     .title {
       font-weight: 700;
-      /* margin: 0 0 12px 0; */
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: ${({ view }) => (view === "grid" ? 2 : "unset")};
+      -webkit-box-orient: vertical;
     }
 
     p {
       color: ${({ theme }) => theme.color.secondary};
-      /* margin: 0 0 4px 0; */
       margin: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      -webkit-line-clamp: ${({ view }) => (view === "grid" ? 2 : "unset")};
+      -webkit-box-orient: vertical;
     }
 
     .summary {

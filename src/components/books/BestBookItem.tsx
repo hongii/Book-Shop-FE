@@ -9,7 +9,7 @@ interface Props {
 const BestBookItem = ({ book, itemIdx }: Props) => {
   return (
     <BestBookItemStyle>
-      <BookItem book={book} view="grid" isFake={true} />
+      <BookItem book={book} view="grid" />
       <div className="rank">{itemIdx + 1}</div>
     </BestBookItemStyle>
   );
