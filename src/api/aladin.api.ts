@@ -1,6 +1,8 @@
 import { convertParamsToQueryString } from "@/utils/convert";
 import { AladinBook, AladinBookDetail } from "@/models/aladinBook.model";
 import { httpClient } from "./http";
+import { Pagination } from "@/models/pagination.model";
+import { MAXRESULTS } from "@/constants/querystring";
 
 type ListQueryType =
   | "ItemNewAll"
@@ -20,7 +22,7 @@ export interface BookListParams {
   SearchTarget?: ListSearchTarget; // 조회 대상 Mall
   SubSearchTarget?: ListSubSearchTarget; // SearchTarget이 중고(Used)인 경우, 서브 Mall 지정
   Start?: number; // 검색결과 시작페이지
-  MaxResults?: string; // 검색결과 한 페이지당 최대 출력 개수
+  MaxResults?: number; // 검색결과 한 페이지당 최대 출력 개수
   Cover?: Cover; // 표지 이미지 크기
   CategoryId?: string | null; // 특정 분야로 검색결과를 제한함
   Output?: Output; // 출력방법
@@ -32,7 +34,7 @@ export interface BookListParams {
   Version?: string; // 버전 정보(최신 버전: 20131101)
 }
 
-export interface BookDetailParmas {
+export interface BookDetailParams {
   ItemIdType: ItemIdType;
   ItemId: string;
   Cover?: Cover;
@@ -41,11 +43,43 @@ export interface BookDetailParmas {
   OptResult?: string;
 }
 
+export interface SearchBookParams {
+  Query: string;
+  Start?: number;
+  MaxResults?: number;
+  CategoryId?: string | null;
+  Cover?: Cover;
+  Output?: Output;
+  Version?: string;
+  OptResult?: string;
+}
+
+const convertBooksData = (data: any) => {
+  const booksData: AladinBook[] = data.map((item: any) => {
+    return {
+      itemId: item.itemId,
+      title: item.title,
+      categoryId: item.categoryId,
+      categoryName: item.categoryName,
+      description: item.description,
+      author: item.author,
+      priceStandard: item.priceStandard,
+      pubDate: item.pubDate,
+      cover: item.cover,
+      form: "종이책",
+      isbn13: item.isbn13,
+      publisher: item.publisher,
+    };
+  });
+
+  return booksData;
+};
+
 const fetchBookListByCategory = async (
   queryType: ListQueryType,
   categoryId: string | null,
   start: number,
-  limit = "20",
+  limit = MAXRESULTS,
 ) => {
   const params: BookListParams = {
     QueryType: queryType,
@@ -67,28 +101,12 @@ export const fetchBookList = async (
   queryType: ListQueryType,
   category: string | null,
   start: number,
-  limit = "20",
+  limit = MAXRESULTS,
 ) => {
   try {
     const { data } = await fetchBookListByCategory(queryType, category, start, limit);
 
-    const booksData: AladinBook[] = data.map((item: any) => {
-      return {
-        itemId: item.itemId,
-        title: item.title,
-        categoryId: item.categoryId,
-        categoryName: item.categoryName,
-        description: item.description,
-        author: item.author,
-        priceStandard: item.priceStandard,
-        pubDate: item.pubDate,
-        cover: item.cover,
-        form: "종이책",
-        isbn13: item.isbn13,
-        publisher: item.publisher,
-      };
-    });
-    // console.log(booksData);
+    const booksData: AladinBook[] = convertBooksData(data);
     return booksData;
   } catch (err) {
     throw err;
@@ -96,7 +114,7 @@ export const fetchBookList = async (
 };
 
 const fetchBookItemLookUp = async (itemId: string) => {
-  const params: BookDetailParmas = {
+  const params: BookDetailParams = {
     ItemIdType: "ItemId",
     ItemId: itemId,
     Cover: "Big",
@@ -106,6 +124,7 @@ const fetchBookItemLookUp = async (itemId: string) => {
   };
 
   const queryString = convertParamsToQueryString(params);
+
   const data = await httpClient.get(`/aladin/item?${queryString}`);
   return data;
 };
@@ -134,8 +153,34 @@ export const fetchBookDetail = async (itemId: string) => {
       likes: data.likes,
       isLiked: data.isLiked,
     };
-    // console.log(bookDetailData);
     return bookDetailData;
+  } catch (err) {
+    throw err;
+  }
+};
+
+interface SearchBooksData {
+  searchBooks: AladinBook[];
+  pagination: Pagination;
+}
+export const fetchSearch = async (searchKeyword: string | null, start: number) => {
+  try {
+    const params: SearchBookParams = {
+      Query: searchKeyword ? searchKeyword : "",
+      MaxResults: MAXRESULTS,
+      Start: start,
+      Cover: "Big",
+      Output: "JS",
+      Version: "20131101",
+    };
+
+    const queryString = convertParamsToQueryString(params);
+    const { data } = await httpClient.get(`/aladin/search?${queryString}`);
+
+    const searchBooks: AladinBook[] = convertBooksData(data.item);
+    const pagination: Pagination = { totalBooks: data.totalResults, page: data.startIndex };
+    const searchBooksData: SearchBooksData = { searchBooks, pagination };
+    return searchBooksData;
   } catch (err) {
     throw err;
   }

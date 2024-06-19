@@ -6,3 +6,5 @@ export const QUERYSTRING = {
 };
 
 export const LIMIT = 4;
+
+export const MAXRESULTS = 20;

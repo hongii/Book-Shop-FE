@@ -10,6 +10,7 @@ import BookDetailPage from "@/pages/BookDetailPage";
 import CartPage from "@/pages/CartPage";
 import OrderPage from "@/pages/OrderPage";
 import OrderListPage from "@/pages/OrderList";
+import SearchPage from "@/pages/SearchPage";
 
 const preRouterList = [
   {
@@ -35,6 +36,10 @@ const preRouterList = [
   {
     path: "/books/:bookId",
     element: <BookDetailPage />,
+  },
+  {
+    path: "/books/search",
+    element: <SearchPage />,
   },
   {
     path: "/carts",
