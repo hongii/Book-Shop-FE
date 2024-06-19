@@ -44,10 +44,11 @@ const SearchPage = () => {
       <Title size="large">
         '{query}'에 대한 검색 결과 ({totalBooks}개)
       </Title>
-      <div className="search-result">
-        {totalBooks !== 0 ? (
-          <BooksList books={searchBooks} />
-        ) : (
+
+      {totalBooks !== 0 ? (
+        <BooksList books={searchBooks} />
+      ) : (
+        <div className="search-result">
           <Empty
             icon={<FaRegGrinBeamSweat />}
             linkIcon={<HiCursorClick />}
@@ -55,8 +56,8 @@ const SearchPage = () => {
             link="/"
             linkMsg="메인 화면으로 가기"
           />
-        )}
-      </div>
+        </div>
+      )}
 
       <div className="more" ref={moreRef}>
         {totalBooks !== 0 && (
@@ -84,6 +85,7 @@ const SearchPageStyle = styled.div`
     align-items: center;
     justify-content: center;
   }
+
   .more {
     display: flex;
     align-items: center;
