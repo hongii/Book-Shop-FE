@@ -23,6 +23,10 @@ export const setUserName = (name: string) => {
   localStorage.setItem("userName", name);
 };
 
+export const removeUserName = () => {
+  localStorage.removeItem("userName");
+};
+
 export const getToken = () => {
   const token = localStorage.getItem("token");
   return token; // 로컬 스토리지에 "token"필드가 없는 경우엔 null을 반환
@@ -36,13 +40,9 @@ export const removeToken = () => {
   localStorage.removeItem("token");
 };
 
-export const removeUserName = () => {
-  localStorage.removeItem("userName");
-};
-
 export const useAuthStore = create<StoreState>((set) => ({
   userName: getToken() ? getUserName() : null,
-  isLoggedIn: getToken() ? true : false, // 초기값 설정
+  isLoggedIn: getToken() ? true : false,
   storeLogin: (token: string, name: string) => {
     set({ isLoggedIn: true });
     setToken(token);
