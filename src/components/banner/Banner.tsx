@@ -4,9 +4,9 @@ import { FaAngleLeft } from "@react-icons/all-files/fa/FaAngleLeft";
 import { FaAngleRight } from "@react-icons/all-files/fa/FaAngleRight";
 import banner1 from "@/assets/images/banner1.jpg";
 import banner2 from "@/assets/images/banner2.jpg";
-import banner3 from "@/assets/images/banner3.png";
-import banner4 from "@/assets/images/banner1.jpg";
-import banner5 from "@/assets/images/banner2.jpg";
+import banner3 from "@/assets/images/banner3.jpg";
+import banner4 from "@/assets/images/banner4.jpg";
+import banner5 from "@/assets/images/banner5.jpg";
 
 interface BannerType {
   id: number;
@@ -140,7 +140,7 @@ const BannerContainerStyle = styled.div<BannerContainerStyleProps>`
   .banner-img {
     flex: 0 0 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: fill;
   }
 `;
 
