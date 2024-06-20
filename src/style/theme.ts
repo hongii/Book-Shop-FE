@@ -77,36 +77,36 @@ export const light: Theme = {
   },
   heading: {
     mobile: {
-      large: { fontSize: "3.8rem" },
-      medium: { fontSize: "3rem" },
+      large: { fontSize: "2.6rem" },
+      medium: { fontSize: "2.4rem" },
       small: { fontSize: "2.2rem" },
     },
     tablet: {
-      large: { fontSize: "3rem" },
-      medium: { fontSize: "2.4rem" },
-      small: { fontSize: "1.8rem" },
+      large: { fontSize: "2.4rem" },
+      medium: { fontSize: "2.2rem" },
+      small: { fontSize: "2rem" },
     },
     desktop: {
-      large: { fontSize: "2.5rem" },
+      large: { fontSize: "2.2rem" },
       medium: { fontSize: "2rem" },
-      small: { fontSize: "1.5rem" },
+      small: { fontSize: "1.8rem" },
     },
   },
   buttonSize: {
     mobile: {
-      large: { fontSize: "2.5rem", padding: "1rem 2rem" },
-      medium: { fontSize: "2.3rem", padding: "0.5rem 1.5rem" },
-      small: { fontSize: "2.1rem", padding: "0.25rem 0.5rem" },
-    },
-    tablet: {
       large: { fontSize: "2rem", padding: "1rem 2rem" },
       medium: { fontSize: "1.8rem", padding: "0.5rem 1.5rem" },
       small: { fontSize: "1.6rem", padding: "0.25rem 0.5rem" },
     },
+    tablet: {
+      large: { fontSize: "1.8rem", padding: "1rem 2rem" },
+      medium: { fontSize: "1.6rem", padding: "0.5rem 1.5rem" },
+      small: { fontSize: "1.4rem", padding: "0.25rem 0.5rem" },
+    },
     desktop: {
-      large: { fontSize: "1.5rem", padding: "1rem 2rem" },
-      medium: { fontSize: "1.25rem", padding: "0.5rem 1.5rem" },
-      small: { fontSize: "1rem", padding: "0.25rem 0.5rem" },
+      large: { fontSize: "1.6rem", padding: "1rem 2rem" },
+      medium: { fontSize: "1.4rem", padding: "0.5rem 1.5rem" },
+      small: { fontSize: "1.2rem", padding: "0.25rem 0.5rem" },
     },
   },
   buttonScheme: {
