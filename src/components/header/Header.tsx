@@ -2,39 +2,80 @@ import styled from "styled-components";
 import logoLight from "@/assets/images/logo_light.png";
 import logoDark from "@/assets/images/logo_dark.png";
 import { IoList } from "@react-icons/all-files/io5/IoList";
+import { IoSearch } from "@react-icons/all-files/io5/IoSearch";
 import ThemeSwitcher from "@/components/header/ThemeSwitcher";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "@/context/ThemeContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
 import Dropdown from "@/components/common/Dropdown";
 import { useCategory } from "@/hooks/useCategory";
 import Category from "@/components/category/Category";
 import AuthHeader from "@/components/header/AuthHeader";
 import UnAuthHeader from "@/components/header/UnAuthHeader";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const Header = () => {
   const { themeName } = useContext(ThemeContext);
+  const { isMobile } = useMediaQuery();
   const { isLoggedIn } = useAuthStore();
   const { categories, isCategoriesLoading } = useCategory();
+  const [searchValue, setSearchValue] = useState<string>("");
+  const [params] = useSearchParams();
+
+  const navigate = useNavigate();
+
+  const handleClickLogo = () => {
+    navigate("/");
+  };
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter" && searchValue.trim() !== "") {
+      navigate(`/books/search?query=${searchValue}`);
+    }
+  };
+
+  const handleSearchClick = () => {
+    if (searchValue.trim() !== "") {
+      navigate(`/books/search?query=${searchValue}`);
+    }
+  };
+
+  useEffect(() => {
+    const query = params.get("query");
+    query ? setSearchValue(query) : setSearchValue("");
+  }, [params]);
 
   if (isCategoriesLoading || !categories) {
     return null;
   }
+
   return (
     <HeaderStyle>
       <div className="logo-category">
-        <Link to="/">
-          <h1 className="logo">
-            <img src={themeName === "light" ? logoLight : logoDark} alt="book shop logo" />
-            <span>HONG'S BOOK</span>
-          </h1>
-        </Link>
+        <h1 className="logo" onClick={handleClickLogo}>
+          <img src={themeName === "light" ? logoLight : logoDark} alt="book shop logo" />
+          <span>HONG'S BOOK</span>
+        </h1>
 
         <Dropdown toggleButtonIcon={<IoList />}>
           <Category />
         </Dropdown>
       </div>
+
+      {!isMobile && (
+        <div className="search-bar">
+          <input
+            type="text"
+            placeholder="찾고자 하는 도서명 또는 저자를 검색하세요."
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            onKeyDown={handleKeyDown}
+          />
+          <button type="submit" className="search-btn" onClick={handleSearchClick}>
+            <IoSearch />
+          </button>
+        </div>
+      )}
 
       <div className="auth-themeswitcher">
         {isLoggedIn && <AuthHeader />}
@@ -78,6 +119,41 @@ const HeaderStyle = styled.header`
 
     span {
       font-family: "McLaren", sans-serif;
+    }
+  }
+
+  .search-bar {
+    width: 300px;
+    position: relative;
+
+    input {
+      border: 1px solid #e7e7e7;
+      padding: 8px 12px;
+      border-radius: 30px;
+      width: 100%;
+      color: ${({ theme }) => (theme.name === "light" ? theme.color.text : theme.color.inputText)};
+    }
+
+    input:focus {
+      outline: none;
+    }
+
+    .search-btn {
+      position: absolute;
+      width: 35px;
+      height: 35px;
+      border: none;
+      background-color: transparent;
+      top: 0;
+      right: 10px;
+      cursor: pointer;
+
+      svg,
+      path {
+        width: 2rem;
+        height: 2rem;
+        fill: ${({ theme }) => theme.color.inputText};
+      }
     }
   }
 

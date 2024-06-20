@@ -17,11 +17,11 @@ export const useMain = () => {
       setReviews(reviews);
     });
 
-    fetchBookList("ItemNewSpecial", null, 1, "10").then((booksData) => {
+    fetchBookList("ItemNewSpecial", null, 1, 10).then((booksData) => {
       setNewBooks(booksData);
     });
 
-    fetchBookList("Bestseller", null, 1, "10").then((booksData) => {
+    fetchBookList("Bestseller", null, 1, 10).then((booksData) => {
       setBestBooks(booksData);
     });
 

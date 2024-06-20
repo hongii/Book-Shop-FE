@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Title from "@/components/common/Title";
 import { formatDate, formatNumber } from "@/utils/format";
 import { Link } from "react-router-dom";
-import EllipsisBox from "@/components/common/EllipsisBox";
+// import EllipsisBox from "@/components/common/EllipsisBox";
 import LikeButton from "@/components/book/LikeButton";
 import AddToCart from "@/components/book/AddToCart";
 import { useAlert } from "@/hooks/useAlert";
@@ -179,6 +179,7 @@ const BookDetailPageStyle = styled.section`
       margin: 0;
       display: flex;
       justify-content: space-between;
+      white-space: nowrap;
     }
 
     dt {
@@ -188,6 +189,7 @@ const BookDetailPageStyle = styled.section`
     a {
       color: ${({ theme }) => theme.color.third};
       text-decoration: underline;
+      white-space: break-spaces;
     }
   }
 
