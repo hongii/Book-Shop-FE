@@ -6,7 +6,7 @@ import { IoSearch } from "@react-icons/all-files/io5/IoSearch";
 import ThemeSwitcher from "@/components/header/ThemeSwitcher";
 import { useContext, useEffect, useState } from "react";
 import { ThemeContext } from "@/context/ThemeContext";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import { useAuthStore } from "@/store/authStore";
 import Dropdown from "@/components/common/Dropdown";
 import { useCategory } from "@/hooks/useCategory";
@@ -51,117 +51,129 @@ const Header = () => {
 
   return (
     <HeaderStyle>
-      <div className="logo-category">
-        <h1 className="logo" onClick={handleClickLogo}>
-          <img src={themeName === "light" ? logoLight : logoDark} alt="book shop logo" />
-          <span>HONG'S BOOK</span>
-        </h1>
+      <header className="layout-header">
+        <div className="logo-category">
+          <h1 className="logo" onClick={handleClickLogo}>
+            <img src={themeName === "light" ? logoLight : logoDark} alt="book shop logo" />
+            <span>HONG'S BOOK</span>
+          </h1>
 
-        <Dropdown toggleButtonIcon={<IoList />}>
-          <Category />
-        </Dropdown>
-      </div>
-
-      {!isMobile && (
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="찾고자 하는 도서명 또는 저자를 검색하세요."
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            onKeyDown={handleKeyDown}
-          />
-          <button type="submit" className="search-btn" onClick={handleSearchClick}>
-            <IoSearch />
-          </button>
+          <Dropdown toggleButtonIcon={<IoList />}>
+            <Category />
+          </Dropdown>
         </div>
-      )}
 
-      <div className="auth-themeswitcher">
-        {isLoggedIn && <AuthHeader />}
-        {!isLoggedIn && <UnAuthHeader />}
-        <ThemeSwitcher />
-      </div>
+        {!isMobile && (
+          <div className="search-bar">
+            <input
+              type="text"
+              placeholder="찾고자 하는 도서명 또는 저자를 검색하세요."
+              value={searchValue}
+              onChange={(e) => setSearchValue(e.target.value)}
+              onKeyDown={handleKeyDown}
+            />
+            <button type="submit" className="search-btn" onClick={handleSearchClick}>
+              <IoSearch />
+            </button>
+          </div>
+        )}
+
+        <div className="auth-themeswitcher">
+          {isLoggedIn && <AuthHeader />}
+          {!isLoggedIn && <UnAuthHeader />}
+          <ThemeSwitcher />
+        </div>
+      </header>
     </HeaderStyle>
   );
 };
 
 const HeaderStyle = styled.header`
-  width: 100%;
-  margin: 0 auto;
-  background-color: ${({ theme }) => theme.color.background};
-  padding: 1rem;
+  position: relative;
 
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid ${({ theme }) => theme.color.border};
+  .layout-header {
+    width: 100%;
+    height: 70px;
 
-  .logo-category {
+    position: fixed;
+    top: 0;
+    margin: 0 auto;
+    background-color: ${({ theme }) => theme.color.background};
+    padding: 1rem;
+    border-bottom: 1px solid ${({ theme }) => theme.color.border};
+    z-index: 100;
+
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 1rem;
-  }
+    justify-content: space-between;
 
-  .logo {
-    color: ${({ theme }) => theme.color.text};
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    white-space: nowrap;
-
-    img {
-      max-width: 60px;
-      height: auto;
-      margin-right: 5px;
+    .logo-category {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
     }
 
-    span {
-      font-family: "McLaren", sans-serif;
-    }
-  }
-
-  .search-bar {
-    width: 300px;
-    position: relative;
-
-    input {
-      border: 1px solid #e7e7e7;
-      padding: 8px 12px;
-      border-radius: 30px;
-      width: 100%;
-      color: ${({ theme }) => (theme.name === "light" ? theme.color.text : theme.color.inputText)};
-    }
-
-    input:focus {
-      outline: none;
-    }
-
-    .search-btn {
-      position: absolute;
-      width: 35px;
-      height: 35px;
-      border: none;
-      background-color: transparent;
-      top: 0;
-      right: 10px;
+    .logo {
+      color: ${({ theme }) => theme.color.text};
+      display: flex;
+      align-items: center;
       cursor: pointer;
+      white-space: nowrap;
 
-      svg,
-      path {
-        width: 2rem;
-        height: 2rem;
-        fill: ${({ theme }) => theme.color.inputText};
+      img {
+        max-width: 60px;
+        height: auto;
+        margin-right: 5px;
+      }
+
+      span {
+        font-family: "McLaren", sans-serif;
       }
     }
-  }
 
-  .auth-themeswitcher {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 1rem;
+    .search-bar {
+      width: 300px;
+      position: relative;
+
+      input {
+        border: 1px solid #e7e7e7;
+        padding: 8px 12px;
+        border-radius: 30px;
+        width: 100%;
+        color: ${({ theme }) =>
+          theme.name === "light" ? theme.color.text : theme.color.inputText};
+      }
+
+      input:focus {
+        outline: none;
+      }
+
+      .search-btn {
+        position: absolute;
+        width: 35px;
+        height: 35px;
+        border: none;
+        background-color: transparent;
+        top: 0;
+        right: 10px;
+        cursor: pointer;
+
+        svg,
+        path {
+          width: 2rem;
+          height: 2rem;
+          fill: ${({ theme }) => theme.color.inputText};
+        }
+      }
+    }
+
+    .auth-themeswitcher {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 1rem;
+    }
   }
 
   @media ${({ theme }) => theme.mediaQuery.mobile} {
