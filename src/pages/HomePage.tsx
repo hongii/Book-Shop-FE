@@ -7,11 +7,11 @@ import { useMain } from "@/hooks/useMain";
 import styled from "styled-components";
 
 const HomePage = () => {
-  const { reviews, newBooks, bestBooks, banners } = useMain();
+  const { reviews, newBooks, bestBooks } = useMain();
 
   return (
     <HomePageStyle>
-      <Banner banners={banners} />
+      <Banner />
       <section className="section">
         <Title size="large">베스트 셀러</Title>
         <MainBest books={bestBooks} />

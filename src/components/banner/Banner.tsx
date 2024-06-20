@@ -1,16 +1,28 @@
-import { Banner as IBanner } from "@/models/banner.model";
 import styled from "styled-components";
-import BannerItem from "@/components/banner/BannerItem";
 import { useEffect, useMemo, useState } from "react";
 import { FaAngleLeft } from "@react-icons/all-files/fa/FaAngleLeft";
 import { FaAngleRight } from "@react-icons/all-files/fa/FaAngleRight";
+import banner1 from "@/assets/images/banner1.jpg";
+import banner2 from "@/assets/images/banner2.jpg";
+import banner3 from "@/assets/images/banner3.png";
+import banner4 from "@/assets/images/banner1.jpg";
+import banner5 from "@/assets/images/banner2.jpg";
 
-interface Props {
-  banners: IBanner[];
+interface BannerType {
+  id: number;
+  src: string;
 }
 
-const Banner = ({ banners }: Props) => {
-  const [slideBanners, setSlideBanners] = useState<IBanner[]>([]); // 맨 앞 요소에 마지막 banner를 추가, 맨 뒤 요소에 첫번째 banner를 추가한 배열
+const banners: BannerType[] = [
+  { id: 0, src: banner1 },
+  { id: 1, src: banner2 },
+  { id: 2, src: banner3 },
+  { id: 3, src: banner4 },
+  { id: 4, src: banner5 },
+];
+
+const Banner = () => {
+  const [slideBanners, setSlideBanners] = useState<BannerType[]>([]); // 맨 앞 요소에 마지막 banner를 추가, 맨 뒤 요소에 첫번째 banner를 추가한 배열
   const [currentIdx, setCurrentIdx] = useState<number>(1); // slideBanners 배열에서의 active index를 관리
   const [indicatorIdx, setIndicatorIdx] = useState<number>(0); // 실제 banners 길이와 동일
   const [isTransition, setIsTransition] = useState<boolean>(true); // transition 효과 => slideBanners의 맨 첫 번째 또는 맨 마지막 요소일 경우 transition 효과 제거
@@ -45,7 +57,7 @@ const Banner = ({ banners }: Props) => {
 
     const slideBanners = [banners[banners.length - 1], ...banners, banners[0]];
     setSlideBanners(slideBanners);
-  }, [banners]);
+  }, []);
 
   useEffect(() => {
     let timer: NodeJS.Timer;
@@ -68,7 +80,7 @@ const Banner = ({ banners }: Props) => {
   }, [currentIdx, bannerDataSize, sliderSize]);
 
   useEffect(() => {
-    // 3초마다 자동으로 슬라이드 넘어가도록 구현
+    // 5초마다 자동으로 슬라이드 넘어가도록 구현
     const intervalId = setInterval(() => {
       setCurrentIdx((prev) => (prev + 1) % sliderSize);
       setIndicatorIdx((prev) => (prev + 1) % bannerDataSize);
@@ -82,7 +94,7 @@ const Banner = ({ banners }: Props) => {
     <BannerStyle>
       <BannerContainerStyle $isTransition={isTransition} $transformValue={transformValue}>
         {slideBanners.map((banner, i) => (
-          <BannerItem key={i} banner={banner} />
+          <img className="banner-img" key={i} src={banner.src} alt="banner" />
         ))}
       </BannerContainerStyle>
       <BannerSlideBtnStyle>
@@ -122,6 +134,14 @@ const BannerContainerStyle = styled.div<BannerContainerStyleProps>`
   display: flex;
   transform: translateX(${({ $transformValue }) => $transformValue}%);
   transition: ${({ $isTransition }) => ($isTransition ? "transform 0.5s ease-in-out" : "none")};
+  width: 100%;
+  height: 300px;
+
+  .banner-img {
+    flex: 0 0 100%;
+    width: 100%;
+    object-fit: cover;
+  }
 `;
 
 const BannerSlideBtnStyle = styled.div`
