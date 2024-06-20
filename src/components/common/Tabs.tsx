@@ -24,7 +24,7 @@ const Tabs = ({ children, active = 0 }: TabsProps) => {
         {tabs.map((tab, i) => (
           <button
             key={tab.props.title}
-            className={activeIndex === i ? "active" : ""}
+            className={`tab-button ${activeIndex === i ? "active" : ""}`}
             onClick={() => setActiveIndex(i)}
           >
             {tab.props.title}
@@ -43,7 +43,7 @@ const TabsStyle = styled.div`
     gap: 0.2rem;
     border-bottom: 1px solid ${({ theme }) => theme.color.border};
 
-    button {
+    .tab-button {
       cursor: pointer;
       border: none;
       padding: 0.5rem 1.5rem;
@@ -62,20 +62,20 @@ const TabsStyle = styled.div`
   }
 
   @media ${({ theme }) => theme.mediaQuery.mobile} {
-    button {
-      font-size: 2.5rem;
-    }
-  }
-
-  @media ${({ theme }) => theme.mediaQuery.tablet} {
-    button {
+    .tab-button {
       font-size: 2rem;
     }
   }
 
+  @media ${({ theme }) => theme.mediaQuery.tablet} {
+    .tab-button {
+      font-size: 1.8rem;
+    }
+  }
+
   @media ${({ theme }) => theme.mediaQuery.desktop} {
-    button {
-      font-size: 1.5rem;
+    .tab-button {
+      font-size: 1.6rem;
     }
   }
 `;

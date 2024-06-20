@@ -1,5 +1,5 @@
 import axios, { AxiosRequestConfig } from "axios";
-import { getToken, removeToken, setToken } from "@/store/authStore";
+import { getToken, removeToken, removeUserName, setToken } from "@/store/authStore";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const DEFAULT_TIMEOUT = Number(process.env.REACT_APP_DEFAULT_TIMEOUT);
@@ -44,11 +44,23 @@ const createClient = (config?: AxiosRequestConfig) => {
     (err) => {
       if (err.response.status === 401) {
         removeToken();
+        removeUserName();
+
         window.alert(err.response.data.message);
 
         window.location.href = "/login";
         return;
+      } else if (err.response.status === 403) {
+        window.alert(err.response.data.message);
+        return;
+      } else if (err.response.status === 400) {
+        window.alert(err.response.data.message);
+        return;
+      } else if (err.response.status >= 500) {
+        window.alert(err.response.data.message);
+        return;
       }
+
       return Promise.reject(err);
     },
   );

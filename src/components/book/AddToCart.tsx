@@ -7,7 +7,7 @@ import { useAlert } from "@/hooks/useAlert";
 import { useAuthStore } from "@/store/authStore";
 import { AladinBookDetail } from "@/models/aladinBook.model";
 import { useAladinBookDetail } from "@/hooks/useAladinBookDetail";
-import Loading from "../common/Loading";
+import Loading from "@/components/common/Loading";
 
 interface Props {
   book: AladinBookDetail;
@@ -85,7 +85,6 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
     justify-content: flex-start;
     flex-wrap: nowrap;
     gap: 0.15rem;
-    /* height: 100%; */
 
     input {
       text-align: center;
@@ -98,10 +97,6 @@ const AddToCartStyle = styled.div<AddToCartStyleProps>`
       margin: 0;
     }
   }
-
-  /* button {
-    height: 100%;
-  } */
 
   .add-message {
     position: fixed;
