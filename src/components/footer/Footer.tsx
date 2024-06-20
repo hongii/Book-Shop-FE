@@ -15,6 +15,9 @@ const Footer = () => {
       </h2>
       <div className="copyright">
         <p>copyright(c) 2024, Hong's Book.</p>
+        <small className="icons-license">
+          Icons by <a href="https://icons8.kr/">Icons8</a>
+        </small>
       </div>
     </FooterStyle>
   );
@@ -23,8 +26,7 @@ const Footer = () => {
 const FooterStyle = styled.footer`
   width: 100%;
   margin: 0 auto;
-  /* max-width: ${({ theme }) => theme.layout.width.large}; */
-  padding: 1rem;
+  padding: 1.8rem 1rem;
   border-top: 2px solid ${({ theme }) => theme.color.border};
 
   display: flex;
@@ -45,7 +47,12 @@ const FooterStyle = styled.footer`
 
   .copyright {
     p {
+      margin: 0;
       font-size: 1rem;
+      color: ${({ theme }) => theme.color.text};
+    }
+
+    .icons-license {
       color: ${({ theme }) => theme.color.text};
     }
   }
@@ -53,7 +60,7 @@ const FooterStyle = styled.footer`
   @media ${({ theme }) => theme.mediaQuery.mobile} {
     flex-direction: column;
     align-items: center;
-    padding: 5rem;
+    padding: 3rem;
 
     .logo {
       font-size: 3rem;
