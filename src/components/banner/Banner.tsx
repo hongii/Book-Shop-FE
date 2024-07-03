@@ -135,7 +135,7 @@ const BannerContainerStyle = styled.div<BannerContainerStyleProps>`
   transform: translateX(${({ $transformValue }) => $transformValue}%);
   transition: ${({ $isTransition }) => ($isTransition ? "transform 0.5s ease-in-out" : "none")};
   width: 100%;
-  height: 300px;
+  max-height: 300px;
 
   .banner-img {
     flex: 0 0 100%;

@@ -1,4 +1,4 @@
-import { createBrowserRouter } from "react-router-dom";
+import { Navigate, createBrowserRouter } from "react-router-dom";
 import Error from "@/components/common/Error";
 import HomePage from "@/pages/HomePage";
 import Layout from "@/components/layout/Layout";
@@ -12,6 +12,26 @@ import OrderPage from "@/pages/OrderPage";
 import OrderListPage from "@/pages/OrderList";
 import SearchPage from "@/pages/SearchPage";
 
+interface Props {
+  children: React.ReactNode;
+}
+
+const PublicRoute = ({ children }: Props) => {
+  const token = localStorage.getItem("token");
+  return token ? <Navigate to="/" replace /> : <>{children}</>;
+};
+
+const PrivateRoute = ({ children }: Props) => {
+  const token = localStorage.getItem("token");
+  return token ? <>{children}</> : <Navigate to="/login" replace />;
+};
+
+const ErrorLayoutWrapper = () => (
+  <Layout>
+    <Error />
+  </Layout>
+);
+
 const preRouterList = [
   {
     path: "/",
@@ -19,15 +39,27 @@ const preRouterList = [
   },
   {
     path: "/join",
-    element: <JoinPage />,
+    element: (
+      <PublicRoute>
+        <JoinPage />
+      </PublicRoute>
+    ),
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: (
+      <PublicRoute>
+        <LoginPage />
+      </PublicRoute>
+    ),
   },
   {
     path: "/reset",
-    element: <ResetPasswordPage />,
+    element: (
+      <PublicRoute>
+        <ResetPasswordPage />
+      </PublicRoute>
+    ),
   },
   {
     path: "/books",
@@ -43,15 +75,27 @@ const preRouterList = [
   },
   {
     path: "/carts",
-    element: <CartPage />,
+    element: (
+      <PrivateRoute>
+        <CartPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/orders",
-    element: <OrderPage />,
+    element: (
+      <PrivateRoute>
+        <OrderPage />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/orderlist",
-    element: <OrderListPage />,
+    element: (
+      <PrivateRoute>
+        <OrderListPage />
+      </PrivateRoute>
+    ),
   },
 ];
 
@@ -59,11 +103,7 @@ const routerList = preRouterList.map((item) => {
   return {
     ...item,
     element: <Layout>{item.element}</Layout>,
-    errorElement: (
-      <Layout>
-        <Error />
-      </Layout>
-    ),
+    errorElement: <ErrorLayoutWrapper />,
   };
 });
 

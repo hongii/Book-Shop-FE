@@ -29,17 +29,10 @@ const LayoutStyle = styled.main`
   width: 100%;
   flex: 1;
   margin: 70px auto;
-
-  @media ${({ theme }) => theme.mediaQuery.mobile} {
-    padding: 1.8rem 1.5rem;
-  }
-
-  @media ${({ theme }) => theme.mediaQuery.tablet} {
-    padding: 1.8rem 1.5rem;
-  }
+  padding: 1.8rem 1.5rem;
 
   @media ${({ theme }) => theme.mediaQuery.desktop} {
-    max-width: 70vw;
+    max-width: 1200px;
   }
 `;
 
