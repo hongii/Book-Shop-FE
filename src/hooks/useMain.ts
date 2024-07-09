@@ -15,11 +15,11 @@ export const useMain = () => {
     });
 
     fetchBookList("ItemNewSpecial", null, 1, 10).then((booksData) => {
-      setNewBooks(booksData);
+      setNewBooks(booksData.books);
     });
 
     fetchBookList("Bestseller", null, 1, 10).then((booksData) => {
-      setBestBooks(booksData);
+      setBestBooks(booksData.books);
     });
   }, []);
 

@@ -97,6 +97,10 @@ const fetchBookListByCategory = async (
   return data;
 };
 
+interface FetchBooksData {
+  books: AladinBook[];
+  pagination: Pagination;
+}
 export const fetchBookList = async (
   queryType: ListQueryType,
   category: string | null,
@@ -106,8 +110,11 @@ export const fetchBookList = async (
   try {
     const { data } = await fetchBookListByCategory(queryType, category, start, limit);
 
-    const booksData: AladinBook[] = convertBooksData(data);
-    return booksData;
+    const books: AladinBook[] = convertBooksData(data.item);
+    const pagination: Pagination = { totalBooks: data.totalResults, page: data.startIndex };
+    const bookList: FetchBooksData = { books, pagination };
+    console.log(bookList);
+    return bookList;
   } catch (err) {
     throw err;
   }
@@ -159,10 +166,6 @@ export const fetchBookDetail = async (itemId: string) => {
   }
 };
 
-interface SearchBooksData {
-  searchBooks: AladinBook[];
-  pagination: Pagination;
-}
 export const fetchSearch = async (searchKeyword: string | null, start: number) => {
   try {
     const params: SearchBookParams = {
@@ -177,10 +180,10 @@ export const fetchSearch = async (searchKeyword: string | null, start: number) =
     const queryString = convertParamsToQueryString(params);
     const { data } = await httpClient.get(`/aladin/search?${queryString}`);
 
-    const searchBooks: AladinBook[] = convertBooksData(data.item);
+    const books: AladinBook[] = convertBooksData(data.item);
     const pagination: Pagination = { totalBooks: data.totalResults, page: data.startIndex };
-    const searchBooksData: SearchBooksData = { searchBooks, pagination };
-    return searchBooksData;
+    const searchBookList: FetchBooksData = { books, pagination };
+    return searchBookList;
   } catch (err) {
     throw err;
   }

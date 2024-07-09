@@ -23,7 +23,7 @@ export const useAladinSearchBook = (keyword: string | null) => {
 
   const books =
     searchBooksResult?.pages[0].pagination.totalBooks !== 0
-      ? searchBooksResult?.pages.flatMap((page) => page.searchBooks)
+      ? searchBooksResult?.pages.flatMap((page) => page.books)
       : [];
 
   return {
