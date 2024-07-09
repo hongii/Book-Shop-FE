@@ -3,6 +3,12 @@ import { getToken, removeToken, removeUserName, setToken } from "@/store/authSto
 
 const BASE_URL = process.env.REACT_APP_BASE_URL;
 const DEFAULT_TIMEOUT = Number(process.env.REACT_APP_DEFAULT_TIMEOUT);
+const loginMsg = {
+  LOGIN_BAD_REQUEST: "이메일 또는 비밀번호를 잘못 입력했습니다. 입력하신 내용을 다시 확인해주세요.",
+};
+const joinMsg = {
+  DUPLICATE_EMAIL: "이미 가입된 이메일입니다. 다른 이메일을 입력해주세요.",
+};
 
 const createClient = (config?: AxiosRequestConfig) => {
   const axiosInstance = axios.create({
@@ -47,13 +53,12 @@ const createClient = (config?: AxiosRequestConfig) => {
         removeUserName();
 
         window.alert(err.response.data.message);
-
         window.location.href = "/login";
         return;
       } else if (err.response.status === 403) {
         window.alert(err.response.data.message);
         return;
-      } else if (err.response.status === 400) {
+      } else if (err.response.status === 400 && (!joinMsg || !loginMsg)) {
         window.alert(err.response.data.message);
         return;
       } else if (err.response.status >= 500) {
