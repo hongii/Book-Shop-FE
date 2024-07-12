@@ -18,7 +18,9 @@ const Category = () => {
             <li key={item.categoryId}>
               <Link
                 to={`/books${
-                  item.categoryId !== null ? `?page=1&category_id=${item.categoryId}` : "?page=1"
+                  item.categoryId !== null
+                    ? `?page=1&view=grid&category_id=${item.categoryId}`
+                    : "?page=1&view=grid"
                 }`}
               >
                 {item.categoryName}
