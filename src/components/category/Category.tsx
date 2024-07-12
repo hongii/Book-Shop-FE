@@ -20,8 +20,8 @@ const Category = () => {
               <Link
                 to={`/books${
                   item.categoryId !== null
-                    ? `?page=1&view=${view}&category_id=${item.categoryId}`
-                    : `?page=1&view=${view}`
+                    ? `?view=${view}&category_id=${item.categoryId}`
+                    : `?view=${view}`
                 }`}
               >
                 {item.categoryName}

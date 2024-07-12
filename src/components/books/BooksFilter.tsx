@@ -13,10 +13,10 @@ const BooksFilter = () => {
     return <Loading />;
   }
 
-  const resetClickedPage = (newSearchParams: URLSearchParams) => {
-    newSearchParams.set(QUERYSTRING.PAGE, "1");
-    setSearchParams(newSearchParams);
-  };
+  // const resetClickedPage = (newSearchParams: URLSearchParams) => {
+  //   newSearchParams.set(QUERYSTRING.PAGE, "1");
+  //   setSearchParams(newSearchParams);
+  // };
 
   const handleCategory = (id: number | null) => {
     const newSearchParams = new URLSearchParams(searchParams);
@@ -24,7 +24,7 @@ const BooksFilter = () => {
     id
       ? newSearchParams.set(QUERYSTRING.CATEGORY_ID, id.toString())
       : newSearchParams.delete(QUERYSTRING.CATEGORY_ID);
-    resetClickedPage(newSearchParams);
+    // resetClickedPage(newSearchParams);
     setSearchParams(newSearchParams);
   };
 
@@ -33,7 +33,7 @@ const BooksFilter = () => {
     const isNew = newSearchParams.get(QUERYSTRING.NEW);
 
     isNew ? newSearchParams.delete(QUERYSTRING.NEW) : newSearchParams.set(QUERYSTRING.NEW, "true");
-    resetClickedPage(newSearchParams);
+    // resetClickedPage(newSearchParams);
     setSearchParams(newSearchParams);
   };
 
