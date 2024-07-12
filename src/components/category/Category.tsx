@@ -1,10 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import styled from "styled-components";
 import { useCategory } from "@/hooks/useCategory";
 
 const Category = () => {
   const { categories, isCategoriesLoading } = useCategory();
-
+  const [searchParams] = useSearchParams();
+  const view = searchParams.get("view") ? searchParams.get("view") : "grid";
   if (isCategoriesLoading || !categories) {
     return null;
   }
@@ -19,8 +20,8 @@ const Category = () => {
               <Link
                 to={`/books${
                   item.categoryId !== null
-                    ? `?page=1&view=grid&category_id=${item.categoryId}`
-                    : "?page=1&view=grid"
+                    ? `?page=1&view=${view}&category_id=${item.categoryId}`
+                    : `?page=1&view=${view}`
                 }`}
               >
                 {item.categoryName}
