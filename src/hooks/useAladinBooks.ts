@@ -13,14 +13,8 @@ export const useAladinBooks = () => {
     searchParams.get(QUERYSTRING.NEW) === "true" ? "ItemNewSpecial" : "ItemEditorChoice";
   const queryType = categoryId === null && isNew === "ItemEditorChoice" ? "Bestseller" : isNew;
 
-  const {
-    data: aladinBooks,
-    isLoading,
-    isFetching,
-    fetchNextPage,
-    hasNextPage,
-  } = useInfiniteQuery({
-    queryKey: [queryKey.aladinBooks, location.search],
+  const { data, isLoading, isFetching, fetchNextPage, hasNextPage } = useInfiniteQuery({
+    queryKey: [queryKey.aladinBooks, categoryId, isNew],
     queryFn: ({ pageParam = 1 }) => fetchBookList(queryType, categoryId, pageParam),
     getNextPageParam: (lastPage) => {
       const currentPage = lastPage.pagination.page;
@@ -33,9 +27,7 @@ export const useAladinBooks = () => {
   });
 
   const books =
-    aladinBooks?.pages[0].pagination.totalBooks !== 0
-      ? aladinBooks?.pages.flatMap((page) => page.books)
-      : [];
+    data?.pages[0].pagination.totalBooks !== 0 ? data?.pages.flatMap((page) => page.books) : [];
   const isEmpty = !books || books.length === 0;
 
   return {

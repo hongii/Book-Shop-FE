@@ -113,7 +113,6 @@ export const fetchBookList = async (
     const books: AladinBook[] = convertBooksData(data.item);
     const pagination: Pagination = { totalBooks: data.totalResults, page: data.startIndex };
     const bookList: FetchBooksData = { books, pagination };
-    console.log(bookList);
     return bookList;
   } catch (err) {
     throw err;

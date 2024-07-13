@@ -21,14 +21,15 @@ const BooksPage = () => {
     isEmpty,
   } = useAladinBooks();
 
-  const moreRef = useIntersectionObserver(
-    ([entry]) => {
+  const callback = (entries: IntersectionObserverEntry[]) => {
+    entries.forEach((entry) => {
       if (entry.isIntersecting) {
         loadMore();
       }
-    },
-    { threshold: 0.5 },
-  );
+    });
+  };
+
+  const moreRef = useIntersectionObserver(callback, { threshold: 0.5 });
 
   const loadMore = () => {
     if (!hasNextPage || isBooksFetching) return;

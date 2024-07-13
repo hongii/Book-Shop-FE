@@ -59,7 +59,7 @@ const bookInfoList = [
     label: "카테고리",
     key: "categoryName",
     filter: (book: AladinBookDetail) => (
-      <Link to={`/books?page=1&category_id=${book.categoryId}`}>{book.categoryName}</Link>
+      <Link to={`/books?&category_id=${book.categoryId}`}>{book.categoryName}</Link>
     ),
   },
   { label: "저자", key: "author" },
